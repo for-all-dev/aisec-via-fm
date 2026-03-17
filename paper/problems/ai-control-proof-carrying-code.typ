@@ -3,4 +3,4 @@
 
 == AI Control via Proof-Carrying Code
 
-#lorem(80)
+#lorem(40) @dalrymple2024guaranteedsafeai @dodds2025specsdontexist #lorem(35)

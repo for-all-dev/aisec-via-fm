@@ -12,4 +12,4 @@
 
 == Dependency Supply Chain
 
-#lorem(70)
+#lorem(35) @girnus2026faultlines #lorem(30)

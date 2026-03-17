@@ -3,4 +3,4 @@
 
 == seL4 Native GPU Drivers
 
-#lorem(80)
+#lorem(40) @girnus2026faultlines #lorem(35)
