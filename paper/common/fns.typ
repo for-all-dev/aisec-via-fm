@@ -1,5 +1,8 @@
 // Shared utility functions and constants for the paper.
 
+// Injected at compile time via --input flags in the Makefile.
+#let git-commit = sys.inputs.at("commit", default: "dev")
+
 #let paper-title = [Tractable Problems in AI Security via Formal Methods]
 
 /// Renders a styled layer tag label, used to associate tractable problems with

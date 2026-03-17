@@ -2,6 +2,13 @@
 #import "common/authors.typ": authors
 #import "common/fns.typ": *
 
+// Draft watermark: show commit hash + date in the page footer.
+#set page(footer: align(center,
+  text(size: 7pt, fill: gray,
+    [Draft — #datetime.today().display("[year]-[month]-[day]") · git:#git-commit]
+  )
+))
+
 #show: ieee.with(
   title: [Tractable Problems in AI Security via Formal Methods],
   abstract: [#lorem(80)],

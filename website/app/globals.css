@@ -114,6 +114,23 @@ nav a:hover {
   text-decoration: none;
 }
 
+nav .commit-hash {
+  color: var(--muted);
+  font-size: 0.75rem;
+  font-family: inherit;
+}
+
+nav .commit-hash:hover {
+  color: var(--green);
+}
+
+footer {
+  border-top: 1px solid var(--border);
+  padding: 0.75rem 2rem;
+  color: var(--muted);
+  font-size: 0.75rem;
+}
+
 /* stack dropdown */
 details.stack-layer {
   border: 1px solid var(--border);
