@@ -1,10 +1,10 @@
 import Link from "next/link"
 import { getSiteContent } from "../lib/content"
-import type { ParsedProblem } from "../lib/typst-parser"
+import type { Problem } from "../lib/content"
 
 export const dynamic = "force-static"
 
-function problemsForLayer(problems: ParsedProblem[], layerId: string) {
+function problemsForLayer(problems: Problem[], layerId: string) {
   return problems.filter((p) => p.layers.includes(layerId))
 }
 
@@ -35,7 +35,7 @@ export default async function HomePage() {
 
       <section>
         <p className="text-muted text-xs mb-3">// the stack — click to expand</p>
-        {stack.map(({ id, label, chapter }) => {
+        {stack.map(({ id, label, html }) => {
           const related = problemsForLayer(problems, id)
           return (
             <details key={id} className="stack-layer">
@@ -46,15 +46,7 @@ export default async function HomePage() {
                 {label}
               </summary>
               <div className="layer-content">
-                {chapter.body && (
-                  <p>{chapter.body}</p>
-                )}
-                {chapter.sections.map((sec) => (
-                  <div key={sec.title} className="layer-section">
-                    <h3>{sec.title}</h3>
-                    <p>{sec.body}</p>
-                  </div>
-                ))}
+                <div className="prose" dangerouslySetInnerHTML={{ __html: html }} />
                 {related.length > 0 && (
                   <div style={{ marginTop: "1rem" }}>
                     <p style={{ color: "var(--muted)", fontSize: "0.75rem", marginBottom: "0.4rem" }}>

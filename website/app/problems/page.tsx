@@ -39,8 +39,8 @@ export default async function ProblemsPage() {
                 maxWidth: "64ch",
               }}
             >
-              {p.body.slice(0, 180)}
-              {p.body.length > 180 ? "…" : ""}
+              {p.preview.slice(0, 180)}
+              {p.preview.length > 180 ? "…" : ""}
             </p>
             <div>
               {p.layers.map((l) => (

@@ -1,6 +1,7 @@
 import { notFound } from "next/navigation"
 import Link from "next/link"
 import { getSiteContent } from "../../../lib/content"
+import { stripHtml } from "../../../lib/typst-parser"
 
 export const dynamic = "force-static"
 
@@ -38,9 +39,7 @@ export default async function ProblemPage({ params }: { params: Promise<{ id: st
         )}
       </div>
 
-      <div className="prose" style={{ marginBottom: "2rem" }}>
-        <p>{problem.body}</p>
-      </div>
+      <div className="prose" style={{ marginBottom: "2rem" }} dangerouslySetInnerHTML={{ __html: problem.html }} />
 
       {layerDetails.length > 0 && (
         <section>
@@ -66,11 +65,9 @@ export default async function ProblemPage({ params }: { params: Promise<{ id: st
               <p style={{ color: "var(--cyan)", fontSize: "0.8rem", marginBottom: "0.3rem" }}>
                 [{layer.id}] {layer.label}
               </p>
-              {layer.chapter.body && (
-                <p style={{ color: "var(--fg-alt)", fontSize: "0.82rem" }}>
-                  {layer.chapter.body.slice(0, 300)}…
-                </p>
-              )}
+              <p style={{ color: "var(--fg-alt)", fontSize: "0.82rem" }}>
+                {stripHtml(layer.html).slice(0, 300)}…
+              </p>
             </div>
           ))}
         </section>

@@ -3,7 +3,9 @@
 // Injected at compile time via --input flags in the Makefile.
 #let git-commit = sys.inputs.at("commit", default: "dev")
 
-#let paper-title = [Tractable Problems in AI Security via Formal Methods]
+#let paper_title = [Tractable Problems in AI Security via Formal Methods]
+
+#let paper_abstract = [#lorem(80)]
 
 /// Renders a styled layer tag label, used to associate tractable problems with
 /// ML stack layers on the website.

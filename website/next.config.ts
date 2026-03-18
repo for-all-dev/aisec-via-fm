@@ -16,6 +16,7 @@ const nextConfig: NextConfig = {
     NEXT_PUBLIC_GIT_COMMIT: commit,
     NEXT_PUBLIC_BUILD_DATE: buildDate,
   },
+  serverExternalPackages: ["@myriaddreamin/typst-ts-node-compiler"],
 };
 
 export default nextConfig;

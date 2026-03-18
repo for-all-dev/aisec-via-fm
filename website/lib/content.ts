@@ -1,7 +1,9 @@
 import { Effect } from "effect"
 import fs from "fs/promises"
 import path from "path"
-import { parseChapter, parseProblem, ParsedChapter, ParsedProblem } from "./typst-parser"
+import { parseChapterMeta, parseProblemMeta, stripHtml } from "./typst-parser"
+import type { ChapterMeta, ProblemMeta } from "./typst-parser"
+import { compileFragmentToHtml } from "./typst-compiler"
 
 const PAPER_DIR = path.join(process.cwd(), "..", "paper")
 
@@ -18,12 +20,23 @@ export type LayerId = (typeof STACK_LAYERS)[number]["id"]
 export interface StackLayer {
   id: LayerId
   label: string
-  chapter: ParsedChapter
+  meta: ChapterMeta
+  html: string
+}
+
+export interface Problem {
+  id: string
+  tag: string
+  layers: string[]
+  authors: string[]
+  title: string
+  html: string
+  preview: string
 }
 
 export interface SiteContent {
   stack: StackLayer[]
-  problems: ParsedProblem[]
+  problems: Problem[]
 }
 
 const readFile = (filePath: string) =>
@@ -41,24 +54,31 @@ const readDir = (dirPath: string) =>
 const loadStack = Effect.all(
   STACK_LAYERS.map(({ id, file, label }) =>
     readFile(path.join(PAPER_DIR, file)).pipe(
-      Effect.map((raw) => ({ id, label, chapter: parseChapter(id, raw) }) satisfies StackLayer)
+      Effect.map((raw) => {
+        const meta = parseChapterMeta(id, raw)
+        const html = compileFragmentToHtml(file)
+        return { id, label, meta, html } satisfies StackLayer
+      })
     )
   ),
-  { concurrency: "unbounded" }
 )
 
 const loadProblems = Effect.gen(function* () {
   const dir = path.join(PAPER_DIR, "problems")
   const files = yield* readDir(dir)
-  const typFiles = files.filter((f) => f.endsWith(".typ") && f !== "authors.typ")
+  const typFiles = files.filter((f) => f.endsWith(".typ"))
   const problems = yield* Effect.all(
     typFiles.map((f) => {
       const id = f.replace(".typ", "")
       return readFile(path.join(dir, f)).pipe(
-        Effect.map((raw) => parseProblem(id, raw))
+        Effect.map((raw): Problem => {
+          const meta = parseProblemMeta(id, raw)
+          const html = compileFragmentToHtml(`problems/${f}`)
+          const preview = stripHtml(html).slice(0, 200)
+          return { ...meta, html, preview }
+        })
       )
     }),
-    { concurrency: "unbounded" }
   )
   return problems
 })

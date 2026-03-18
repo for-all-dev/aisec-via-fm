@@ -46,3 +46,6 @@ tmp/
 /artifacts/
 
 *ignore.md
+
+# typst temp wrappers (web compilation)
+paper/__wrapper_*.typ
