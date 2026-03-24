@@ -5,7 +5,7 @@
 
 Agda's issue label #link("https://github.com/agda/agda/issues?q=label%3Afalse")["false" on GitHub sits at the time of this commit at 10 open and 76 closed]. Agda's issue label "false" tracks the _proofs of false_ that Agda allows or has allowed. One asks, "isn't the whole point of a type theory that it be sound?"
 
-So you see we have a problem.
+So you see we have a problem. If ITP and other FM tools are not adversarially robust, scheming or reward hacking AIs will readily leverage novel zerodays to violate security properties.
 
 @demoura2026watchersprovers discusses some of this to set up the Lean kernel Arena (TODO: hyperlink to arena.lean-lang.org). TODO: elaborate.
 

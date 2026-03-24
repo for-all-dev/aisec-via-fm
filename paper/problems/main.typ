@@ -2,7 +2,7 @@
 
 #lorem(60)
 
-#include "adversarial-robustness-fm.typ"
+#include "advro.typ"
 #include "sel4-gpu-drivers.typ"
 #include "oci-runtime-hardening.typ"
 #include "ai-control-proof-carrying-code.typ"
