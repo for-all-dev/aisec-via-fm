@@ -42,13 +42,9 @@
 #v(1.5em)
 
 // ── Body ─────────────────────────────────────────────────────────
-#include "chapters/introduction/main.typ"
-#include "chapters/stack/execution-harness.typ"
-#include "chapters/stack/software-framework.typ"
-#include "chapters/stack/orchestration-cloud.typ"
-#include "chapters/stack/firmware-lowlevel.typ"
-#include "chapters/stack/hardware-supply-chain.typ"
-#include "chapters/tractable-problems/main.typ"
+#include "executive/main.typ"
+#include "stack/main.typ"
+#include "problems/main.typ"
 
 // ── Bibliography ─────────────────────────────────────────────────
 #bibliography("refs.bib")

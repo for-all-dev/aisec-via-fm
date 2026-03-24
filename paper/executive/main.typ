@@ -9,11 +9,3 @@
 == Formal Methods and AI Acceleration
 
 #lorem(40) @demoura2026watchersprovers #lorem(20) @dodds2025specsdontexist #lorem(15)
-
-== The ML Inference and Training Stack
-
-#lorem(60)
-
-=== Scope
-
-#lorem(50)
