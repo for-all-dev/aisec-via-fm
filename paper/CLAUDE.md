@@ -14,4 +14,4 @@ Do not sound like a language model. Preserve the voice of the text you find wher
 
 ## Note on content bloat
 
-The description of the stack should "chekov's gun" relationship to the tractable problems. In principle, we should only mention an aspect of the stack in the `stack` section that gets "answered" in tractable problems. 
+The description of the stack should "chekov's gun" relationship to the tractable problems. In principle, we should only mention an aspect of the stack in the `stack` section that gets "answered" in tractable problems.
