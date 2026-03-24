@@ -7,6 +7,6 @@
   (
     name: "Max von Hippel",
     organization: [Anduril],
-    email: "max@benchify.com",
+    email: "maxvh@hey.com",
   ),
 )

@@ -27,7 +27,7 @@
   ..authors.map(a => [
     *#a.name* \
     #if "organization" in a [#a.organization \ ]
-    `#a.email`
+    #raw(a.email)
   ]),
 ))
 #v(1em)

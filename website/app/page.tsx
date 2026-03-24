@@ -21,6 +21,11 @@ export default async function HomePage() {
           inference stack. An instruction manual for how to spend 5–25 postdoc-years.
         </p>
         <p className="mt-2">
+          We welcome new contributions — reach out at{" "}
+          <a href="mailto:quinn@for-all.dev" className="prompt" style={{ color: "var(--green)" }}>
+            quinn@for-all.dev
+          </a>
+          {" "}or{" "}
           <a
             href="https://calendar.app.google/9Xir9aEK9ZrdttAr8"
             target="_blank"
