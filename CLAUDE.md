@@ -60,8 +60,9 @@ There's a whole consideration here for Secure Program Synthesis as a broader fie
 ## Working with the repo
 
 - I think a `Makefile` at monorepo root that does everything
-- `cd website && pnpm run build` or `&& pnpm run dev` should freshly populate (and dev should watch for changes) in the `./paper` dir. 
-- Write notes to yourself/other AI agents in `./docs/*.agents.md`. 
+- `cd website && pnpm run build` or `&& pnpm run dev` should freshly populate (and dev should watch for changes) in the `./paper` dir.
+- Write notes to yourself/other AI agents in `./docs/*.agents.md`.
+- **At the start of every session**, run `make dev` in a background subprocess. This gives you a live hot-reload loop for both typst and bun. Check its output for typst compilation errors and bun build errors instead of spending a separate tool call. Keep this proc running for the duration of the session.
 
 Honestly, maybe we need to add auth and commenting ourselves in nextjs! I just don't think gdocs is a good product honestly! Table this, we'll retrofit `supabase` later if we want.
 

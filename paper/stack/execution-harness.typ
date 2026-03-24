@@ -16,7 +16,7 @@ TODO: incorporate this somewhere https://futuresearch.ai/blog/litellm-pypi-suppl
 
 When an AI system can execute code --- a "code interpreter" in a chatbot, a tool-use agent writing and running scripts --- it needs a sandbox. In practice this means a containerized environment (often an OCI container or a microVM like Firecracker) with a constrained syscall profile and filesystem. The sandbox must prevent the AI-generated code from escaping to the host, exfiltrating data from other tenants, or persisting state across invocations in unintended ways.
 
-The gap between "container" and "sandbox" is where real attacks live. Default container configurations are not security boundaries; they share a kernel with the host. A sandbox that allows `ptrace`, or that mounts the Docker socket, or that runs with `CAP_SYS_ADMIN`, is a sandbox in name only. The OCI runtime hardening problem (@sec:tractable-problems) addresses this directly: writing machine-checked specifications for what a sandbox policy must guarantee and verifying that a given runtime configuration meets them.
+The gap between "container" and "sandbox" is where real attacks live. Default container configurations are not security boundaries; they share a kernel with the host. A sandbox that allows `ptrace`, or that mounts the Docker socket, or that runs with `CAP_SYS_ADMIN`, is a sandbox in name only. The OCI runtime hardening problem (@sec:oci-hardening) addresses this directly: writing machine-checked specifications for what a sandbox policy must guarantee and verifying that a given runtime configuration meets them.
 
 === API Gateways <sec:api-gateways>
 

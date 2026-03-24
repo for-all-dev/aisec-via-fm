@@ -46,6 +46,10 @@ tmp/
 /artifacts/
 
 *ignore.md
+# have to hardcode EXA_API_KEY right now cuz .env isn't working.
+.claude/mcp.json
+
+.claude/worktrees/
 
 # typst temp wrappers (web compilation)
 paper/__wrapper_*.typ

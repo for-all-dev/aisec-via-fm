@@ -2,9 +2,7 @@
 
 #lorem(60)
 
-== Scope <sec:stack-scope>
-
-#lorem(50)
+TODO: notes about what's in/out of scope.
 
 #include "execution-harness.typ"
 #include "software-framework.typ"
