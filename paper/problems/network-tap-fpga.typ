@@ -3,4 +3,4 @@
 
 == Network Tap FPGA Specification
 
-#lorem(80)
+TODO: get my guy to write this up.
