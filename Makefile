@@ -6,7 +6,7 @@ paper:
 		main.typ main.pdf
 
 dev:
-	cd website && pnpm run dev
+	cd website && bun run dev
 
 build:
-	cd website && pnpm run build
+	cd website && bun run build

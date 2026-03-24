@@ -13,4 +13,4 @@
 
 - `effect` when appropriate
 - will be a standard vercel deploy-- should be stateless (besides the pw env var)
-- use `pnpm add` instead of manually patching `package.json` with whatever version you happen to pull out of your ass. 
+- use `bun add` instead of manually patching `package.json` with whatever version you happen to pull out of your ass.
