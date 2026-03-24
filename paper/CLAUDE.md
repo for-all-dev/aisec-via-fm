@@ -12,3 +12,6 @@ Do not sound like a language model. Preserve the voice of the text you find wher
 - **Over-enumeration**: bullet lists or numbered lists that pad with near-synonyms to hit a round number
 - **"Comprehensive"**: almost always a slop marker in position papers
 
+## Note on content bloat
+
+The description of the stack should "chekov's gun" relationship to the tractable problems. In principle, we should only mention an aspect of the stack in the `stack` section that gets "answered" in tractable problems. 
