@@ -8,11 +8,11 @@ import { compileFragmentToHtml } from "./typst-compiler"
 const PAPER_DIR = path.join(process.cwd(), "..", "paper")
 
 const STACK_LAYERS = [
-  { id: "execution-harness", file: "chapters/stack/execution-harness.typ", label: "Execution Harness" },
-  { id: "software-framework", file: "chapters/stack/software-framework.typ", label: "Software & ML Framework" },
-  { id: "orchestration-cloud", file: "chapters/stack/orchestration-cloud.typ", label: "Orchestration & Cloud" },
-  { id: "firmware-lowlevel", file: "chapters/stack/firmware-lowlevel.typ", label: "Firmware & Low-Level Systems" },
-  { id: "hardware-supply-chain", file: "chapters/stack/hardware-supply-chain.typ", label: "Hardware & Physical Supply Chain" },
+  { id: "execution-harness", file: "stack/execution-harness.typ", label: "Execution Harness" },
+  { id: "software-framework", file: "stack/software-framework.typ", label: "Software & ML Framework" },
+  { id: "orchestration-cloud", file: "stack/orchestration-cloud.typ", label: "Orchestration & Cloud" },
+  { id: "firmware-lowlevel", file: "stack/firmware-lowlevel.typ", label: "Firmware & Low-Level Systems" },
+  { id: "hardware-supply-chain", file: "stack/hardware-supply-chain.typ", label: "Hardware & Physical Supply Chain" },
 ] as const
 
 export type LayerId = (typeof STACK_LAYERS)[number]["id"]
@@ -66,7 +66,7 @@ const loadStack = Effect.all(
 const loadProblems = Effect.gen(function* () {
   const dir = path.join(PAPER_DIR, "problems")
   const files = yield* readDir(dir)
-  const typFiles = files.filter((f) => f.endsWith(".typ"))
+  const typFiles = files.filter((f) => f.endsWith(".typ") && f !== "main.typ")
   const problems = yield* Effect.all(
     typFiles.map((f) => {
       const id = f.replace(".typ", "")
