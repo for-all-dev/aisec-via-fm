@@ -7,6 +7,8 @@ Agda's issue label "false" on GitHub sits at the time of this commit at 10 open 
 
 So you see we have a problem.
 
+@demoura2026watchersprovers discusses some of this to set up the Lean kernel Arena (TODO: hyperlink to arena.lean-lang.org). TODO: elaborate.
+
 TODO: go over the nature of the soundness bugs (ideally Jason writes this)
 
 TODO: zero in on Lean specifically, (James Henson?), discuss governance challenges and the slippery definition of the problem.

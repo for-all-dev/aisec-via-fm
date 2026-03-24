@@ -1,6 +1,6 @@
 # PROSE GUIDE FOR THE `.typ` FILES
 
-Do not sound like a language model. Preserve the voice of the text you find wherever possible unless explicitly directed otherwise.
+Do not sound like a language model. Preserve the voice of the text you find wherever possible unless explicitly directed otherwise. Overall, if something seems specifically to have been written by Quinn or another human, the prose/style/voice of that passage should be preserved as much as possible. 
 
 ## LLM slop to avoid
 
