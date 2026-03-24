@@ -1,8 +1,8 @@
-= The ML Inference and Training Stack
+= The ML Inference and Training Stack <sec:stack>
 
 #lorem(60)
 
-== Scope
+== Scope <sec:stack-scope>
 
 #lorem(50)
 

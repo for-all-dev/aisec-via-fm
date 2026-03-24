@@ -1,4 +1,4 @@
-= Tractable Problems
+= Tractable Problems <sec:tractable-problems>
 
 #lorem(60)
 

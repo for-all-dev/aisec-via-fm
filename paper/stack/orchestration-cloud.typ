@@ -1,19 +1,19 @@
-== Orchestration and Cloud Layer
+== Orchestration and Cloud Layer <sec:orchestration-cloud>
 
 #lorem(60)
 
-=== Cluster Orchestration
+=== Cluster Orchestration <sec:cluster-orchestration>
 
 #lorem(70)
 
-=== Network Fabric
+=== Network Fabric <sec:network-fabric>
 
 #lorem(70)
 
-=== Distributed Systems
+=== Distributed Systems <sec:distributed-systems>
 
 #lorem(70)
 
-=== Identity and Access Management
+=== Identity and Access Management <sec:iam>
 
 #lorem(70)

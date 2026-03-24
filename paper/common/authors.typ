@@ -6,7 +6,7 @@
   ),
   (
     name: "Max von Hippel",
-    organization: [Anduril],
+    organization: [In an independent capacity],
     email: "maxvh@hey.com",
   ),
 )

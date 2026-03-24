@@ -1,15 +1,15 @@
-== Software and ML Framework Layer
+== Software and ML Framework Layer <sec:software-framework>
 
 #lorem(60)
 
-=== Compilers
+=== Compilers <sec:compilers>
 
 #lorem(70)
 
-=== Frameworks
+=== Frameworks <sec:frameworks>
 
 #lorem(70)
 
-=== Dependency Supply Chain
+=== Dependency Supply Chain <sec:dependency-supply-chain>
 
 #lorem(35) @girnus2026faultlines #lorem(30)
