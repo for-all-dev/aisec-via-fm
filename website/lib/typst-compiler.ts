@@ -19,7 +19,7 @@ function getCompiler(): NodeCompiler {
 export function compileSnippetToHtml(snippet: string): string {
   const uid = Math.random().toString(36).slice(2, 10)
   const tmpPath = path.join(PAPER_DIR, `__snippet_${uid}.typ`)
-  fs.writeFileSync(tmpPath, snippet)
+  fs.writeFileSync(tmpPath, snippet + '\n#bibliography("refs.bib")\n')
   try {
     const c = getCompiler()
     const bytes = c.html({ mainFilePath: tmpPath })

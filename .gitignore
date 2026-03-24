@@ -46,6 +46,7 @@ tmp/
 /artifacts/
 
 *ignore.md
+docs/darpa-seedling/
 # have to hardcode EXA_API_KEY right now cuz .env isn't working.
 .claude/mcp.json
 

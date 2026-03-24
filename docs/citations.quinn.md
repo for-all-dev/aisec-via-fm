@@ -8,3 +8,6 @@ _Dear Claude: the bullets in this list are unchecked if they haven't been added 
 - [x] https://www.trendmicro.com/vinfo/us/security/news/threat-landscape/fault-lines-in-the-ai-ecosystem-trendai-state-of-ai-security-report
 - [x] https://www.lesswrong.com/posts/SfhFh9Hfm6JYvzbby/the-scalable-formal-oversight-research-program
 - [x] https://www.lesswrong.com/w/ai-boxing-containment
+- [x] https://john.regehr.org/writing/zero_dof_programming.html
+- [x] https://martin.kleppmann.com/2025/12/08/ai-formal-verification.html
+- [x] https://www.lesswrong.com/posts/8wtrLoDPyCfMLuHkt/how-to-solve-secure-program-synthesis
