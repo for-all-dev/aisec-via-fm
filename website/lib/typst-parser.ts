@@ -6,7 +6,7 @@ export interface ChapterMeta {
 
 export function parseChapterMeta(id: string, raw: string): ChapterMeta {
   const h1 = raw.match(/^= (.+)$/m)
-  return { id, title: h1 ? h1[1].trim() : id }
+  return { id, title: h1 ? h1[1].replace(/<(?:sec|fig|tab):[a-z0-9-]+>\s*$/, "").trim() : id }
 }
 
 /** Extract metadata from typst problem source (comments + title — body is compiled via typst). */
@@ -33,7 +33,7 @@ export function parseProblemMeta(id: string, raw: string): ProblemMeta {
     if (tagM) tag = tagM[1].trim()
     else if (layersM) layers = layersM[1].split(",").map((s) => s.trim())
     else if (authorsM) authors = authorsM[1].split(",").map((s) => s.trim())
-    else if (h2 && !title) title = h2[1].trim()
+    else if (h2 && !title) title = h2[1].replace(/<(?:sec|fig|tab):[a-z0-9-]+>\s*$/, "").trim()
   }
 
   return { id, tag, layers, authors, title }

@@ -59,9 +59,16 @@ export function compileFragmentToHtml(relPath: string): string {
     labelsByHeading.set(m[2].trim(), m[3])
   }
 
+  // Strip <prefix:label> tags from headings so they don't render as visible text.
+  // The labels are already captured in labelsByHeading for id attribute injection.
+  let processed = src.replace(
+    new RegExp(`^(=+\\s+.+?)\\s+<${LABEL_RE.source}>\\s*$`, "gm"),
+    "$1",
+  )
+
   // Replace @prefix:... references with a placeholder that survives compilation.
   // Use backtick-wrapped raw text so typst passes it through verbatim.
-  const processed = src.replace(
+  processed = processed.replace(
     new RegExp(`@(${LABEL_RE.source})`, "g"),
     (_match, label) => `\`XREF:${label}\``,
   )
