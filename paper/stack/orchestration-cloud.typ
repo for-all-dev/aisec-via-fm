@@ -1,19 +1,19 @@
 == Orchestration and Cloud Layer <sec:orchestration-cloud>
 
-#lorem(60)
+The orchestration layer manages the compute resources that ML workloads run on: scheduling jobs across GPU clusters, routing traffic between them, and controlling who can access what. It sits below the frameworks and above the firmware --- a layer of distributed systems software that most ML engineers interact with only through configuration files, but whose security properties determine whether isolation between tenants, jobs, and data pipelines actually holds.
 
 === Cluster Orchestration <sec:cluster-orchestration>
 
-#lorem(70)
+GPU training and inference jobs run inside containers managed by Kubernetes, Slurm, or Ray. The container is the unit of isolation: it is supposed to confine a workload to its own filesystem, network namespace, and device access. In practice, GPU workloads erode this confinement. NVIDIA's container toolkit --- the standard mechanism for exposing GPUs inside containers --- had a critical TOCTOU vulnerability (CVE-2024-0132, CVSS 9.0) that allowed a malicious container image to escape to the host, affecting 33% of cloud environments per Wiz's estimate. The underlying container runtime, runc, had its own escape (CVE-2024-21626) via leaked file descriptors. These are not exotic attacks; they are the kind of bugs that container runtimes accumulate routinely, and they interact badly with the privileged device access that GPU workloads require. The OCI runtime hardening problem (@sec:oci-hardening) addresses the gap between what orchestrators _assume_ containers guarantee and what the runtimes actually enforce.
 
 === Network Fabric <sec:network-fabric>
 
-#lorem(70)
+Large training runs communicate over InfiniBand or RoCE interconnects using RDMA --- remote direct memory access that bypasses the kernel to move data between GPU memory regions at line rate. This is a performance architecture, not a security architecture. RDMA's kernel bypass means that the standard OS-level network monitoring and access control stack is not in the path. InfiniBand partition keys (P_Keys) provide coarse tenant isolation at the hardware level, but verifying that traffic isolation policies are correctly enforced across a fabric of thousands of ports is a manual, configuration-driven process with no runtime audit trail. If you want to verify what is actually on the wire between nodes in a GPU cluster --- not what the SDN controller _says_ is on the wire --- you need an independent observation point, which is the problem the network tap FPGA spec (@sec:nettap-fpga) is designed to solve.
 
 === Distributed Systems <sec:distributed-systems>
 
-#lorem(70)
+Distributed training coordinates gradient synchronization across hundreds or thousands of GPUs using collective operations --- all-reduce, all-gather, reduce-scatter --- implemented by libraries like NCCL and Gloo. These protocols run over the RDMA fabric with no authentication or encryption; any process that can reach the network can inject or modify gradient data in transit. In federated and multi-node settings, this is the mechanism by which model poisoning attacks operate: a compromised node contributes manipulated gradients that shift the model's behavior while remaining within the statistical noise of normal training variance. The protocol's correctness properties --- that all-reduce actually computes the sum of all participants' contributions, that no participant can observe another's individual gradient --- are exactly the kind of distributed system invariants that formal methods can specify and verify. Proof-carrying code (@sec:proof-carrying-code) is one path to making these guarantees checkable at deployment time rather than assumed.
 
 === Identity and Access Management <sec:iam>
 
-#lorem(70)
+The IAM layer controls which principals --- human users, CI pipelines, serving infrastructure, and increasingly autonomous agents --- can read model weights, write to training data stores, modify deployment configurations, or invoke models. The failure mode is over-permissioning: ML pipelines tend to accumulate broad service account credentials because the alternative is debugging permission errors during a training run. In 2025, researchers documented an attack chain where compromised credentials reached cloud administrator privileges in eight minutes, traversing 19 IAM roles before enumerating AI models and disabling invocation logging. When the principal is an AI agent operating with long-lived API tokens, the IAM boundary _is_ the control boundary. A token compromise gives the attacker everything the agent could do, at machine speed, with access patterns indistinguishable from legitimate automation. Proof-carrying code (@sec:proof-carrying-code) offers a structural alternative: rather than trusting that IAM policies are correctly configured and that tokens are uncompromised, require that actions carry machine-checkable proofs of authorization.

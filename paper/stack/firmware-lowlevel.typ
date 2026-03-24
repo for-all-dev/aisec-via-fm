@@ -1,15 +1,15 @@
 == Firmware and Low-Level Systems <sec:firmware-lowlevel>
 
-#lorem(60)
+Below the orchestration layer and above the silicon sits the firmware: hypervisors, device drivers, and boot chains. Code here runs at the highest privilege levels on both CPU and GPU. A bug is not a container escape --- it is a host compromise, often with no log entry at all.
 
 === Microkernels and Hypervisors <sec:microkernels-hypervisors>
 
-#lorem(70)
+Multi-tenant GPU isolation today relies on hypervisors. KVM's trusted computing base is roughly ten million lines of code; Xen is smaller but still far too large for exhaustive verification. Both have had VM-escape vulnerabilities --- Google Project Zero's 2021 KVM breakout via AMD SEV is a representative example --- and the PCI passthrough path that GPU workloads require widens the attack surface further, since IOMMU misconfigurations or missing PCI Access Control Services (ACS) can allow peer-to-peer DMA between devices assigned to different tenants. NVIDIA's Multi-Instance GPU (MIG) partitioning provides hardware-level memory isolation within a single GPU, but the partitioning is managed by the host driver, which runs inside the hypervisor's TCB. seL4, the only general-purpose microkernel with a complete functional-correctness proof, has no GPU driver support at all. Its new device driver framework (sDDF) handles network and block devices, but nothing with the complexity of a modern GPU. Closing this gap --- giving seL4 a verified GPU driver --- is the subject of @sec:sel4-gpu.
 
 === Device Drivers and Runtimes <sec:device-drivers>
 
-#lorem(70)
+The GPU driver is the most privileged code that touches the accelerator. NVIDIA's proprietary CUDA driver stack, AMD's ROCm, and Intel's oneAPI are all closed-source, kernel-mode codebases that handle memory mapping, command submission, and context switching for every GPU workload on the machine. NVIDIA ships quarterly security bulletins; 2024 alone included CVE-2024-0126 (privilege escalation in the display driver) and CVE-2024-0107 (out-of-bounds read leading to code execution), plus nine vulnerabilities in the CUDA toolkit found by Palo Alto's Unit 42. These are not exotic attacks --- they are standard memory-safety bugs in C code running at ring 0. The driver is a single point of compromise: an attacker who controls it can read any tenant's GPU memory, modify in-flight computations, or pivot to the host kernel. Because the driver source is proprietary, the only available mitigations are patching and hoping. A verified, open driver for at least the GPU command-submission path would change the calculus entirely (@sec:sel4-gpu).
 
 === Boot Integrity <sec:boot-integrity>
 
-#lorem(70)
+None of the isolation above matters if the firmware itself has been tampered with. Secure Boot and measured boot chains establish trust from the hardware root of trust (RoT) through each firmware stage to the OS kernel: each stage cryptographically verifies the next before handing off execution. NVIDIA's H100 extends this model to the GPU, with a per-device ECC keypair, on-die RoT, and a measured boot sequence that produces an attestation report --- a signed manifest of every firmware component loaded. Combined with CPU-side TEEs (Intel TDX, AMD SEV-SNP), this enables composite remote attestation: a verifier can check that both CPU and GPU booted clean firmware before releasing model weights or training data to a node. The machinery exists, but deploying it across a 10,000-GPU training cluster with continuous attestation, key rotation, and revocation checking is an engineering problem that remains largely unsolved at scale. What formal methods can contribute here is verifying the attestation protocol itself: proving that the chain of measurements is unforgeable, that a compromised node cannot replay a clean attestation, and that the revocation logic has no time-of-check/time-of-use gaps.
