@@ -19,10 +19,6 @@ export default async function ProblemsPage() {
       <div className="page-header">
         <p className="eyebrow">tractable problems</p>
         <h1>Shovel-Ready Project Specs</h1>
-        <p>
-          Each problem is a scoped, funded-postdoc-sized unit of work in the formal verification of
-          ML infrastructure.
-        </p>
       </div>
 
       <div>

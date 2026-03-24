@@ -13,6 +13,27 @@ function getCompiler(): NodeCompiler {
 }
 
 /**
+ * Compile an inline typst snippet (not a file) to HTML.
+ * Useful for rendering variables like paper_abstract.
+ */
+export function compileSnippetToHtml(snippet: string): string {
+  const uid = Math.random().toString(36).slice(2, 10)
+  const tmpPath = path.join(PAPER_DIR, `__snippet_${uid}.typ`)
+  fs.writeFileSync(tmpPath, snippet)
+  try {
+    const c = getCompiler()
+    const bytes = c.html({ mainFilePath: tmpPath })
+    if (!bytes) throw new Error("typst snippet compilation returned null")
+    let html = Buffer.from(bytes).toString("utf-8")
+    const bodyMatch = html.match(/<body>([\s\S]*)<\/body>/)
+    html = bodyMatch ? bodyMatch[1].trim() : html
+    return html
+  } finally {
+    fs.unlinkSync(tmpPath)
+  }
+}
+
+/**
  * Compile a typst fragment (relative to paper/) to an HTML body string.
  * Creates a temporary wrapper that imports common fns and includes the fragment.
  *

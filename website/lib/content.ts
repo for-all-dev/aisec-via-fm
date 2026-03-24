@@ -3,7 +3,7 @@ import fs from "fs/promises"
 import path from "path"
 import { parseChapterMeta, parseProblemMeta, stripHtml } from "./typst-parser"
 import type { ChapterMeta, ProblemMeta } from "./typst-parser"
-import { compileFragmentToHtml } from "./typst-compiler"
+import { compileFragmentToHtml, compileSnippetToHtml } from "./typst-compiler"
 
 const PAPER_DIR = path.join(process.cwd(), "..", "paper")
 
@@ -37,6 +37,7 @@ export interface Problem {
 export interface SiteContent {
   stack: StackLayer[]
   problems: Problem[]
+  abstractHtml: string
 }
 
 const readFile = (filePath: string) =>
@@ -83,9 +84,13 @@ const loadProblems = Effect.gen(function* () {
   return problems
 })
 
+const loadAbstract = Effect.sync(() =>
+  compileSnippetToHtml(`#import "common/fns.typ": paper_abstract\npaper_abstract`)
+)
+
 const loadAll = Effect.gen(function* () {
-  const [stack, problems] = yield* Effect.all([loadStack, loadProblems])
-  return { stack, problems } satisfies SiteContent
+  const [stack, problems, abstractHtml] = yield* Effect.all([loadStack, loadProblems, loadAbstract])
+  return { stack, problems, abstractHtml } satisfies SiteContent
 })
 
 export async function getSiteContent(): Promise<SiteContent> {
