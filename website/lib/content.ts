@@ -85,7 +85,7 @@ const loadProblems = Effect.gen(function* () {
 })
 
 const loadAbstract = Effect.sync(() =>
-  compileSnippetToHtml(`#import "common/fns.typ": paper_abstract\npaper_abstract`)
+  compileSnippetToHtml(`#import "common/fns.typ": paper_abstract\n#paper_abstract`)
 )
 
 const loadAll = Effect.gen(function* () {

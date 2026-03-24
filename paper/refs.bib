@@ -1,190 +1,317 @@
 @misc{demoura2026watchersprovers,
-  author       = {de Moura, Leonardo},
-  title        = {Who Watches the Provers?},
+  author =       {de Moura, Leonardo},
+  title =        {Who Watches the Provers?},
   howpublished = {Blog post},
-  year         = {2026},
-  month        = mar,
-  day          = {16},
-  url          = {https://leodemoura.github.io/blog/2026-3-16-who-watches-the-provers/},
-  note         = {Discusses independent kernel verification for proof assistants; introduces the Lean Kernel Arena (7 kernels, 133 benchmarks)}
+  year =         2026,
+  month =        mar,
+  day =          16,
+  url =
+                  {https://leodemoura.github.io/blog/2026-3-16-who-watches-the-provers/},
+  note =         {Discusses independent kernel verification for proof
+                  assistants; introduces the Lean Kernel Arena (7 kernels, 133
+                  benchmarks)}
 }
 
 @misc{dodds2025specsdontexist,
-  author       = {Dodds, Mike},
-  title        = {Specifications Don't Exist},
+  author =       {Dodds, Mike},
+  title =        {Specifications Don't Exist},
   howpublished = {Galois Blog},
-  year         = {2025},
-  month        = jun,
-  day          = {16},
-  url          = {https://www.galois.com/articles/specifications-dont-exist},
-  note         = {Argues that specification, not proof, is the bottleneck as AI lowers verification costs; uses PDF as a case study of informal/contradictory standards}
+  year =         2025,
+  month =        jun,
+  day =          16,
+  url =          {https://www.galois.com/articles/specifications-dont-exist},
+  note =         {Argues that specification, not proof, is the bottleneck as AI
+                  lowers verification costs; uses PDF as a case study of
+                  informal/contradictory standards}
 }
 
 @misc{dalrymple2024guaranteedsafeai,
-  author        = {Dalrymple, David and Skalse, Joar and Bengio, Yoshua and Russell, Stuart and
-                   Tegmark, Max and Seshia, Sanjit and Omohundro, Steve and Szegedy, Christian and
-                   Goldhaber, Ben and Ammann, Nora and Abate, Alessandro and Halpern, Joe and
-                   Barrett, Clark and Zhao, Ding and {Zhi-Xuan}, Tan and Wing, Jeannette and
-                   Tenenbaum, Joshua},
-  title         = {Towards Guaranteed Safe {AI}: A Framework for Ensuring Robust and
-                   Reliable {AI} Systems},
-  year          = {2024},
-  eprint        = {2405.06624},
-  archivePrefix = {arXiv},
-  primaryClass  = {cs.AI},
-  url           = {https://arxiv.org/abs/2405.06624}
+  author =       {Dalrymple, David and Skalse, Joar and Bengio, Yoshua and
+                  Russell, Stuart and Tegmark, Max and Seshia, Sanjit and
+                  Omohundro, Steve and Szegedy, Christian and Goldhaber, Ben and
+                  Ammann, Nora and Abate, Alessandro and Halpern, Joe and
+                  Barrett, Clark and Zhao, Ding and {Zhi-Xuan}, Tan and Wing,
+                  Jeannette and Tenenbaum, Joshua},
+  title =        {Towards Guaranteed Safe {AI}: A Framework for Ensuring Robust
+                  and Reliable {AI} Systems},
+  year =         2024,
+  eprint =       {2405.06624},
+  archivePrefix ={arXiv},
+  primaryClass = {cs.AI},
+  url =          {https://arxiv.org/abs/2405.06624}
 }
 
 @inproceedings{bhat2024leanmlir,
-  author    = {Bhat, Siddharth and Keizer, Alex de and Hughes, Chris and Goens, Andr\'{e}s and Grosser, Tobias},
-  title     = {Verifying Peephole Rewriting in {SSA} Compiler {IRs}},
-  booktitle = {15th International Conference on Interactive Theorem Proving (ITP 2024)},
-  year      = {2024},
-  doi       = {10.4230/LIPIcs.ITP.2024.9},
-  note      = {Formalizes a core SSA calculus in Lean; verifies peephole rewrites across MLIR dialects including bitvector, structured control flow, and FHE}
+  author =       {Bhat, Siddharth and Keizer, Alex de and Hughes, Chris and
+                  Goens, Andr\'{e}s and Grosser, Tobias},
+  title =        {Verifying Peephole Rewriting in {SSA} Compiler {IRs}},
+  booktitle =    {15th International Conference on Interactive Theorem Proving
+                  (ITP 2024)},
+  year =         2024,
+  doi =          {10.4230/LIPIcs.ITP.2024.9},
+  note =         {Formalizes a core SSA calculus in Lean; verifies peephole
+                  rewrites across MLIR dialects including bitvector, structured
+                  control flow, and FHE}
 }
 
 @inproceedings{fehr2025mlirdialects,
-  author    = {Fehr, Mathieu and Fan, Yiyang and Pompougnac, Hugo and Regehr, John and Grosser, Tobias},
-  title     = {First-Class Verification Dialects for {MLIR}},
-  booktitle = {Proceedings of the ACM on Programming Languages (PLDI)},
-  year      = {2025},
-  doi       = {10.1145/3729309},
-  note      = {Defines semantics for five MLIR dialects; builds three verification tools; found five miscompilation bugs in upstream MLIR}
+  author =       {Fehr, Mathieu and Fan, Yiyang and Pompougnac, Hugo and Regehr,
+                  John and Grosser, Tobias},
+  title =        {First-Class Verification Dialects for {MLIR}},
+  booktitle =    {Proceedings of the ACM on Programming Languages (PLDI)},
+  year =         2025,
+  doi =          {10.1145/3729309},
+  note =         {Defines semantics for five MLIR dialects; builds three
+                  verification tools; found five miscompilation bugs in upstream
+                  MLIR}
 }
 
 @misc{pytorch2022torchtriton,
-  author       = {{PyTorch Team}},
-  title        = {Compromised {PyTorch}-nightly dependency chain ({torchtriton})},
+  author =       {{PyTorch Team}},
+  title =        {Compromised {PyTorch}-nightly dependency chain
+                  ({torchtriton})},
   howpublished = {PyTorch Blog},
-  year         = {2022},
-  month        = dec,
-  url          = {https://pytorch.org/blog/compromised-nightly-dependency/},
-  note         = {Dependency confusion attack: malicious torchtriton uploaded to PyPI exfiltrated host data from nightly users; 2,717 downloads in 5 days}
+  year =         2022,
+  month =        dec,
+  url =          {https://pytorch.org/blog/compromised-nightly-dependency/},
+  note =         {Dependency confusion attack: malicious torchtriton uploaded to
+                  PyPI exfiltrated host data from nightly users; 2,717 downloads
+                  in 5 days}
 }
 
 @misc{reversing2024ultralytics,
-  author       = {{ReversingLabs}},
-  title        = {Compromised {Ultralytics} {PyPI} package delivers crypto coinminer},
+  author =       {{ReversingLabs}},
+  title =        {Compromised {Ultralytics} {PyPI} package delivers crypto
+                  coinminer},
   howpublished = {ReversingLabs Blog},
-  year         = {2024},
-  month        = dec,
-  url          = {https://www.reversinglabs.com/blog/compromised-ultralytics-pypi-package-delivers-crypto-coinminer},
-  note         = {GitHub Actions script injection compromised Ultralytics YOLO (60M+ downloads); attacker manipulated PR branch names to inject code into CI/CD pipeline}
+  year =         2024,
+  month =        dec,
+  url =
+                  {https://www.reversinglabs.com/blog/compromised-ultralytics-pypi-package-delivers-crypto-coinminer},
+  note =         {GitHub Actions script injection compromised Ultralytics YOLO
+                  (60M+ downloads); attacker manipulated PR branch names to
+                  inject code into CI/CD pipeline}
 }
 
 @article{mahon2025pypitfall,
-  author  = {Mahon, Jacob and Hou, Chenxi and Yao, Zhihao},
-  title   = {{PyPitfall}: Dependency Chaos and Software Supply Chain Vulnerabilities in {Python}},
-  year    = {2025},
-  eprint  = {2507.18075},
-  archivePrefix = {arXiv},
-  note    = {Analyzed 378,573 PyPI packages: average 129.6 transitive dependencies per package; 141,044 packages allow known-vulnerable versions}
+  author =       {Mahon, Jacob and Hou, Chenxi and Yao, Zhihao},
+  title =        {{PyPitfall}: Dependency Chaos and Software Supply Chain
+                  Vulnerabilities in {Python}},
+  year =         2025,
+  eprint =       {2507.18075},
+  archivePrefix ={arXiv},
+  note =         {Analyzed 378,573 PyPI packages: average 129.6 transitive
+                  dependencies per package; 141,044 packages allow
+                  known-vulnerable versions}
 }
 
 @inproceedings{zhang2025tensorflowcves,
-  author    = {Zhang, Kai and Feng, Yang and Chen, Zhenyu},
-  title     = {Unraveling the Characterization and Propagation of Security Vulnerabilities in {TensorFlow}-based Deep Learning Software Supply Chain},
-  booktitle = {16th Asia-Pacific Symposium on Internetware (Internetware 2025)},
-  year      = {2025},
-  doi       = {10.1145/3755881.3755923},
-  note      = {Found 435 TensorFlow CVEs spanning 44 CWE categories as of July 2024}
+  author =       {Zhang, Kai and Feng, Yang and Chen, Zhenyu},
+  title =        {Unraveling the Characterization and Propagation of Security
+                  Vulnerabilities in {TensorFlow}-based Deep Learning Software
+                  Supply Chain},
+  booktitle =    {16th Asia-Pacific Symposium on Internetware (Internetware
+                  2025)},
+  year =         2025,
+  doi =          {10.1145/3755881.3755923},
+  note =         {Found 435 TensorFlow CVEs spanning 44 CWE categories as of
+                  July 2024}
 }
 
 @article{marchand2026sandboxescape,
-  title     = {Quantifying Frontier {LLM} Capabilities for Container Sandbox Escape},
-  author    = {Marchand, Rahul and O Cathain, Art and Wynne, Jerome and Giavridis, Philippos Maximos and Deverett, Sam and Wilkinson, John and Gwartz, Jason and Coppock, Harry},
-  journal   = {arXiv preprint arXiv:2603.02277},
-  year      = {2026}
+  title =        {Quantifying Frontier {LLM} Capabilities for Container Sandbox
+                  Escape},
+  author =       {Marchand, Rahul and O Cathain, Art and Wynne, Jerome and
+                  Giavridis, Philippos Maximos and Deverett, Sam and Wilkinson,
+                  John and Gwartz, Jason and Coppock, Harry},
+  journal =      {arXiv preprint arXiv:2603.02277},
+  year =         2026
 }
 
 @article{bhatt2025ctrlz,
-  title     = {Ctrl-Z: Controlling {AI} Agents via Resampling},
-  author    = {Bhatt, Aryan and Rushing, Cody and Kaufman, Adam and Tracy, Tyler and Georgiev, Vasil and Matolcsi, David and Khan, Akbir and Shlegeris, Buck},
-  journal   = {arXiv preprint arXiv:2504.10374},
-  year      = {2025}
+  title =        {Ctrl-Z: Controlling {AI} Agents via Resampling},
+  author =       {Bhatt, Aryan and Rushing, Cody and Kaufman, Adam and Tracy,
+                  Tyler and Georgiev, Vasil and Matolcsi, David and Khan, Akbir
+                  and Shlegeris, Buck},
+  journal =      {arXiv preprint arXiv:2504.10374},
+  year =         2025
 }
 
 @article{kaufman2025basharena,
-  title     = {{BashArena}: A Control Setting for Highly Privileged {AI} Agents},
-  author    = {Kaufman, Adam and Lucassen, James and Tracy, Tyler and Rushing, Cody and Bhatt, Aryan},
-  journal   = {arXiv preprint arXiv:2512.15688},
-  year      = {2025}
+  title =        {{BashArena}: A Control Setting for Highly Privileged {AI}
+                  Agents},
+  author =       {Kaufman, Adam and Lucassen, James and Tracy, Tyler and
+                  Rushing, Cody and Bhatt, Aryan},
+  journal =      {arXiv preprint arXiv:2512.15688},
+  year =         2025
 }
 
 @inproceedings{greenblatt2024aicontrol,
-  title     = {{AI} Control: Improving Safety Despite Intentional Subversion},
-  author    = {Greenblatt, Ryan and Shlegeris, Buck and Sachan, Kshitij and Roger, Fabien},
-  booktitle = {International Conference on Machine Learning (ICML)},
-  year      = {2024}
+  title =        {{AI} Control: Improving Safety Despite Intentional Subversion},
+  author =       {Greenblatt, Ryan and Shlegeris, Buck and Sachan, Kshitij and
+                  Roger, Fabien},
+  booktitle =    {International Conference on Machine Learning (ICML)},
+  year =         2024
 }
 
 @misc{ukgov2025aisandboxing,
-  title        = {{AISI} Sandboxing Toolkit},
-  author       = {{UK AI Safety Institute}},
-  year         = {2025},
+  title =        {{AISI} Sandboxing Toolkit},
+  author =       {{UK AI Safety Institute}},
+  year =         2025,
   howpublished = {\url{https://github.com/UKGovernmentBEIS/aisi-sandboxing}},
-  note         = {Open-source toolkit for sandboxing agentic evaluations}
+  note =         {Open-source toolkit for sandboxing agentic evaluations}
 }
 
 @misc{ukgov2026sandboxbreakout,
-  title        = {Docker Sandbox Breakout},
-  author       = {{UK AI Safety Institute}},
-  year         = {2026},
-  howpublished = {\url{https://github.com/UKGovernmentBEIS/docker_sandbox_breakout}},
-  note         = {Container escape CTF evaluation for Inspect AI}
+  title =        {Docker Sandbox Breakout},
+  author =       {{UK AI Safety Institute}},
+  year =         2026,
+  howpublished =
+                  {\url{https://github.com/UKGovernmentBEIS/docker_sandbox_breakout}},
+  note =         {Container escape CTF evaluation for Inspect AI}
 }
 
 @misc{inspectai2025,
-  title        = {Inspect {AI}},
-  author       = {{UK AI Safety Institute}},
-  year         = {2025},
+  title =        {Inspect {AI}},
+  author =       {{UK AI Safety Institute}},
+  year =         2025,
   howpublished = {\url{https://inspect.aisi.org.uk/}},
-  note         = {Framework for large language model evaluations}
+  note =         {Framework for large language model evaluations}
 }
 
 @article{bevier1989clinc,
-  title   = {An Approach to Systems Verification},
-  author  = {Bevier, William R. and Hunt, Warren A. and Moore, J Strother and Young, William D.},
-  journal = {Journal of Automated Reasoning},
-  volume  = {5},
-  number  = {4},
-  pages   = {411--428},
-  year    = {1989}
+  title =        {An Approach to Systems Verification},
+  author =       {Bevier, William R. and Hunt, Warren A. and Moore, J Strother
+                  and Young, William D.},
+  journal =      {Journal of Automated Reasoning},
+  volume =       5,
+  number =       4,
+  pages =        {411--428},
+  year =         1989
 }
 
 @inproceedings{klein2009sel4,
-  title     = {{seL4}: Formal Verification of an {OS} Kernel},
-  author    = {Klein, Gerwin and Elphinstone, Kevin and Heiser, Gernot and Andronick, June and Cock, David and Derrin, Philip and Elkaduwe, Dhammika and Engelhardt, Kai and Kolanski, Rafal and Norrish, Michael and Sewell, Thomas and Tuch, Harvey and Winwood, Simon},
-  booktitle = {Proceedings of the ACM SIGOPS 22nd Symposium on Operating Systems Principles (SOSP)},
-  pages     = {207--220},
-  year      = {2009}
+  title =        {{seL4}: Formal Verification of an {OS} Kernel},
+  author =       {Klein, Gerwin and Elphinstone, Kevin and Heiser, Gernot and
+                  Andronick, June and Cock, David and Derrin, Philip and
+                  Elkaduwe, Dhammika and Engelhardt, Kai and Kolanski, Rafal and
+                  Norrish, Michael and Sewell, Thomas and Tuch, Harvey and
+                  Winwood, Simon},
+  booktitle =    {Proceedings of the ACM SIGOPS 22nd Symposium on Operating
+                  Systems Principles (SOSP)},
+  pages =        {207--220},
+  year =         2009
 }
 
 @misc{dougherty2025formalconfinement,
-  title        = {Formal Confinement},
-  author       = {Dougherty, Quinn},
-  year         = {2025},
-  howpublished = {\url{https://github.com/quinn-dougherty/formal-confinement}},
-  note         = {Beneficial AI Foundation}
+  title =        {Formal Confinement},
+  author =       {Dougherty, Quinn},
+  year =         2025,
+  howpublished = {\url{https://github.com/for-all-dev/formal-confinement}},
+  note =         {Beneficial AI Foundation}
 }
 
 @misc{dougherty2026boxarena,
-  title        = {{BoxArena}: An {OCI} Runtime Escape Benchmark},
-  author       = {Dougherty, Quinn and Singh, Alok and von Hippel, Max},
-  year         = {2026},
+  title =        {{BoxArena}: An {OCI} Runtime Escape Benchmark},
+  author =       {Dougherty, Quinn and Singh, Alok and von Hippel, Max},
+  year =         2026,
   howpublished = {\url{https://box-arena.vercel.app}},
-  note         = {Defensive leaderboard comparing OCI runtimes against LLM escape agents; built on Inspect AI at the Apart Research AI Control Hackathon}
+  note =         {Defensive leaderboard comparing OCI runtimes against LLM
+                  escape agents; built on Inspect AI at the Apart Research AI
+                  Control Hackathon}
+}
+
+@techreport{dalrymple2024safeguardedai,
+  title =        {Safeguarded {AI}: Constructing Guaranteed Safety},
+  author =       {Dalrymple, David},
+  institution =  {Advanced Research and Invention Agency (ARIA)},
+  year =         2024,
+  month =        feb,
+  type =         {Programme Thesis},
+  url =
+                  {https://www.aria.org.uk/media/3nhijno4/aria-safeguarded-ai-programme-thesis-v1.pdf},
+  note =         {Gatekeeper architecture: every proposed action requires a
+                  machine-checkable proof against a safety spec}
+}
+
+@misc{tegmark2023provablysafe,
+  title =        {Provably safe systems: the only path to controllable {AGI}},
+  author =       {Tegmark, Max and Omohundro, Steve},
+  year =         2023,
+  eprint =       {2309.01933},
+  archivePrefix ={arXiv},
+  primaryClass = {cs.CY},
+  url =          {https://arxiv.org/abs/2309.01933}
+}
+
+@article{lampson1973confinement,
+  author =       {Lampson, Butler W.},
+  title =        {A note on the confinement problem},
+  journal =      {Communications of the ACM},
+  volume =       16,
+  number =       10,
+  pages =        {613--615},
+  year =         1973,
+  doi =          {10.1145/362375.362389}
+}
+
+@article{yampolskiy2012leakproofing,
+  title =        {Leakproofing the Singularity: Artificial Intelligence
+                  Confinement Problem},
+  author =       {Yampolskiy, Roman V.},
+  journal =      {Journal of Consciousness Studies},
+  volume =       19,
+  number =       {1--2},
+  pages =        {194--214},
+  year =         2012
+}
+
+@inproceedings{necula1997pcc,
+  author =       {Necula, George C.},
+  title =        {Proof-Carrying Code},
+  booktitle =    {Proceedings of the 24th ACM SIGPLAN-SIGACT Symposium on
+                  Principles of Programming Languages (POPL)},
+  pages =        {106--119},
+  year =         1997,
+  doi =          {10.1145/263699.263712}
+}
+
+@misc{vonhippel2026sfo,
+  author =       {von Hippel, Max},
+  title =        {Scalable Formal Oversight: Open Problems in {AI} Safety and
+                  Formal Methods},
+  year =         2025,
+  howpublished = {LessWrong},
+  url =
+                  {https://www.lesswrong.com/posts/SfhFh9Hfm6JYvzbby/the-scalable-formal-oversight-research-program},
+  note =         {Research program overview covering verifier correctness,
+                  sandbox hardening, and formal methods for AI safety
+                  infrastructure}
+}
+
+@misc{lesswrong2020aiboxing,
+  title =        {{AI} Boxing (Containment)},
+  author =       {{LessWrong Contributors}},
+  year =         2020,
+  howpublished = {LessWrong Wiki},
+  url =          {https://www.lesswrong.com/w/ai-boxing-containment},
+  note =         {Overview of proposals to isolate powerful AI systems;
+                  discusses physical containment, persuasion risks, and escape
+                  strategies}
 }
 
 @techreport{girnus2026faultlines,
-  author      = {Girnus, Peter and Ciancaglini, Vincenzo and Swimmer, Morton and
-                 Fiser, David and Oliveira, Alfredo and Zigh, Benjamin},
-  title       = {Fault Lines in the {AI} Ecosystem: {TrendAI} State of {AI} Security Report},
-  institution = {Trend Micro},
-  year        = {2026},
-  month       = mar,
-  day         = {3},
-  url         = {https://www.trendmicro.com/vinfo/us/security/news/threat-landscape/fault-lines-in-the-ai-ecosystem-trendai-state-of-ai-security-report},
-  note        = {6,086 unique AI-related CVEs 2018--2025; 2,130 in 2025 alone (34.6\% YoY increase); covers hardware through LLM/agentic attack surface}
+  author =       {Girnus, Peter and Ciancaglini, Vincenzo and Swimmer, Morton
+                  and Fiser, David and Oliveira, Alfredo and Zigh, Benjamin},
+  title =        {Fault Lines in the {AI} Ecosystem: {TrendAI} State of {AI}
+                  Security Report},
+  institution =  {Trend Micro},
+  year =         2026,
+  month =        mar,
+  day =          3,
+  url =
+                  {https://www.trendmicro.com/vinfo/us/security/news/threat-landscape/fault-lines-in-the-ai-ecosystem-trendai-state-of-ai-security-report},
+  note =         {6,086 unique AI-related CVEs 2018--2025; 2,130 in 2025 alone
+                  (34.6\% YoY increase); covers hardware through LLM/agentic
+                  attack surface}
 }
