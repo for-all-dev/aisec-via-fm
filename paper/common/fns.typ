@@ -3,6 +3,8 @@
 // Injected at compile time via --input flags in the Makefile.
 #let git-commit = sys.inputs.at("commit", default: "dev")
 
+#let authors = json("authors.json")
+
 #let paper_title = [Tractable Problems in AI Security via Formal Methods]
 
 #let paper_abstract = [Secure program synthesis is popping off in 2026 @regehr2026zerodof @kleppmann2025fvmainstream @vonhippel2025securesynthesis, which will be great for our overall cyber resilience. However, its not obvious that it will actually be applied to AI security in real life. To seize this opportunity, we need to map out the relevant layers in the current ML inference and training stack and figure out what widgets can or ought be formal methods opportunities.]

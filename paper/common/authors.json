@@ -1,0 +1,18 @@
+[
+  {
+    "name": "Quinn Dougherty",
+    "slug": "quinn",
+    "organization": "Forall R&D",
+    "role": "Principal",
+    "location": "Washington DC",
+    "email": "quinn@for-all.dev"
+  },
+  {
+    "name": "Max von Hippel",
+    "slug": "maxvh",
+    "organization": "In an independent capacity",
+    "role": "Job Title",
+    "location": "Boulder",
+    "email": "maxvh@hey.com"
+  }
+]

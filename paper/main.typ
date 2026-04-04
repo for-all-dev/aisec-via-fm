@@ -1,5 +1,4 @@
 #import "common/fns.typ": *
-#import "common/authors.typ": authors
 
 // ── Document settings ────────────────────────────────────────────
 #set document(title: "Tractable Problems in AI Security via Formal Methods")

@@ -1,25 +1,21 @@
+import fsSync from "fs"
+import path from "path"
 import { getSiteContent } from "../../lib/content"
 
 export const dynamic = "force-static"
 
-const AUTHORS = [
-  {
-    name: "Quinn Dougherty",
-    slug: "quinn",
-    role: "Principal",
-    org: "Forall R&D",
-    location: "Washington DC",
-    email: "quinn@for-all.dev",
-  },
-  {
-    name: "Max von Hippel",
-    slug: "maxvh",
-    role: "Job Title",
-    org: "Anduril",
-    location: "Boulder",
-    email: "maxvh@hey.com",
-  },
-]
+interface Author {
+  name: string
+  slug: string
+  organization: string
+  role: string
+  location: string
+  email: string
+}
+
+const AUTHORS: Author[] = JSON.parse(
+  fsSync.readFileSync(path.join(process.cwd(), "..", "paper", "common", "authors.json"), "utf-8")
+)
 
 export default async function AboutPage() {
   const { problems } = await getSiteContent()
@@ -41,7 +37,7 @@ export default async function AboutPage() {
             <div key={a.name} className="author-card">
               <p className="name">{a.name}</p>
               <p className="meta">
-                {a.role} · {a.org} · {a.location}
+                {a.role} · {a.organization} · {a.location}
               </p>
               <p>
                 <a href={`mailto:${a.email}`}>{a.email}</a>
