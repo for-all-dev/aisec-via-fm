@@ -1,9 +1,11 @@
 import { Effect } from "effect"
 import fs from "fs/promises"
+import fsSync from "fs"
 import path from "path"
 import { parseChapterMeta, parseProblemMeta, stripHtml } from "./typst-parser"
 import type { ChapterMeta, ProblemMeta } from "./typst-parser"
-import { compileFragmentToHtml, compileSnippetToHtml } from "./typst-compiler"
+import { compileFragmentToHtml, compileSnippetToHtml, extractLabels } from "./typst-compiler"
+import type { LabelEntry } from "./typst-compiler"
 
 const PAPER_DIR = path.join(process.cwd(), "..", "paper")
 
@@ -38,6 +40,7 @@ export interface SiteContent {
   stack: StackLayer[]
   problems: Problem[]
   abstractHtml: string
+  labelRegistry: Record<string, LabelEntry>
 }
 
 const readFile = (filePath: string) =>
@@ -52,45 +55,92 @@ const readDir = (dirPath: string) =>
     catch: (e) => new Error(`Failed to read dir ${dirPath}: ${e}`),
   })
 
-const loadStack = Effect.all(
-  STACK_LAYERS.map(({ id, file, label }) =>
-    readFile(path.join(PAPER_DIR, file)).pipe(
-      Effect.map((raw) => {
-        const meta = parseChapterMeta(id, raw)
-        const html = compileFragmentToHtml(file)
-        return { id, label, meta, html } satisfies StackLayer
-      })
-    )
-  ),
-)
+/**
+ * Build a label registry by scanning all .typ source files.
+ * Maps each label to the website route where it lives + its title.
+ * This runs synchronously at build time before any compilation.
+ */
+function buildLabelRegistry(): Map<string, LabelEntry> {
+  const registry = new Map<string, LabelEntry>()
 
-const loadProblems = Effect.gen(function* () {
+  // Stack layer files -> route: /stack (all layers render on one page)
+  for (const { file } of STACK_LAYERS) {
+    const src = fsSync.readFileSync(path.join(PAPER_DIR, file), "utf-8")
+    for (const entry of extractLabels(src)) {
+      registry.set(entry.label, { ...entry, route: "/stack" })
+    }
+  }
+
+  // Problem files -> route: /problems/<id>
+  const problemDir = path.join(PAPER_DIR, "problems")
+  const problemFiles = fsSync.readdirSync(problemDir)
+    .filter((f) => f.endsWith(".typ") && f !== "main.typ")
+  for (const f of problemFiles) {
+    const id = f.replace(".typ", "")
+    const src = fsSync.readFileSync(path.join(problemDir, f), "utf-8")
+    for (const entry of extractLabels(src)) {
+      registry.set(entry.label, { ...entry, route: `/problems/${id}` })
+    }
+  }
+
+  // Stack and problem main.typ files (section-level headings)
+  for (const mainFile of ["stack/main.typ", "problems/main.typ"]) {
+    const fullPath = path.join(PAPER_DIR, mainFile)
+    if (fsSync.existsSync(fullPath)) {
+      const src = fsSync.readFileSync(fullPath, "utf-8")
+      const route = mainFile.startsWith("stack") ? "/stack" : "/problems"
+      for (const entry of extractLabels(src)) {
+        registry.set(entry.label, { ...entry, route })
+      }
+    }
+  }
+
+  return registry
+}
+
+const loadAll = Effect.gen(function* () {
+  // Build label registry first (synchronous scan of all .typ files)
+  const registryMap = buildLabelRegistry()
+
+  // Load stack layers with cross-page ref resolution
+  const stack = yield* Effect.all(
+    STACK_LAYERS.map(({ id, file, label }) =>
+      readFile(path.join(PAPER_DIR, file)).pipe(
+        Effect.map((raw) => {
+          const meta = parseChapterMeta(id, raw)
+          const html = compileFragmentToHtml(file, registryMap)
+          return { id, label, meta, html } satisfies StackLayer
+        })
+      )
+    ),
+  )
+
+  // Load problems with cross-page ref resolution
   const dir = path.join(PAPER_DIR, "problems")
   const files = yield* readDir(dir)
-  const typFiles = files.filter((f) => f.endsWith(".typ") && f !== "main.typ")
+  const typFiles = files.filter((f: string) => f.endsWith(".typ") && f !== "main.typ")
   const problems = yield* Effect.all(
-    typFiles.map((f) => {
+    typFiles.map((f: string) => {
       const id = f.replace(".typ", "")
       return readFile(path.join(dir, f)).pipe(
         Effect.map((raw): Problem => {
           const meta = parseProblemMeta(id, raw)
-          const html = compileFragmentToHtml(`problems/${f}`)
+          const html = compileFragmentToHtml(`problems/${f}`, registryMap)
           const preview = stripHtml(html).slice(0, 200)
           return { ...meta, html, preview }
         })
       )
     }),
   )
-  return problems
-})
 
-const loadAbstract = Effect.sync(() =>
-  compileSnippetToHtml(`#import "common/fns.typ": paper_abstract\n#paper_abstract`)
-)
+  const abstractHtml = compileSnippetToHtml(
+    `#import "common/fns.typ": paper_abstract\n#paper_abstract`,
+  )
 
-const loadAll = Effect.gen(function* () {
-  const [stack, problems, abstractHtml] = yield* Effect.all([loadStack, loadProblems, loadAbstract])
-  return { stack, problems, abstractHtml } satisfies SiteContent
+  // Convert registry map to plain object for JSON serialization
+  const labelRegistry = Object.fromEntries(registryMap)
+
+  return { stack, problems, abstractHtml, labelRegistry } satisfies SiteContent
 })
 
 export async function getSiteContent(): Promise<SiteContent> {
