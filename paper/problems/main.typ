@@ -17,3 +17,4 @@ The problems below split into two kinds. *Enablers* are problems whose resolutio
 #include "context-window-integrity.typ"
 #include "capability-accumulation.typ"
 #include "audit-log-integrity.typ"
+#include "neuralese-gov.typ"

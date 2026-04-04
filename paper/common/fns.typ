@@ -37,10 +37,6 @@
 
 // ── Digraph: many-to-many mapping between stack layers and problems ──
 
-// The canonical mapping lives in digraph.json for machine readability.
-// Below we duplicate it as Typst dictionaries so the PDF gets clickable
-// cross-references without a build-time JSON-parse step.
-
 #let _layer-meta = (
   "execution-harness":    (label: "Execution Harness",                sec: label("sec:execution-harness")),
   "software-framework":   (label: "Software & ML Framework",          sec: label("sec:software-framework")),
@@ -49,22 +45,60 @@
   "hardware-supply-chain":(label: "Hardware & Physical Supply Chain", sec: label("sec:hardware-supply-chain")),
 )
 
-#let _problem-meta = (
-  "adversarial-robustness-fm":      (label: "Adversarial Robustness of FM",      sec: label("sec:adversarial-robustness"),   layers: ("software-framework", "execution-harness")),
-  "ai-control-proof-carrying-code": (label: "AI Control via Proof-Carrying Code", sec: label("sec:proof-carrying-code"),      layers: ("execution-harness", "software-framework", "orchestration-cloud")),
-  "audit-log-integrity":            (label: "Audit Log Integrity",                sec: label("sec:audit-log-integrity"),      layers: ("execution-harness", "orchestration-cloud")),
-  "capability-accumulation":        (label: "Capability Accumulation",            sec: label("sec:capability-accumulation"),  layers: ("execution-harness",)),
-  "context-window-integrity":       (label: "Context Window Integrity",           sec: label("sec:context-window-integrity"), layers: ("execution-harness",)),
-  "edge-policy-verification":       (label: "Edge Policy Verification",           sec: label("sec:edge-policy"),              layers: ("execution-harness", "orchestration-cloud")),
-  "network-tap-fpga":               (label: "Network Tap FPGA Spec",             sec: label("sec:network-tap-fpga"),         layers: ("orchestration-cloud", "hardware-supply-chain")),
-  "neuralese-gov":                  (label: "Neuralese Governance",               sec: label("sec:neuralese-gov"),            layers: ("execution-harness", "software-framework", "orchestration-cloud")),
-  "oci-runtime-hardening":          (label: "OCI Runtime Hardening",              sec: label("sec:oci-hardening"),            layers: ("orchestration-cloud", "execution-harness")),
-  "sampler-verification":           (label: "Sampler Verification",               sec: label("sec:sampler-verification"),     layers: ("software-framework", "execution-harness")),
-  "scheduler-cotenancy":            (label: "Scheduler Co-Tenancy Isolation",     sec: label("sec:scheduler-cotenancy"),      layers: ("orchestration-cloud",)),
-  "sel4-gpu-drivers":               (label: "seL4 Native GPU Drivers",            sec: label("sec:sel4-gpu"),                 layers: ("firmware-lowlevel", "hardware-supply-chain")),
-  "verified-input-parsers":         (label: "Verified Input Parsers",             sec: label("sec:verified-input-parsers"),   layers: ("execution-harness", "software-framework")),
-  "weight-integrity":               (label: "Weight Integrity",                   sec: label("sec:weight-integrity"),         layers: ("execution-harness", "software-framework", "firmware-lowlevel")),
-)
+// _problem-meta is inferred from the problem files' comment headers.
+// Each problem file must have:  // Tag: <id>  // Layers: <csv>  // Category: <cat>
+// and a heading line:  == Title <sec:label>
+
+#let _parse-problem-file(path) = {
+  let src = read(path)
+  let lines = src.split("\n")
+  let tag = none
+  let layers = ()
+  let category = none
+  let heading-label = none
+  let heading-title = none
+  for line in lines {
+    if line.starts-with("// Tag: ") {
+      tag = line.slice(8).trim()
+    } else if line.starts-with("// Layers: ") {
+      layers = line.slice(11).split(",").map(s => s.trim())
+    } else if line.starts-with("// Category: ") {
+      category = line.slice(13).trim()
+    } else if line.starts-with("== ") {
+      // Parse "== Some Title <sec:foo-bar>"
+      let rest = line.slice(3)
+      let angle-start = rest.position("<")
+      let angle-end = rest.position(">")
+      if angle-start != none and angle-end != none {
+        heading-title = rest.slice(0, angle-start).trim()
+        heading-label = rest.slice(angle-start + 1, angle-end)
+      }
+    }
+  }
+  (tag, (label: heading-title, sec: label(heading-label), layers: layers, category: category))
+}
+
+// Parse problems/main.typ to get the include list, then read each file.
+#let _problems-main-src = read("../problems/main.typ")
+#let _problem-files = {
+  let files = ()
+  for line in _problems-main-src.split("\n") {
+    if line.starts-with("#include \"") {
+      let fname = line.slice(10, line.len() - 1)  // strip #include " and trailing "
+      files.push(fname)
+    }
+  }
+  files
+}
+
+#let _problem-meta = {
+  let meta = (:)
+  for fname in _problem-files {
+    let (tag, entry) = _parse-problem-file("../problems/" + fname)
+    meta.insert(tag, entry)
+  }
+  meta
+}
 
 /// Given a layer id, return the list of problem ids that touch it.
 #let _problems-for-layer(layer-id) = {
