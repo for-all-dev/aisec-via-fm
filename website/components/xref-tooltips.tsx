@@ -88,26 +88,47 @@ export function XrefTooltips() {
       if (tooltip) tooltip.style.display = "none"
     }
 
-    function onOver(e: MouseEvent) {
-      const target = e.target as HTMLElement
+    function getTooltipAnchor(target: EventTarget | null): HTMLAnchorElement | null {
+      if (!(target instanceof HTMLElement)) return null
       const xref = target.closest("a.xref[data-label-title]")
-      if (xref) { showXref(xref as HTMLAnchorElement); return }
+      if (xref) return xref as HTMLAnchorElement
       const bibref = target.closest('a[role="doc-biblioref"]')
-      if (bibref) { showBibRef(bibref as HTMLAnchorElement); return }
+      if (bibref) return bibref as HTMLAnchorElement
+      return null
+    }
+
+    function onOver(e: MouseEvent) {
+      const anchor = getTooltipAnchor(e.target)
+      if (!anchor) return
+      if (anchor.matches("a.xref[data-label-title]")) { showXref(anchor); return }
+      if (anchor.matches('a[role="doc-biblioref"]')) { showBibRef(anchor); return }
     }
 
     function onOut(e: MouseEvent) {
-      const target = e.target as HTMLElement
-      const match = target.closest('a.xref[data-label-title], a[role="doc-biblioref"]')
-      if (match) hide()
+      if (getTooltipAnchor(e.target)) hide()
+    }
+
+    function onFocusIn(e: FocusEvent) {
+      const anchor = getTooltipAnchor(e.target)
+      if (!anchor) return
+      if (anchor.matches("a.xref[data-label-title]")) { showXref(anchor); return }
+      if (anchor.matches('a[role="doc-biblioref"]')) { showBibRef(anchor); return }
+    }
+
+    function onFocusOut(e: FocusEvent) {
+      if (getTooltipAnchor(e.target)) hide()
     }
 
     document.body.addEventListener("mouseover", onOver)
     document.body.addEventListener("mouseout", onOut)
+    document.body.addEventListener("focusin", onFocusIn)
+    document.body.addEventListener("focusout", onFocusOut)
 
     return () => {
       document.body.removeEventListener("mouseover", onOver)
       document.body.removeEventListener("mouseout", onOut)
+      document.body.removeEventListener("focusin", onFocusIn)
+      document.body.removeEventListener("focusout", onFocusOut)
       if (tooltip && document.body.contains(tooltip)) {
         document.body.removeChild(tooltip)
       }
