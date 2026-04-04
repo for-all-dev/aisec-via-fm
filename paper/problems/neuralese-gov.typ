@@ -1,5 +1,6 @@
-// Tag: edge-policy-verification
+// Tag: neuralese-governance
 // Layers: execution-harness, software-framework, orchestration-cloud
+// Category: enabler
 
 == Governance and interpretability of proofs stacks in neuralese <sec:neuralese-gov>
 

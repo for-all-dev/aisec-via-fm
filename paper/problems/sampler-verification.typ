@@ -1,5 +1,6 @@
 // Tag: sampler-verification
 // Layers: software-framework, execution-harness
+// Category: widget
 
 == Sampler Integrity and Determinism <sec:sampler-verification>
 

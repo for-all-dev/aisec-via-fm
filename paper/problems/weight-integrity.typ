@@ -1,5 +1,6 @@
 // Tag: weight-integrity
 // Layers: execution-harness, software-framework, firmware-lowlevel
+// Category: widget
 
 == Weight Integrity and Kernel Supply Chain <sec:weight-integrity>
 
