@@ -1,7 +1,8 @@
-// Tag: edge-policy-verification
+// Tag: neuralese-governance
 // Layers: execution-harness, software-framework, orchestration-cloud
+// Category: enabler
 
-== Governance and interpretability of proofs stacks in neuralese <sec:neuralese-gov>
+== Governance and interpretability of proof stacks in neuralese <sec:neuralese-gov>
 
 table stakes is that proofs are cheap. We assume a proof oracle will make code and proofs that they're correct too cheap to meter.
 

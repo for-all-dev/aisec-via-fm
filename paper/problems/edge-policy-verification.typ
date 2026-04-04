@@ -1,5 +1,6 @@
 // Tag: edge-policy-verification
 // Layers: execution-harness, orchestration-cloud
+// Category: widget
 
 == Edge Policy Verification <sec:edge-policy>
 

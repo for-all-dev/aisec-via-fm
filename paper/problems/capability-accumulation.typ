@@ -1,5 +1,6 @@
 // Tag: capability-accumulation
 // Layers: execution-harness
+// Category: widget
 
 == Capability Accumulation and Loop Termination <sec:capability-accumulation>
 
