@@ -9,6 +9,10 @@ import type { LabelEntry } from "./typst-compiler"
 
 const PAPER_DIR = path.join(process.cwd(), "..", "paper")
 
+const PAPER_STACK_DIR = "stack"
+const PAPER_PROBLEMS_DIR = "problems"
+const PAPER_COMMON_DIR = "common"
+
 const STACK_LAYERS = [
   { id: "execution-harness", file: "stack/execution-harness.typ", label: "Execution Harness" },
   { id: "software-framework", file: "stack/software-framework.typ", label: "Software & ML Framework" },
@@ -86,9 +90,9 @@ function routeForTypFile(absolutePath: string): string | null {
   const rel = path.relative(PAPER_DIR, absolutePath) // e.g. "stack/execution-harness.typ"
   const parts = rel.split(path.sep) // ["stack", "execution-harness.typ"]
 
-  if (parts[0] === "common") return null
-  if (parts[0] === "stack") return "/stack"
-  if (parts[0] === "problems") {
+  if (parts[0] === PAPER_COMMON_DIR) return null
+  if (parts[0] === PAPER_STACK_DIR) return "/stack"
+  if (parts[0] === PAPER_PROBLEMS_DIR) {
     if (parts.length === 2) {
       const id = parts[1].replace(".typ", "")
       return id === "main" ? "/problems" : `/problems/${id}`
