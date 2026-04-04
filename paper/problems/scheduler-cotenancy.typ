@@ -2,7 +2,11 @@
 // Layers: orchestration-cloud
 // Category: widget
 
+#import "../common/fns.typ": related-layers
+
 == Scheduler Integrity and Co-Tenancy Isolation <sec:scheduler-cotenancy>
+
+#related-layers("scheduler-cotenancy")
 
 The cluster scheduler --- Kubernetes, Slurm, or a custom allocator --- decides which physical host runs which job. This is a security-relevant decision: an adversary who can influence placement (by timing job submissions, exploiting bin-packing heuristics, or compromising the scheduler API) can force co-location with a target tenant. Once co-resident on the same host, well-documented cache side-channel attacks (Flush+Reload, Prime+Probe) can extract model weights, activations, or training data from a victim job sharing the last-level cache or GPU memory fabric. The attack surface extends beyond confidentiality --- resource accounting errors in the scheduler allow attribution fraud, where one tenant's GPU-hours are billed to another, or where a malicious job consumes more than its allocated share without detection.
 

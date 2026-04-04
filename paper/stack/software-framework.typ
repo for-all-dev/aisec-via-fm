@@ -1,4 +1,7 @@
+#import "../common/fns.typ": related-problems
 == Software and ML Framework Layer <sec:software-framework>
+
+#related-problems("software-framework")
 
 Between the orchestration infrastructure below and the execution harness above sits the software that actually defines and compiles a model: the frameworks researchers write against, the compilers that lower their code to GPU kernels, and the sprawling dependency graph that connects everything. This layer is where the mathematical definition of a neural network meets the reality of executable code. A compromise here is particularly dangerous because it can alter what a model _computes_ without changing what it appears to be --- the weights, the architecture description, and the training logs all look clean while the compiled artifact does something else.
 

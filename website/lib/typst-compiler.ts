@@ -175,6 +175,22 @@ export function compileFragmentToHtml(
     (_match, label) => `\`XREF:${label}\``,
   )
 
+  // Rewrite per-file #import paths for common/fns.typ — the source is copied to
+  // a temp file in paper/, so relative paths like "../common/fns.typ" would escape
+  // the workspace. Rewrite them to "common/fns.typ" which is correct from paper/.
+  processed = processed.replace(
+    /^(#import\s+")[^"]*common\/fns\.typ(".*$)/gm,
+    "$1common/fns.typ$2",
+  )
+
+  // Strip #related-problems(...) and #related-layers(...) calls — the website
+  // handles cross-references via its own label registry and digraph, not via
+  // Typst's label/link system which requires all fragments in one compilation.
+  processed = processed.replace(
+    /^#related-(?:problems|layers)\(.*\)\s*$/gm,
+    "",
+  )
+
   // Write the processed source to a temp file and build a wrapper around it
   const tmpSrcPath = path.join(PAPER_DIR, `__src_${uid}.typ`)
   const wrapperPath = path.join(PAPER_DIR, `__wrapper_${uid}.typ`)

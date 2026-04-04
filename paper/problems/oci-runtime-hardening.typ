@@ -2,7 +2,11 @@
 // Layers: orchestration-cloud, execution-harness
 // Category: widget
 
+#import "../common/fns.typ": related-layers
+
 == OCI Runtime Hardening <sec:oci-hardening>
+
+#related-layers("oci-runtime-hardening")
 
 The standard container runtime, `runc`, implements the OCI specification atop Linux namespaces and cgroups. It was never designed to resist an adversary _inside_ the container, and the CVE record reflects this. When the workload in question is an AI agent with tool use (i.e. one that can write and execute arbitrary code), the gap between "process isolation" and "security boundary" becomes the whole game.
 

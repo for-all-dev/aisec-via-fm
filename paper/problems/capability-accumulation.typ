@@ -2,7 +2,11 @@
 // Layers: execution-harness
 // Category: widget
 
+#import "../common/fns.typ": related-layers
+
 == Capability Accumulation and Loop Termination <sec:capability-accumulation>
+
+#related-layers("capability-accumulation")
 
 A single tool call in an agentic harness is usually benign. Read a file, run a shell command, make an HTTP request --- each is authorized individually by whatever permission system the harness enforces. The problem is composition: read file + shell exec + HTTP request = exfiltrate a secret key. No single call crossed a policy boundary, but the _sequence_ did. This is the weird machines problem @bratus2011weird applied to AI tool use. In a weird machine exploit, individually legitimate instruction sequences compose into unintended computation; here, individually permitted tool calls compose into unauthorized capability. Capability-based security (Capsicum @watson2010capsicum, seL4 capabilities) provides the right theoretical framing --- authority should be confined, attenuated, and non-ambient --- but no formal model for AI harness tool sets exists. Current harnesses enforce per-call checks and hope for the best.
 
