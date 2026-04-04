@@ -2,6 +2,10 @@
 // Layers: execution-harness, software-framework, orchestration-cloud
 // Category: widget
 
+#import "../common/fns.typ": related-layers
+
 == AI Control via Proof-Carrying Code <sec:proof-carrying-code>
+
+#related-layers("execution-harness", "software-framework", "orchestration-cloud")
 
 #lorem(40) @dalrymple2024guaranteedsafeai @dodds2025specsdontexist #lorem(35)

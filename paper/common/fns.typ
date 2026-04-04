@@ -137,7 +137,7 @@
   link(lm.sec, layer-tag(lm.label))
 }
 
-/// Place at the end of a stack-layer section to list related problems.
+/// Place at the top of a stack-layer section to list related problems.
 #let related-problems(layer-id) = {
   let pids = _problems-for-layer(layer-id)
   if pids.len() > 0 {

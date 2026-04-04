@@ -40,11 +40,18 @@ export interface Problem {
   preview: string
 }
 
+/** Machine-readable layer-problem mapping, built from problem file headers. */
+export interface Digraph {
+  layers: Record<string, { label: string; sec: string }>
+  problems: Record<string, { label: string; sec: string; layers: string[]; category: string }>
+}
+
 export interface SiteContent {
   stack: StackLayer[]
   problems: Problem[]
   abstractHtml: string
   labelRegistry: Record<string, LabelEntry>
+  digraph: Digraph
 }
 
 const readFile = (filePath: string) =>
@@ -77,18 +84,10 @@ function walkTypFiles(dir: string): string[] {
 
 /**
  * Derive the website route for a .typ file given its absolute path.
- *
- * Rules (first match wins):
- *  - paper/stack/*.typ           → /stack
- *  - paper/problems/<id>.typ     → /problems/<id>  (main.typ → /problems)
- *  - paper/common/*.typ          → null (utility/macro files, no content route)
- *  - paper/<dir>/main.typ        → /<dir>
- *  - paper/<dir>/<file>.typ      → /<dir>/<file>
- *  - paper/main.typ              → /
  */
 function routeForTypFile(absolutePath: string): string | null {
-  const rel = path.relative(PAPER_DIR, absolutePath) // e.g. "stack/execution-harness.typ"
-  const parts = rel.split(path.sep) // ["stack", "execution-harness.typ"]
+  const rel = path.relative(PAPER_DIR, absolutePath)
+  const parts = rel.split(path.sep)
 
   if (parts[0] === PAPER_COMMON_DIR) return null
   if (parts[0] === PAPER_STACK_DIR) return "/stack"
@@ -99,9 +98,8 @@ function routeForTypFile(absolutePath: string): string | null {
     }
     return "/problems"
   }
-  if (parts.length === 1) return "/" // paper/main.typ
+  if (parts.length === 1) return "/"
 
-  // e.g. paper/executive/main.typ → /executive
   const dir = parts[0]
   const file = parts[parts.length - 1].replace(".typ", "")
   return file === "main" ? `/${dir}` : `/${dir}/${file}`
@@ -126,6 +124,38 @@ function buildLabelRegistry(): Map<string, LabelEntry> {
   }
 
   return registry
+}
+
+/** Build digraph from problem file comment headers and the STACK_LAYERS constant. */
+function loadDigraph(): Digraph {
+  const layers: Digraph["layers"] = {}
+  for (const { id, label } of STACK_LAYERS) {
+    layers[id] = { label, sec: `sec:${id}` }
+  }
+
+  const problems: Digraph["problems"] = {}
+  const problemDir = path.join(PAPER_DIR, "problems")
+  const files = fsSync.readdirSync(problemDir).filter((f) => f.endsWith(".typ") && f !== "main.typ")
+  for (const f of files) {
+    const src = fsSync.readFileSync(path.join(problemDir, f), "utf-8")
+    const tagMatch = src.match(/^\/\/ Tag: (.+)$/m)
+    const layersMatch = src.match(/^\/\/ Layers: (.+)$/m)
+    const categoryMatch = src.match(/^\/\/ Category: (.+)$/m)
+    const headingMatch = src.match(/^==\s+(.+?)\s+<(sec:[a-z0-9-]+)>/m)
+    if (tagMatch && layersMatch && headingMatch) {
+      const tag = tagMatch[1].trim()
+      const fileLayers = layersMatch[1].split(",").map((s) => s.trim())
+      const category = categoryMatch?.[1].trim() ?? "widget"
+      problems[tag] = {
+        label: headingMatch[1].trim(),
+        sec: headingMatch[2],
+        layers: fileLayers,
+        category,
+      }
+    }
+  }
+
+  return { layers, problems }
 }
 
 const loadAll = Effect.gen(function* () {
@@ -169,8 +199,9 @@ const loadAll = Effect.gen(function* () {
 
   // Convert registry map to plain object for JSON serialization
   const labelRegistry = Object.fromEntries(registryMap)
+  const digraph = loadDigraph()
 
-  return { stack, problems, abstractHtml, labelRegistry } satisfies SiteContent
+  return { stack, problems, abstractHtml, labelRegistry, digraph } satisfies SiteContent
 })
 
 export async function getSiteContent(): Promise<SiteContent> {
