@@ -23,8 +23,10 @@
 #let problem-category(cat) = {
   let (fill-color, stroke-color, text-color) = if cat == "enabler" {
     (rgb("#fef3c7"), rgb("#d97706"), rgb("#92400e"))
-  } else {
+  } else if cat == "widget" {
     (rgb("#d1fae5"), rgb("#059669"), rgb("#065f46"))
+  } else {
+    panic("Invalid problem category `" + str(cat) + "`. Expected one of: \"enabler\", \"widget\".")
   }
   box(
     fill: fill-color,
