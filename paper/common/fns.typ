@@ -114,14 +114,20 @@
 }
 
 /// Render a clickable badge linking to a problem section.
+/// Enablers are amber, widgets are green (matching problem-category styles).
 #let problem-badge(pid) = {
   let pm = _problem-meta.at(pid)
+  let (fill-color, stroke-color, text-color) = if pm.category == "enabler" {
+    (rgb("#fef3c7"), rgb("#d97706"), rgb("#92400e"))
+  } else {
+    (rgb("#d1fae5"), rgb("#059669"), rgb("#065f46"))
+  }
   link(pm.sec, box(
-    fill: rgb("#fef3c7"),
-    stroke: rgb("#d97706"),
+    fill: fill-color,
+    stroke: stroke-color,
     radius: 3pt,
     inset: (x: 4pt, y: 2pt),
-    text(size: 7pt, fill: rgb("#92400e"), pm.label),
+    text(size: 7pt, fill: text-color, pm.label),
   ))
 }
 
