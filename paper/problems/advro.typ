@@ -1,5 +1,6 @@
 // Tag: adversarial-robustness-fm
 // Layers: software-framework, execution-harness
+// Category: enabler
 
 == Adversarial Robustness of Formal Methods <sec:adversarial-robustness>
 

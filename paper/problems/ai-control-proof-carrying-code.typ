@@ -1,5 +1,6 @@
 // Tag: ai-control-proof-carrying-code
 // Layers: execution-harness, software-framework, orchestration-cloud
+// Category: widget
 
 == AI Control via Proof-Carrying Code <sec:proof-carrying-code>
 

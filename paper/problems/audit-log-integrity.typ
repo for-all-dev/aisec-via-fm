@@ -1,5 +1,6 @@
 // Tag: audit-log-integrity
 // Layers: execution-harness, orchestration-cloud
+// Category: widget
 
 == Audit Log Integrity and Session State Channels <sec:audit-log-integrity>
 

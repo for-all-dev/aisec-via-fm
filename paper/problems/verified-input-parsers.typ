@@ -1,5 +1,6 @@
 // Tag: verified-input-parsers
 // Layers: execution-harness, software-framework
+// Category: widget
 
 == Verified Input Parsers <sec:verified-input-parsers>
 

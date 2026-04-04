@@ -1,5 +1,6 @@
 // Tag: context-window-integrity
 // Layers: execution-harness
+// Category: widget
 
 == Context Window Integrity Under Adversarial Length <sec:context-window-integrity>
 

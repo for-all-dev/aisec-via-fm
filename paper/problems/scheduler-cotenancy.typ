@@ -1,5 +1,6 @@
 // Tag: scheduler-cotenancy
 // Layers: orchestration-cloud
+// Category: widget
 
 == Scheduler Integrity and Co-Tenancy Isolation <sec:scheduler-cotenancy>
 
