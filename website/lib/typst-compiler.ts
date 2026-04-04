@@ -25,21 +25,54 @@ export interface LabelEntry {
   route: string
   /** Human-readable title or caption for hover previews */
   title: string
+  /** Plain-text preview of the section content (first ~300 chars) */
+  preview?: string
+}
+
+/**
+ * Extract a plain-text preview from the typst source starting after a given
+ * match index. Grabs the first non-empty, non-comment, non-directive lines
+ * up to ~300 chars.
+ */
+function extractPreviewAfter(src: string, matchEnd: number): string {
+  const rest = src.slice(matchEnd)
+  const lines = rest.split("\n")
+  let preview = ""
+  for (const line of lines) {
+    const trimmed = line.trim()
+    // skip blanks, comments, typst directives, headings
+    if (!trimmed || trimmed.startsWith("//") || trimmed.startsWith("#") || trimmed.startsWith("=")) continue
+    if (preview) preview += " "
+    preview += trimmed
+    if (preview.length >= 300) break
+  }
+  // Strip typst markup: @refs, inline code, emphasis markers, links
+  preview = preview
+    .replace(/@[\w:-]+/g, "")
+    .replace(/`[^`]*`/g, "")
+    .replace(/\*([^*]+)\*/g, "$1")
+    .replace(/_([^_]+)_/g, "$1")
+    .replace(/#link\([^)]*\)\[[^\]]*\]/g, "")
+    .replace(/\s+/g, " ")
+    .trim()
+  return preview.slice(0, 300) + (preview.length > 300 ? "…" : "")
 }
 
 /**
  * Scan a typst source string for label definitions.
- * Returns an array of { label, kind, title } objects (route is filled in by the caller).
+ * Returns an array of { label, kind, title, preview } objects (route is filled in by the caller).
  */
 export function extractLabels(src: string): Omit<LabelEntry, "route">[] {
   const results: Omit<LabelEntry, "route">[] = []
 
   // Heading labels: `== Some Title <sec:some-label>`
-  for (const m of src.matchAll(new RegExp(`^=+\\s+(.+?)\\s+<(${LABEL_RE.source})>\\s*$`, "gm"))) {
+  const headingRe = new RegExp(`^=+\\s+(.+?)\\s+<(${LABEL_RE.source})>\\s*$`, "gm")
+  for (const m of src.matchAll(headingRe)) {
     const title = m[1].trim()
     const label = m[2]
     const kind = label.split(":")[0] as LabelEntry["kind"]
-    results.push({ label, kind, title })
+    const preview = extractPreviewAfter(src, m.index! + m[0].length)
+    results.push({ label, kind, title, preview })
   }
 
   // Figure labels: `caption: [text]` followed by `<fig:...>` nearby
@@ -188,8 +221,9 @@ export function compileFragmentToHtml(
         // If the label lives on another page, link to route+anchor.
         // Otherwise fall back to a same-page anchor.
         const href = entry ? `${entry.route}#${label}` : `#${label}`
+        const previewAttr = entry?.preview ? ` data-label-preview="${escapeAttr(entry.preview)}"` : ""
         const dataAttrs = entry
-          ? ` data-label="${label}" data-label-title="${escapeAttr(entry.title)}" data-label-kind="${entry.kind}"`
+          ? ` data-label="${label}" data-label-title="${escapeAttr(entry.title)}" data-label-kind="${entry.kind}"${previewAttr}`
           : ` data-label="${label}"`
         return `<a href="${href}" class="${prefix}-ref xref"${dataAttrs}>${sym}</a>`
       },

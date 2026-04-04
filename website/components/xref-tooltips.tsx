@@ -20,22 +20,65 @@ export function XrefTooltips() {
       tooltip = document.createElement("div")
       tooltip.className = "xref-tooltip"
       tooltip.setAttribute("role", "tooltip")
+      tooltip.style.maxWidth = "50ch"
+      tooltip.style.whiteSpace = "normal"
+      tooltip.style.wordWrap = "break-word"
       document.body.appendChild(tooltip)
       return tooltip
     }
 
-    function show(anchor: HTMLAnchorElement) {
+    function showXref(anchor: HTMLAnchorElement) {
       const title = anchor.getAttribute("data-label-title")
       const kind = anchor.getAttribute("data-label-kind")
+      const preview = anchor.getAttribute("data-label-preview")
       if (!title) return
 
       const el = getTooltip()
       const prefix =
         kind === "fig" ? "Figure: " : kind === "tab" ? "Table: " : ""
-      el.textContent = prefix + title
-      el.style.display = "block"
+      el.innerHTML = ""
+      const titleEl = document.createElement("strong")
+      titleEl.textContent = prefix + title
+      el.appendChild(titleEl)
+      if (preview) {
+        const previewEl = document.createElement("p")
+        previewEl.textContent = preview
+        previewEl.style.margin = "0.3rem 0 0"
+        previewEl.style.fontWeight = "normal"
+        previewEl.style.opacity = "0.8"
+        previewEl.style.fontSize = "0.7rem"
+        previewEl.style.lineHeight = "1.4"
+        el.appendChild(previewEl)
+      }
+      positionAbove(el, anchor)
+    }
 
-      // Position above the anchor
+    function showBibRef(anchor: HTMLAnchorElement) {
+      const href = anchor.getAttribute("href")
+      if (!href) return
+      const targetId = href.replace("#", "")
+      const entry = document.getElementById(targetId)
+      if (!entry) return
+
+      const el = getTooltip()
+      el.innerHTML = ""
+      // Get the citation text, stripping the backlink prefix like "[1]"
+      const clone = entry.cloneNode(true) as HTMLElement
+      const backlinks = clone.querySelectorAll('[role="doc-backlink"]')
+      backlinks.forEach((bl) => bl.parentElement?.remove())
+      const text = clone.textContent?.trim() ?? ""
+      if (!text) return
+
+      const citEl = document.createElement("span")
+      citEl.textContent = text.slice(0, 400) + (text.length > 400 ? "…" : "")
+      citEl.style.fontSize = "0.7rem"
+      citEl.style.lineHeight = "1.4"
+      el.appendChild(citEl)
+      positionAbove(el, anchor)
+    }
+
+    function positionAbove(el: HTMLDivElement, anchor: HTMLElement) {
+      el.style.display = "block"
       const rect = anchor.getBoundingClientRect()
       el.style.left = `${rect.left + window.scrollX}px`
       el.style.top = `${rect.top + window.scrollY - el.offsetHeight - 6}px`
@@ -46,13 +89,17 @@ export function XrefTooltips() {
     }
 
     function onOver(e: MouseEvent) {
-      const anchor = (e.target as HTMLElement).closest("a.xref[data-label-title]")
-      if (anchor) show(anchor as HTMLAnchorElement)
+      const target = e.target as HTMLElement
+      const xref = target.closest("a.xref[data-label-title]")
+      if (xref) { showXref(xref as HTMLAnchorElement); return }
+      const bibref = target.closest('a[role="doc-biblioref"]')
+      if (bibref) { showBibRef(bibref as HTMLAnchorElement); return }
     }
 
     function onOut(e: MouseEvent) {
-      const anchor = (e.target as HTMLElement).closest("a.xref[data-label-title]")
-      if (anchor) hide()
+      const target = e.target as HTMLElement
+      const match = target.closest('a.xref[data-label-title], a[role="doc-biblioref"]')
+      if (match) hide()
     }
 
     document.body.addEventListener("mouseover", onOver)

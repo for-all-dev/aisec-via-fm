@@ -264,11 +264,9 @@ a.tab-ref { color: var(--pink); }
   border: 1px solid var(--border);
   color: var(--fg);
   font-size: 0.75rem;
-  padding: 0.3rem 0.6rem;
-  max-width: 40ch;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  padding: 0.4rem 0.7rem;
+  max-width: 50ch;
+  white-space: normal;
   pointer-events: none;
 }
 
