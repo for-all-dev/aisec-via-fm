@@ -1,6 +1,7 @@
 import type { Metadata } from "next"
 import { Geist_Mono } from "next/font/google"
 import Link from "next/link"
+import { XrefTooltips } from "../components/xref-tooltips"
 import "./globals.css"
 
 const geistMono = Geist_Mono({
@@ -38,6 +39,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           </a>
         </nav>
         {children}
+        <XrefTooltips />
         <footer>
           built {buildDate} ·{" "}
           <a href={GH_REPO}>for-all-dev/aisec-via-fm</a>
