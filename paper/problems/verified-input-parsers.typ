@@ -1,6 +1,7 @@
 // Tag: verified-input-parsers
 // Layers: execution-harness, software-framework
 // Category: widget
+// Authors: quinn, maxvh
 
 #import "../common/fns.typ": related-layers
 

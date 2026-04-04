@@ -1,6 +1,7 @@
 // Tag: capability-accumulation
 // Layers: execution-harness
 // Category: widget
+// Authors: quinn, maxvh
 
 #import "../common/fns.typ": related-layers
 

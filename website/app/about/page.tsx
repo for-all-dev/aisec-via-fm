@@ -5,6 +5,7 @@ export const dynamic = "force-static"
 const AUTHORS = [
   {
     name: "Quinn Dougherty",
+    slug: "quinn",
     role: "Principal",
     org: "Forall R&D",
     location: "Washington DC",
@@ -12,6 +13,7 @@ const AUTHORS = [
   },
   {
     name: "Max von Hippel",
+    slug: "maxvh",
     role: "Job Title",
     org: "Anduril",
     location: "Boulder",
@@ -33,7 +35,7 @@ export default async function AboutPage() {
       <section style={{ marginBottom: "2rem" }}>
         {AUTHORS.map((a) => {
           const contributed = problems.filter(
-            (p) => p.authors.length === 0 || p.authors.some((n) => n === a.name)
+            (p) => p.authors.includes(a.slug)
           )
           return (
             <div key={a.name} className="author-card">
@@ -72,7 +74,7 @@ export default async function AboutPage() {
       <section>
         <p className="text-muted text-xs mb-3">
           // to claim partial authorship, add{" "}
-          <code style={{ fontSize: "0.75rem" }}>// Authors: Your Name</code> to the relevant{" "}
+          <code style={{ fontSize: "0.75rem" }}>// Authors: your-slug</code> to the relevant{" "}
           <code style={{ fontSize: "0.75rem" }}>paper/problems/*.typ</code> file
         </p>
       </section>

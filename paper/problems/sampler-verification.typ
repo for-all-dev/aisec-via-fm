@@ -1,6 +1,7 @@
 // Tag: sampler-verification
 // Layers: software-framework, execution-harness
 // Category: widget
+// Authors: quinn, maxvh
 
 #import "../common/fns.typ": related-layers
 

@@ -1,6 +1,7 @@
 // Tag: adversarial-robustness-fm
 // Layers: software-framework, execution-harness
 // Category: enabler
+// Authors: quinn, maxvh
 
 #import "../common/fns.typ": related-layers
 

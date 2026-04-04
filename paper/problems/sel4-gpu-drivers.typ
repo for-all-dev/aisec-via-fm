@@ -1,6 +1,7 @@
 // Tag: sel4-gpu-drivers
 // Layers: firmware-lowlevel, hardware-supply-chain
 // Category: widget
+// Authors: quinn
 
 #import "../common/fns.typ": related-layers
 

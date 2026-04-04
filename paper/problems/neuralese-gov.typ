@@ -1,6 +1,7 @@
 // Tag: neuralese-governance
 // Layers: execution-harness, software-framework, orchestration-cloud
 // Category: enabler
+// Authors: quinn
 
 #import "../common/fns.typ": related-layers
 

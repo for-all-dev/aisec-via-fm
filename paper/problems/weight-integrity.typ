@@ -1,6 +1,7 @@
 // Tag: weight-integrity
 // Layers: execution-harness, software-framework, firmware-lowlevel
 // Category: widget
+// Authors: quinn, maxvh
 
 #import "../common/fns.typ": related-layers
 
