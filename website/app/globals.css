@@ -201,12 +201,84 @@ details.stack-layer > summary::-webkit-details-marker {
   text-decoration: none;
 }
 
+/* filter bar */
+.filter-bar {
+  margin-bottom: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.filter-group {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.filter-label {
+  color: var(--muted);
+  font-size: 0.7rem;
+  margin-right: 0.25rem;
+}
+
+.filter-chip {
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--fg-alt);
+  font-family: inherit;
+  font-size: 0.7rem;
+  padding: 0.15rem 0.5rem;
+  cursor: pointer;
+  transition: border-color 0.1s, color 0.1s;
+}
+
+.filter-chip:hover {
+  border-color: var(--muted);
+  color: var(--fg);
+}
+
+.filter-chip.layer.active {
+  border-color: var(--green);
+  color: var(--green);
+}
+
+.filter-chip.enabler.active {
+  border-color: var(--yellow);
+  color: var(--yellow);
+}
+
+.filter-chip.widget.active {
+  border-color: var(--pink);
+  color: var(--pink);
+}
+
 /* problem card */
 .problem-card {
+  position: relative;
   border: 1px solid var(--border);
   background: var(--bg-alt);
   padding: 1rem 1.25rem;
   margin-bottom: 0.5rem;
+}
+
+.category-badge {
+  position: absolute;
+  bottom: 0.75rem;
+  right: 1rem;
+  font-size: 0.65rem;
+  padding: 0.1rem 0.45rem;
+  border: 1px solid;
+}
+
+.category-badge.enabler {
+  color: var(--yellow);
+  border-color: var(--yellow);
+}
+
+.category-badge.widget {
+  color: var(--pink);
+  border-color: var(--pink);
 }
 
 .problem-card:hover {

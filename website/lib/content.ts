@@ -30,15 +30,8 @@ export interface StackLayer {
   html: string
 }
 
-export interface Problem {
-  id: string
-  tag: string
-  layers: string[]
-  authors: string[]
-  title: string
-  html: string
-  preview: string
-}
+export type { Problem } from "./types"
+import type { Problem } from "./types"
 
 /** Machine-readable layer-problem mapping, built from problem file headers. */
 export interface Digraph {

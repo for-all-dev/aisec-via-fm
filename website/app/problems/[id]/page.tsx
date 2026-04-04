@@ -25,6 +25,8 @@ export default async function ProblemPage({ params }: { params: Promise<{ id: st
           <Link href="/problems">problems</Link>
           {" / "}
           <span style={{ color: "var(--green)" }}>{problem.tag}</span>
+          {" / "}
+          <span style={{ color: problem.category === "enabler" ? "var(--yellow)" : "var(--pink)" }}>{problem.category}</span>
         </p>
         <h1 style={{ color: "var(--yellow)", fontSize: "1.3rem" }}>{problem.title}</h1>
         <div style={{ marginTop: "0.5rem" }}>

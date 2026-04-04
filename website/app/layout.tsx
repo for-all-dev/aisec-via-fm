@@ -21,8 +21,8 @@ const buildDate = process.env.NEXT_PUBLIC_BUILD_DATE ?? ""
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={geistMono.variable}>
-      <body>
+    <html lang="en" className={geistMono.variable} suppressHydrationWarning>
+      <body suppressHydrationWarning>
         <nav>
           <Link href="/" className="site-title">
             tractable.for-all.dev
