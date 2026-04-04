@@ -56,42 +56,68 @@ const readDir = (dirPath: string) =>
   })
 
 /**
- * Build a label registry by scanning all .typ source files.
- * Maps each label to the website route where it lives + its title.
- * This runs synchronously at build time before any compilation.
+ * Recursively collect all .typ file paths under a directory.
+ */
+function walkTypFiles(dir: string): string[] {
+  const results: string[] = []
+  for (const entry of fsSync.readdirSync(dir, { withFileTypes: true })) {
+    const full = path.join(dir, entry.name)
+    if (entry.isDirectory()) {
+      results.push(...walkTypFiles(full))
+    } else if (entry.isFile() && entry.name.endsWith(".typ")) {
+      results.push(full)
+    }
+  }
+  return results
+}
+
+/**
+ * Derive the website route for a .typ file given its absolute path.
+ *
+ * Rules (first match wins):
+ *  - paper/stack/*.typ           → /stack
+ *  - paper/problems/<id>.typ     → /problems/<id>  (main.typ → /problems)
+ *  - paper/common/*.typ          → null (utility/macro files, no content route)
+ *  - paper/<dir>/main.typ        → /<dir>
+ *  - paper/<dir>/<file>.typ      → /<dir>/<file>
+ *  - paper/main.typ              → /
+ */
+function routeForTypFile(absolutePath: string): string | null {
+  const rel = path.relative(PAPER_DIR, absolutePath) // e.g. "stack/execution-harness.typ"
+  const parts = rel.split(path.sep) // ["stack", "execution-harness.typ"]
+
+  if (parts[0] === "common") return null
+  if (parts[0] === "stack") return "/stack"
+  if (parts[0] === "problems") {
+    if (parts.length === 2) {
+      const id = parts[1].replace(".typ", "")
+      return id === "main" ? "/problems" : `/problems/${id}`
+    }
+    return "/problems"
+  }
+  if (parts.length === 1) return "/" // paper/main.typ
+
+  // e.g. paper/executive/main.typ → /executive
+  const dir = parts[0]
+  const file = parts[parts.length - 1].replace(".typ", "")
+  return file === "main" ? `/${dir}` : `/${dir}/${file}`
+}
+
+/**
+ * Build a label registry by recursively scanning all .typ source files under
+ * the paper directory. Maps each label to the website route where it lives +
+ * its title. This runs synchronously at build time before any compilation.
  */
 function buildLabelRegistry(): Map<string, LabelEntry> {
   const registry = new Map<string, LabelEntry>()
 
-  // Stack layer files -> route: /stack (all layers render on one page)
-  for (const { file } of STACK_LAYERS) {
-    const src = fsSync.readFileSync(path.join(PAPER_DIR, file), "utf-8")
-    for (const entry of extractLabels(src)) {
-      registry.set(entry.label, { ...entry, route: "/stack" })
-    }
-  }
+  for (const absolutePath of walkTypFiles(PAPER_DIR)) {
+    const route = routeForTypFile(absolutePath)
+    if (route === null) continue
 
-  // Problem files -> route: /problems/<id>
-  const problemDir = path.join(PAPER_DIR, "problems")
-  const problemFiles = fsSync.readdirSync(problemDir)
-    .filter((f) => f.endsWith(".typ") && f !== "main.typ")
-  for (const f of problemFiles) {
-    const id = f.replace(".typ", "")
-    const src = fsSync.readFileSync(path.join(problemDir, f), "utf-8")
+    const src = fsSync.readFileSync(absolutePath, "utf-8")
     for (const entry of extractLabels(src)) {
-      registry.set(entry.label, { ...entry, route: `/problems/${id}` })
-    }
-  }
-
-  // Stack and problem main.typ files (section-level headings)
-  for (const mainFile of ["stack/main.typ", "problems/main.typ"]) {
-    const fullPath = path.join(PAPER_DIR, mainFile)
-    if (fsSync.existsSync(fullPath)) {
-      const src = fsSync.readFileSync(fullPath, "utf-8")
-      const route = mainFile.startsWith("stack") ? "/stack" : "/problems"
-      for (const entry of extractLabels(src)) {
-        registry.set(entry.label, { ...entry, route })
-      }
+      registry.set(entry.label, { ...entry, route })
     }
   }
 
