@@ -6,7 +6,7 @@
 
 == Verified Input Parsers <sec:verified-input-parsers>
 
-#related-layers("execution-harness", "software-framework")
+#related-layers("verified-input-parsers")
 
 Every boundary in the AI serving stack where text is parsed or transformed is a security boundary. The abuse classifier preprocessor tokenizes, truncates, and encodes user input before classification --- if that pipeline is wrong in any of several subtle ways (non-idempotent truncation, encoding expansion, off-by-one in token windowing), an adversary can craft inputs that the classifier never actually sees. The prompt assembly layer concatenates system instructions, developer instructions, retrieved context, and user messages into a single model input, relying on implicit priority ordering that the model is supposed to respect but cannot enforce. The tokenizer itself --- typically byte-pair encoding --- is deterministic but has never been formally specified; BPE admits multiple encodings for the same string and includes control-character tokens that downstream components may interpret specially. And on the output side, tool-call parsers extract structured invocations from free-form model text, where any confusion between "model is describing a tool call" and "model is issuing a tool call" is a direct security breach.
 

@@ -6,6 +6,6 @@
 
 == Network Tap FPGA Specification <sec:network-tap-fpga>
 
-#related-layers("orchestration-cloud", "hardware-supply-chain")
+#related-layers("network-tap-fpga")
 
 TODO: get my guy to write this up.

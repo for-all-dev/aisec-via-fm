@@ -6,7 +6,7 @@
 
 == Audit Log Integrity and Session State Channels <sec:audit-log-integrity>
 
-#related-layers("execution-harness", "orchestration-cloud")
+#related-layers("audit-log-integrity")
 
 The audit log is the primary accountability mechanism for deployed AI systems. Regulators, red teams, and incident responders all depend on the same thing: a complete, tamper-evident record of what the model did. If log entries can be suppressed, falsified, or selectively deleted, the system is effectively unauditable --- and any safety claim that rests on "we can review the logs" collapses. Append-only storage and cryptographic log chaining (in the style of Certificate Transparency @laurie2014ct) provide tamper _evidence_, but the implementations are not formally verified. The gap between "we use Merkle trees" and "no API call sequence available to the serving infrastructure can modify a committed entry" is exactly the gap formal methods fills.
 

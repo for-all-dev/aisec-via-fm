@@ -150,8 +150,11 @@
 }
 
 /// Place at the top of a problem section to list related layers.
-#let related-layers(..layer-ids) = {
-  let ids = layer-ids.pos()
+/// Takes the problem's tag and looks up the layers from _problem-meta,
+/// so the `// Layers:` comment header is the single source of truth.
+#let related-layers(problem-tag) = {
+  let pm = _problem-meta.at(problem-tag)
+  let ids = pm.layers
   if ids.len() > 0 {
     block(
       above: 4pt,

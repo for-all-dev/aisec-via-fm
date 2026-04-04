@@ -6,7 +6,7 @@
 
 == Governance and interpretability of proof stacks in neuralese <sec:neuralese-gov>
 
-#related-layers("execution-harness", "software-framework", "orchestration-cloud")
+#related-layers("neuralese-governance")
 
 table stakes is that proofs are cheap. We assume a proof oracle will make code and proofs that they're correct too cheap to meter.
 

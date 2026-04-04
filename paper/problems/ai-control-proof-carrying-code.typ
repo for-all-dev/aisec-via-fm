@@ -6,6 +6,6 @@
 
 == AI Control via Proof-Carrying Code <sec:proof-carrying-code>
 
-#related-layers("execution-harness", "software-framework", "orchestration-cloud")
+#related-layers("ai-control-proof-carrying-code")
 
 #lorem(40) @dalrymple2024guaranteedsafeai @dodds2025specsdontexist #lorem(35)
