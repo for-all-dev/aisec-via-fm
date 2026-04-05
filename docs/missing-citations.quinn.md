@@ -11,7 +11,7 @@ _From the prose audit of 2026-04-05. Each entry names the file, line, the claim 
 
 - [x] **L14**: "LLVM's MLIR infrastructure had multiple memory-management vulnerabilities in 2023 (CVE-2023-29932 through CVE-2023-29939)" — `@cve2023mlir`
 - [ ] **L14**: "a 2025 XLA:TPU miscompilation in the approximate top-k operation" — Google bug tracker, XLA changelog, or the commit that fixed it
-- [ ] **L16**: "CompCert closed for C" — Leroy, Xavier. "Formal verification of a realistic compiler." CACM 2009 (or the original POPL 2006 paper)
+- [x] **L16**: "CompCert closed for C" — `@leroy2009compcert`
 - [x] **L22**: "CVE-2025-32434 (CVSS 9.3)" — `@cve2025pytorch`
 - [ ] **L22**: "JFrog found three zero-day bypasses in the scanner itself" — JFrog blog post (search "JFrog PickleScan bypass" or "JFrog PyTorch pickle")
 - [ ] **L22**: "Approximately 100 malicious models with real reverse-shell payloads have been found on Hugging Face's model hub" — JFrog or HF security team blog post documenting the count
@@ -28,8 +28,8 @@ _From the prose audit of 2026-04-05. Each entry names the file, line, the claim 
 - [x] **L12**: "CVE-2017-15566" (Slurm SPANK priv esc) — `@cve2017slurmspank`
 - [x] **L14**: "ShadowRay campaign (CVE-2023-48022, CVSS 9.8)" — `@cve2023shadowray`
 - [ ] **L38**: "researchers documented an attack chain where compromised credentials reached cloud administrator privileges in eight minutes, traversing 19 IAM roles" — likely a Wiz, Orca, or Palo Alto Unit 42 report from 2025; search for "IAM privilege escalation 19 roles 8 minutes"
-- [ ] **L40**: "PoisonGPT demonstration" — Mithril Security blog post, 2023
-- [ ] **L42**: "GitGuardian's 2025 report found 23.8 million secrets leaked in public GitHub repositories" — GitGuardian State of Secrets Sprawl 2025 report
+- [x] **L40**: "PoisonGPT demonstration" — `@mithril2023poisongpt`
+- [x] **L42**: "GitGuardian's 2025 report found 23.8 million secrets leaked in public GitHub repositories" — `@gitguardian2025secrets`
 
 ## paper/stack/firmware-lowlevel.typ
 
@@ -43,18 +43,18 @@ _From the prose audit of 2026-04-05. Each entry names the file, line, the claim 
 - [x] **L20**: "CVE-2022-21819" (Jetson PCIe DMA bypass) — `@cve2022nvjetsondma`
 - [x] **L30**: "BlackLotus bootkit (2023) exploited CVE-2022-21894" — `@cve2022blacklotus`
 - [x] **L32**: "Binarly disclosed seven vulnerabilities in Supermicro BMC firmware (CVE-2023-40284 through CVE-2023-40290)" — `@cve2023supermicrobmc`
-- [ ] **L34**: "2022 LAPSUS$ breach of NVIDIA resulted in the theft of two code-signing certificates" — news coverage (BleepingComputer, The Record) or NVIDIA's own disclosure
+- [x] **L34**: "2022 LAPSUS$ breach of NVIDIA resulted in the theft of two code-signing certificates" — `@lapsus2022nvidia`
 
 ## paper/stack/hardware-supply-chain.typ
 
 - [ ] **L12**: "Rajendran et al. demonstrated in their 'CAD-Base' work" — Rajendran et al., probably "Is Split Manufacturing Secure?" or their EDA trojan insertion paper; search "Rajendran CAD hardware trojan EDA"
 - [ ] **L16**: "Intel adopted formal methods in earnest after the 1994 Pentium FDIV bug ($475 million recall)" — Harrison, "Formal Verification at Intel" or Seger/Bryant's retrospective
-- [ ] **L16**: "ARM's ISA-Formal framework" — Reid et al., "End-to-End Verification of Processors with ISA-Formal," CAV 2016
+- [x] **L16**: "ARM's ISA-Formal framework" — `@reid2016isaformal`
 - [ ] **L18**: "YosysHQ's riscv-formal" — YosysHQ GitHub repo or Clifford Wolf's documentation
 - [ ] **L18**: "OpenHW Group's CORE-V-VERIF" — OpenHW Group GitHub or their verification strategy doc
 - [ ] **L18**: "MIT's Riscy processors" — Riscy Expedition / Kami project, likely Choi et al. MICRO 2017 or the Kami ICFP 2017 paper
-- [ ] **L26**: "Maia et al. (USENIX Security 2022)" — full bib entry needed; search "GPU power cable magnetic flux neural network USENIX 2022"
-- [ ] **L26**: "'Graphics Peeping Unit' work (IEEE S&P 2022)" — full bib entry needed; search "Graphics Peeping Unit electromagnetic GPU IEEE S&P 2022"
+- [x] **L26**: "Maia et al. (USENIX Security 2022)" — `@maia2022gpupowercable`
+- [x] **L26**: "'Graphics Peeping Unit' work (IEEE S&P 2022)" — `@zhan2022gpupeeping`
 - [ ] **L30**: "DARPA estimated counterfeiting costs the electronics industry $170 billion annually" — DARPA SHIELD program page or the IPC/ERAI counterfeit report that sources this number
 - [ ] **L32**: "TSMC fabricates over 90% of the world's most advanced chips" — SIA report or a specific industry analysis (this number is widely cited but worth pinning to a source)
 
@@ -65,12 +65,12 @@ _From the prose audit of 2026-04-05. Each entry names the file, line, the claim 
 
 ## paper/problems/scheduler-cotenancy.typ
 
-- [ ] **L12**: "well-documented cache side-channel attacks (Flush+Reload, Prime+Probe)" — Yarom & Falkner, "FLUSH+RELOAD," USENIX Security 2014; Liu et al., "Last-Level Cache Side-Channel Attacks are Practical," IEEE S&P 2015
+- [x] **L12**: "well-documented cache side-channel attacks (Flush+Reload, Prime+Probe)" — `@yarom2014flushandreload`, `@liu2015llcsidechannel`
 
 ## paper/problems/weight-integrity.typ
 
-- [ ] **L22**: "translation validation in the style of Pnueli, Siegel, and Singerman (1998)" — Pnueli, Siegel, Singerman, "Translation Validation," TACAS 1998
-- [ ] **L22**: "Fiat Cryptography" — Erbsen et al., "Simple High-Level Code for Cryptographic Arithmetic," IEEE S&P 2019
+- [x] **L22**: "translation validation in the style of Pnueli, Siegel, and Singerman (1998)" — `@pnueli1998translationvalidation`
+- [x] **L22**: "Fiat Cryptography" — `@erbsen2019fiatcrypto`
 
 ## paper/problems/advro.typ
 
@@ -78,4 +78,4 @@ _From the prose audit of 2026-04-05. Each entry names the file, line, the claim 
 
 ## paper/problems/sampler-verification.typ
 
-- [ ] **L18**: "PRISM or Storm" — Kwiatkowska et al., "PRISM 4.0" (tool paper); Dehnert et al., "A Storm is Coming" (STTT 2017)
+- [x] **L18**: "PRISM or Storm" — `@kwiatkowska2011prism`, `@dehnert2017storm`

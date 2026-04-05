@@ -611,3 +611,166 @@
                   \texttt{alg:none} or RSA-to-HMAC key confusion. Discovered
                   by Tim McLean}
 }
+
+@article{leroy2009compcert,
+  author =       {Leroy, Xavier},
+  title =        {Formal verification of a realistic compiler},
+  journal =      {Communications of the ACM},
+  volume =       52,
+  number =       7,
+  pages =        {107--115},
+  year =         2009,
+  doi =          {10.1145/1538788.1538814},
+  note =         {End-to-end verified C compiler (CompCert) in Coq; proves
+                  that compiled code preserves the semantics of the source}
+}
+
+@inproceedings{pnueli1998translationvalidation,
+  author =       {Pnueli, Amir and Siegel, Michael and Singerman, Eli},
+  title =        {Translation Validation},
+  booktitle =    {Proceedings of the 4th International Conference on Tools and
+                  Algorithms for the Construction and Analysis of Systems
+                  (TACAS)},
+  year =         1998,
+  pages =        {151--166},
+  doi =          {10.1007/BFb0054170},
+  note =         {Introduces the translation validation approach: verify each
+                  compilation run rather than the compiler itself}
+}
+
+@inproceedings{erbsen2019fiatcrypto,
+  author =       {Erbsen, Andres and Philipoom, Jade and Gross, Jason and
+                  Sloan, Robert and Chlipala, Adam},
+  title =        {Simple High-Level Code for Cryptographic Arithmetic --
+                  With Proofs, Without Compromises},
+  booktitle =    {Proceedings of the IEEE Symposium on Security and Privacy
+                  (S\&P)},
+  year =         2019,
+  doi =          {10.1109/SP.2019.00005},
+  note =         {Fiat Cryptography: generates verified, performance-competitive
+                  field arithmetic from high-level specifications in Coq}
+}
+
+@inproceedings{yarom2014flushandreload,
+  author =       {Yarom, Yuval and Falkner, Katrina},
+  title =        {{FLUSH+RELOAD}: A High Resolution, Low Noise, {L3} Cache
+                  Side-Channel Attack},
+  booktitle =    {Proceedings of the 23rd USENIX Security Symposium},
+  year =         2014,
+  note =         {Demonstrates a cache side-channel attack exploiting shared
+                  memory pages with single cache-line granularity}
+}
+
+@inproceedings{liu2015llcsidechannel,
+  author =       {Liu, Fangfei and Yarom, Yuval and Ge, Qian and Heiser,
+                  Gernot and Lee, Ruby B.},
+  title =        {Last-Level Cache Side-Channel Attacks are Practical},
+  booktitle =    {Proceedings of the IEEE Symposium on Security and Privacy
+                  (S\&P)},
+  year =         2015,
+  doi =          {10.1109/SP.2015.43},
+  note =         {Prime+Probe attack on the last-level cache; demonstrates
+                  cross-core, cross-VM key extraction}
+}
+
+@inproceedings{reid2016isaformal,
+  author =       {Reid, Alastair},
+  title =        {Trustworthy Specifications of {ARM} v8-{A} and v8-{M}
+                  System Level Architecture},
+  booktitle =    {Proceedings of Formal Methods in Computer-Aided Design
+                  (FMCAD)},
+  year =         2016,
+  doi =          {10.1109/FMCAD.2016.7886675},
+  note =         {ARM's ISA-Formal framework: machine-readable ISA specs used
+                  for bounded model checking of RTL implementations against the
+                  instruction set specification}
+}
+
+@misc{mithril2023poisongpt,
+  author =       {{Mithril Security}},
+  title =        {{PoisonGPT}: How we hid a lobotomized {LLM} on {Hugging
+                  Face} to spread fake news},
+  howpublished = {Mithril Security Blog},
+  year =         2023,
+  month =        jul,
+  url =          {https://blog.mithrilsecurity.io/poisongpt-how-we-hid-a-lobotomized-llm-on-hugging-face-to-spread-fake-news/},
+  note =         {Demonstrated surgical modification of an open-source LLM
+                  uploaded to Hugging Face that spread targeted misinformation
+                  while retaining normal benchmark performance}
+}
+
+@techreport{gitguardian2025secrets,
+  author =       {{GitGuardian}},
+  title =        {The State of Secrets Sprawl 2025},
+  institution =  {GitGuardian},
+  year =         2025,
+  url =          {https://www.gitguardian.com/state-of-secrets-sprawl-report-2025},
+  note =         {Found 23.8 million secrets leaked in public GitHub
+                  repositories in 2024, a 25\% increase over the prior year}
+}
+
+@misc{lapsus2022nvidia,
+  author =       {{BleepingComputer}},
+  title =        {{NVIDIA} confirms data was stolen in recent cyberattack},
+  howpublished = {BleepingComputer},
+  year =         2022,
+  month =        mar,
+  url =          {https://www.bleepingcomputer.com/news/security/nvidia-confirms-data-was-stolen-in-recent-cyberattack/},
+  note =         {The LAPSUS\$ group breached NVIDIA and exfiltrated two
+                  code-signing certificates. Malware signed with the stolen
+                  keys appeared in the wild within a day; Windows accepted
+                  the expired certificates for kernel driver signing}
+}
+
+@inproceedings{kwiatkowska2011prism,
+  author =       {Kwiatkowska, Marta and Norman, Gethin and Parker, David},
+  title =        {{PRISM} 4.0: Verification of Probabilistic Real-Time
+                  Systems},
+  booktitle =    {Proceedings of the 23rd International Conference on
+                  Computer Aided Verification (CAV)},
+  year =         2011,
+  pages =        {585--591},
+  doi =          {10.1007/978-3-642-22110-1_47},
+  note =         {Probabilistic model checker supporting DTMCs, CTMCs, MDPs,
+                  and PTAs with PCTL/CSL/LTL properties}
+}
+
+@article{dehnert2017storm,
+  author =       {Dehnert, Christian and Junges, Sebastian and Katoen,
+                  Joost-Pieter and Volk, Matthias},
+  title =        {A Storm is Coming: A Modern Probabilistic Model Checker},
+  journal =      {International Journal on Software Tools for Technology
+                  Transfer (STTT)},
+  year =         2017,
+  doi =          {10.1007/s10009-017-0469-y},
+  note =         {High-performance probabilistic model checker with support
+                  for parametric models, counterexample generation, and
+                  multi-objective queries}
+}
+
+@inproceedings{maia2022gpupowercable,
+  author =       {Maia, Henrique and Chang, Chihao and Sanchez, Daniel and
+                  Devadas, Srinivas},
+  title =        {Can one hear the shape of a neural network?: Snooping the
+                  {GPU} via magnetic side channel},
+  booktitle =    {Proceedings of the 31st USENIX Security Symposium},
+  year =         2022,
+  note =         {Magnetic flux from a GPU's power cable (measurable with a
+                  \$3 induction sensor) reveals network topology and
+                  hyperparameters with 96.8\% accuracy on an Nvidia Titan V}
+}
+
+@inproceedings{zhan2022gpupeeping,
+  author =       {Zhan, Zihao and Gong, Zhenhua and Zhou, Zicong and Li,
+                  Jiapeng and Liu, Yue and Zhang, Zhi and He, Wenhao and
+                  Fan, Zhan and Kang, Limin and Zhang, Kui},
+  title =        {Graphics Peeping Unit: Exploiting {EM} Side-Channel
+                  Information of {GPUs}},
+  booktitle =    {Proceedings of the IEEE Symposium on Security and Privacy
+                  (S\&P)},
+  year =         2022,
+  doi =          {10.1109/SP46214.2022.9833773},
+  note =         {Electromagnetic emanations from GPU DVFS activity penetrate
+                  walls at 3+ meters, enabling website fingerprinting and
+                  keystroke timing attacks}
+}
