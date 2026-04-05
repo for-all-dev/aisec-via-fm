@@ -69,7 +69,8 @@ export default async function AboutPage() {
 
       <section>
         <p className="text-muted text-xs mb-3">
-          // to claim partial authorship, add{" "}
+          // to claim partial authorship, add your entry to{" "}
+          <code style={{ fontSize: "0.75rem" }}>authors.json</code> and add{" "}
           <code style={{ fontSize: "0.75rem" }}>// Authors: your-slug</code> to the relevant{" "}
           <code style={{ fontSize: "0.75rem" }}>paper/problems/*.typ</code> file
         </p>
