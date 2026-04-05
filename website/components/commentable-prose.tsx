@@ -1,7 +1,6 @@
 "use client"
 
 import { useRef, useEffect, useState } from "react"
-import { createPortal } from "react-dom"
 import { CommentThread } from "./comment-thread"
 
 /**
@@ -20,28 +19,17 @@ export function CommentableProse({
   style?: React.CSSProperties
 }) {
   const ref = useRef<HTMLDivElement>(null)
-  const [anchors, setAnchors] = useState<{ id: string; container: HTMLDivElement }[]>([])
+  const [anchors, setAnchors] = useState<string[]>([])
 
   useEffect(() => {
     if (!ref.current) return
     const headings = ref.current.querySelectorAll("h1[id], h2[id], h3[id], h4[id]")
-    const result: { id: string; container: HTMLDivElement }[] = []
-
+    const ids: string[] = []
     headings.forEach((heading) => {
       const id = heading.getAttribute("id")
-      if (!id) return
-      // Slugify the id to get a clean anchor
-      const anchor = id.replace(/^sec:/, "")
-      const container = document.createElement("div")
-      heading.after(container)
-      result.push({ id: anchor, container })
+      if (id) ids.push(id.replace(/^sec:/, ""))
     })
-
-    setAnchors(result)
-
-    return () => {
-      result.forEach(({ container }) => container.remove())
-    }
+    setAnchors(ids)
   }, [html])
 
   return (
@@ -52,12 +40,9 @@ export function CommentableProse({
         style={style}
         dangerouslySetInnerHTML={{ __html: html }}
       />
-      {anchors.map(({ id, container }) =>
-        createPortal(
-          <CommentThread key={id} page={page} anchor={id} />,
-          container,
-        ),
-      )}
+      {anchors.map((anchor) => (
+        <CommentThread key={anchor} page={page} anchor={anchor} />
+      ))}
     </>
   )
 }

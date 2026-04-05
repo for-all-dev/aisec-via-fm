@@ -1,6 +1,6 @@
 // Tag: ai-control-proof-carrying-code
 // Layers: execution-harness, software-framework, orchestration-cloud
-// Category: widget
+// Category: enabler
 // Authors: quinn
 
 #import "../common/fns.typ": related-layers

@@ -149,7 +149,10 @@ export function CommentThread({ page, anchor }: { page: string; anchor: string }
   }, [load])
 
   useEffect(() => {
-    setIsAdmin(document.cookie.includes("admin-session"))
+    fetch("/api/admin-check")
+      .then((r) => r.json())
+      .then((d) => setIsAdmin(d.admin))
+      .catch(() => {})
     setHidden(localStorage.getItem("hideComments") === "true")
 
     const handler = () => setHidden(localStorage.getItem("hideComments") === "true")
