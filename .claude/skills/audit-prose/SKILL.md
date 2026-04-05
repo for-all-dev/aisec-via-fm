@@ -22,7 +22,18 @@ When flagging, quote the offending phrase and suggest either deletion or a concr
 - Sections that are clearly skeletal (single-sentence paragraphs acting as placeholders)
 - Empty or near-empty sections
 
-### 3. Writing quality issues (lower priority)
+### 3. Missing citations
+Flag any factual claim, named system, or prior work that should have a `@cite-key` or `#cite(<key>)` but doesn't. Common patterns:
+
+- **Named projects/systems**: e.g., "seL4 has been formally verified" — needs a citation to the seL4 verification paper
+- **Quantitative claims**: numbers, benchmarks, or statistics stated without source (e.g., "10,000+ GPUs", "500MB DB limit")
+- **Prior work / named techniques**: references to existing research, standards, or specifications (e.g., "the CCC framework", "NIST post-quantum standards") without a corresponding bib entry
+- **"Has been shown" / "Prior work demonstrates"**: any appeal to existing literature that doesn't actually point to it
+- **Tool/framework claims**: assertions about what a tool does or guarantees (e.g., "Iris supports higher-order concurrent reasoning") that a reader would want to verify
+
+When flagging, suggest what kind of citation is needed (seminal paper, documentation link, specification, etc.) so the author knows what to look for. Check `paper/common/refs.bib` for existing entries that might already cover the claim — if so, suggest the bib key.
+
+### 4. Writing quality issues (lower priority)
 - Passive voice where active would be clearer
 - Sentences over ~40 words that could be split
 - Jargon used without definition on first occurrence (for a formal-methods expert audience who may NOT know ML ops jargon, and vice versa)

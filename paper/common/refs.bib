@@ -433,3 +433,181 @@
                   DPU that backdoors ML models by replacing 30 parameters
                   (0.069\%) with 0.24\% circuit overhead and zero runtime cost}
 }
+
+@misc{cve2023mlir,
+  author =       {{LLVM Project}},
+  title =        {{CVE-2023-29932 through CVE-2023-29939}: Memory-management
+                  vulnerabilities in {LLVM MLIR}},
+  year =         2023,
+  howpublished = {\url{https://nvd.nist.gov/vuln/detail/CVE-2023-29932}},
+  note =         {Series of segmentation faults and memory-management errors in
+                  MLIR components triggered by crafted MLIR files; addressed in
+                  LLVM 16.0.0-rc1}
+}
+
+@misc{cve2025pytorch,
+  author =       {{PyTorch Contributors}},
+  title =        {{CVE-2025-32434}: Remote code execution via
+                  \texttt{torch.load} with \texttt{weights\_only=True}},
+  year =         2025,
+  howpublished = {\url{https://nvd.nist.gov/vuln/detail/CVE-2025-32434}},
+  note =         {CVSS 9.3. The \texttt{weights\_only=True} safeguard in
+                  PyTorch $\leq$2.5.1 could be bypassed to achieve arbitrary
+                  code execution when loading a crafted model file. Fixed in
+                  PyTorch 2.6.0}
+}
+
+@misc{cve2024keras,
+  author =       {{Google / TensorFlow}},
+  title =        {{CVE-2024-3660}: Arbitrary code execution via {Keras} Lambda
+                  layer \texttt{safe\_mode} bypass},
+  year =         2024,
+  howpublished = {\url{https://nvd.nist.gov/vuln/detail/CVE-2024-3660}},
+  note =         {Keras Lambda layers embed arbitrary Python in model
+                  definitions; the \texttt{safe\_mode} mitigation did not cover
+                  older H5-format models, enabling a downgrade attack}
+}
+
+@misc{cve2024nvcontainer,
+  author =       {{NVIDIA}},
+  title =        {{CVE-2024-0132}: {NVIDIA} Container Toolkit {TOCTOU}
+                  container escape},
+  year =         2024,
+  howpublished = {\url{https://nvd.nist.gov/vuln/detail/CVE-2024-0132}},
+  note =         {CVSS 9.0. Time-of-check time-of-use vulnerability in NVIDIA
+                  Container Toolkit $\leq$1.16.1 allowing a crafted container
+                  image to escape to the host filesystem. Wiz estimated 33\% of
+                  cloud environments affected}
+}
+
+@misc{cve2024runc,
+  author =       {{Open Containers / Snyk Security Labs}},
+  title =        {{CVE-2024-21626}: runc container escape via leaked file
+                  descriptors ({Leaky Vessels})},
+  year =         2024,
+  howpublished = {\url{https://nvd.nist.gov/vuln/detail/CVE-2024-21626}},
+  note =         {A file descriptor leak in runc $<$1.1.12 allows a container
+                  process to reach the host filesystem. Discovered by Rory
+                  McNamara at Snyk}
+}
+
+@misc{cve2023slurmmunge,
+  author =       {{SchedMD}},
+  title =        {{CVE-2023-49935}: Slurm {MUNGE} message integrity bypass},
+  year =         2023,
+  howpublished = {\url{https://nvd.nist.gov/vuln/detail/CVE-2023-49935}},
+  note =         {Attackers with network access can replay root-level MUNGE
+                  authentication tokens by bypassing RPC message hash
+                  protections in slurmd. Fixed in 23.02.7 and 23.11.1}
+}
+
+@misc{cve2022slurmpmi,
+  author =       {{SchedMD}},
+  title =        {{CVE-2022-29501}: Slurm {PMI2/PMIx} handler allows
+                  unprivileged write to arbitrary Unix sockets},
+  year =         2022,
+  howpublished = {\url{https://nvd.nist.gov/vuln/detail/CVE-2022-29501}},
+  note =         {An unprivileged user can send data to arbitrary Unix sockets
+                  on the host as root through Slurm's PMI2/PMIx RPC handler}
+}
+
+@misc{cve2017slurmspank,
+  author =       {{SchedMD}},
+  title =        {{CVE-2017-15566}: Slurm {SPANK} environment variable
+                  privilege escalation},
+  year =         2017,
+  howpublished = {\url{https://nvd.nist.gov/vuln/detail/CVE-2017-15566}},
+  note =         {Insecure SPANK environment variable handling allows local
+                  privilege escalation to root during Prolog or Epilog
+                  execution}
+}
+
+@misc{cve2023shadowray,
+  author =       {{Oligo Security}},
+  title =        {{CVE-2023-48022}: Unauthenticated remote code execution in
+                  {Ray} ({ShadowRay})},
+  year =         2023,
+  howpublished = {\url{https://nvd.nist.gov/vuln/detail/CVE-2023-48022}},
+  note =         {CVSS 9.8. Ray's Jobs API and Dashboard had no
+                  authentication; the ShadowRay campaign compromised hundreds
+                  of thousands of clusters. Anyscale classified the missing
+                  auth as intended behavior; unpatched for over two years}
+}
+
+@misc{cve2024nvprivesc,
+  author =       {{NVIDIA}},
+  title =        {{CVE-2024-0126}: {NVIDIA} {GPU} Display Driver privilege
+                  escalation},
+  year =         2024,
+  howpublished = {\url{https://nvd.nist.gov/vuln/detail/CVE-2024-0126}},
+  note =         {CVSS 8.2. Improper input validation in the NVIDIA GPU
+                  Display Driver allows a privileged attacker to escalate
+                  permissions. Fixed in October 2024 driver release}
+}
+
+@misc{cve2024nvoobread,
+  author =       {{NVIDIA}},
+  title =        {{CVE-2024-0107}: {NVIDIA} {GPU} Display Driver out-of-bounds
+                  read},
+  year =         2024,
+  howpublished = {\url{https://nvd.nist.gov/vuln/detail/CVE-2024-0107}},
+  note =         {CVSS 7.8. Out-of-bounds read in the user mode layer leading
+                  to code execution; exploitable from Hyper-V guest via
+                  RemoteFX for guest-to-host escape}
+}
+
+@misc{cve2022nvjetsondma,
+  author =       {{NVIDIA}},
+  title =        {{CVE-2022-21819}: {NVIDIA} Jetson {PCIe} {DMA} attack
+                  bypassing secure boot},
+  year =         2022,
+  howpublished = {\url{https://nvd.nist.gov/vuln/detail/CVE-2022-21819}},
+  note =         {IOMMU misconfiguration on Jetson Nano: the PCIe controller
+                  is not assigned to an ASID, giving physical attackers direct
+                  read/write to the entire system address space via DMA}
+}
+
+@misc{cve2023leftoverlocals,
+  author =       {{Trail of Bits}},
+  title =        {{CVE-2023-4969}: {LeftoverLocals} --- {GPU} local memory
+                  leak across tenant boundaries},
+  year =         2023,
+  howpublished = {\url{https://nvd.nist.gov/vuln/detail/CVE-2023-4969}},
+  note =         {GPU local memory is not scrubbed between context switches on
+                  AMD, Apple, and Qualcomm GPUs, allowing recovery of
+                  $\sim$5.5\,MB per invocation. NVIDIA hardware not affected}
+}
+
+@misc{cve2022blacklotus,
+  author =       {{Microsoft}},
+  title =        {{CVE-2022-21894}: {UEFI} Secure Boot bypass exploited by
+                  {BlackLotus} bootkit},
+  year =         2022,
+  howpublished = {\url{https://nvd.nist.gov/vuln/detail/CVE-2022-21894}},
+  note =         {First in-the-wild UEFI bootkit to bypass Secure Boot on
+                  fully patched Windows 11; confirmed by ESET. NSA issued
+                  mitigation guidance}
+}
+
+@misc{cve2023supermicrobmc,
+  author =       {{Binarly}},
+  title =        {{CVE-2023-40284 through CVE-2023-40290}: {Supermicro} {BMC}
+                  {IPMI} firmware vulnerabilities},
+  year =         2023,
+  howpublished = {\url{https://nvd.nist.gov/vuln/detail/CVE-2023-40289}},
+  note =         {Seven vulnerabilities (CVSS up to 9.6) in Supermicro BMC
+                  firmware; includes unauthenticated remote code execution
+                  paths to BMC root access}
+}
+
+@misc{cve2015jwtalg,
+  author =       {{Auth0}},
+  title =        {{CVE-2015-9235}: {JWT} algorithm confusion in
+                  \texttt{jsonwebtoken}},
+  year =         2015,
+  howpublished = {\url{https://nvd.nist.gov/vuln/detail/CVE-2015-9235}},
+  note =         {The \texttt{jsonwebtoken} library did not validate the
+                  \texttt{alg} header, allowing signature bypass via
+                  \texttt{alg:none} or RSA-to-HMAC key confusion. Discovered
+                  by Tim McLean}
+}
