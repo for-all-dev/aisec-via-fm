@@ -9,19 +9,27 @@ import type { LabelEntry } from "./typst-compiler"
 
 const PAPER_DIR = path.join(process.cwd(), "..", "paper")
 
+import tooltips from "./tooltips.json"
+
 const PAPER_STACK_DIR = "stack"
 const PAPER_PROBLEMS_DIR = "problems"
 const PAPER_COMMON_DIR = "common"
 
-const STACK_LAYERS = [
-  { id: "execution-harness", file: "stack/execution-harness.typ", label: "Execution Harness" },
-  { id: "software-framework", file: "stack/software-framework.typ", label: "Software & ML Framework" },
-  { id: "orchestration-cloud", file: "stack/orchestration-cloud.typ", label: "Orchestration & Cloud" },
-  { id: "firmware-lowlevel", file: "stack/firmware-lowlevel.typ", label: "Firmware & Low-Level Systems" },
-  { id: "hardware-supply-chain", file: "stack/hardware-supply-chain.typ", label: "Hardware & Physical Supply Chain" },
+const LAYER_IDS = [
+  "execution-harness",
+  "software-framework",
+  "orchestration-cloud",
+  "firmware-lowlevel",
+  "hardware-supply-chain",
 ] as const
 
-export type LayerId = (typeof STACK_LAYERS)[number]["id"]
+const STACK_LAYERS = LAYER_IDS.map((id) => ({
+  id,
+  file: `stack/${id}.typ`,
+  label: tooltips.layers[id].label,
+}))
+
+export type LayerId = (typeof LAYER_IDS)[number]
 
 export interface StackLayer {
   id: LayerId

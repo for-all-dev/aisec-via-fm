@@ -12,8 +12,10 @@
 ## Dev
 
 - `effect` when appropriate
+- Use `bun run build` / `bun run dev` (not npm/npx). Build commands go through the root `Makefile` which syncs shared files first.
 - Vercel deploy with Supabase backend for comments. See root `CLAUDE.md` for env var docs.
 - use `bun add` instead of manually patching `package.json` with whatever version you happen to pull out of your ass.
+- `lib/tooltips.json` is copied from `paper/common/tooltips.json` by `make sync-texts` (runs automatically before `make dev` and `make build`). Edit the paper copy, not the website copy.
 - Two auth tiers: `pw-session` cookie (reader, can post comments) and `admin-session` cookie (can resolve/delete comments). Login at `/login`, admin at `/admin`.
 - Pages use `force-static` — comments are fetched client-side via `/api/comments` so no SSR change needed.
 - `supabase/` dir contains migration files. Apply schema changes with `npx supabase db push`.

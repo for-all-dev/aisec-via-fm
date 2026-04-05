@@ -3,6 +3,8 @@
     "version": "0.1.0",
     "private": true,
     "scripts": {
+        "prebuild": "cp ../paper/common/tooltips.json lib/tooltips.json",
+        "predev": "cp ../paper/common/tooltips.json lib/tooltips.json",
         "dev": "next dev",
         "build": "next build",
         "start": "next start",

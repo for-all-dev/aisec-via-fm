@@ -458,7 +458,7 @@ body::after {
 
 /* page container */
 .page {
-  max-width: 860px;
+  max-width: 1100px;
   margin: 0 auto;
   padding: 2rem 1.5rem;
 }

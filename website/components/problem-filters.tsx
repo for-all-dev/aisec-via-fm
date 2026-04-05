@@ -3,16 +3,12 @@
 import { useState } from "react"
 import Link from "next/link"
 import type { Problem } from "../lib/types"
+import tooltips from "../lib/tooltips.json"
 
-const LAYER_LABELS: Record<string, string> = {
-  "execution-harness": "Execution Harness",
-  "software-framework": "Software & ML Framework",
-  "orchestration-cloud": "Orchestration & Cloud",
-  "firmware-lowlevel": "Firmware & Low-Level",
-  "hardware-supply-chain": "Hardware & Supply Chain",
-}
+const LAYER_TOOLTIPS = tooltips.layers as Record<string, { label: string; desc: string }>
+export const CATEGORY_TOOLTIPS = tooltips.categories as Record<string, string>
 
-const LAYERS = Object.keys(LAYER_LABELS)
+const LAYERS = Object.keys(LAYER_TOOLTIPS)
 const CATEGORIES = ["widget", "enabler"] as const
 
 export function ProblemList({ problems }: { problems: Problem[] }) {
@@ -48,6 +44,7 @@ export function ProblemList({ problems }: { problems: Problem[] }) {
               key={id}
               className={`filter-chip layer ${activeLayers.has(id) ? "active" : ""}`}
               onClick={() => toggleLayer(id)}
+              title={`${LAYER_TOOLTIPS[id].label}: ${LAYER_TOOLTIPS[id].desc}`}
             >
               {id}
             </button>
@@ -60,6 +57,7 @@ export function ProblemList({ problems }: { problems: Problem[] }) {
               key={cat}
               className={`filter-chip ${cat} ${activeCategory === cat ? "active" : ""}`}
               onClick={() => toggleCategory(cat)}
+              title={CATEGORY_TOOLTIPS[cat]}
             >
               {cat}
             </button>
@@ -86,7 +84,7 @@ export function ProblemList({ problems }: { problems: Problem[] }) {
             </p>
             <div>
               {p.layers.map((l) => (
-                <span key={l} className="tag-badge" title={LAYER_LABELS[l]}>
+                <span key={l} className="tag-badge" title={LAYER_TOOLTIPS[l]?.desc}>
                   {l}
                 </span>
               ))}

@@ -1,0 +1,29 @@
+{
+  "title": "Tractable Problems in AI Security via Formal Methods",
+  "layers": {
+    "execution-harness": {
+      "label": "Execution Harness",
+      "desc": "The outermost software layer: inference servers, sandboxes, and API gateways that handle model I/O."
+    },
+    "software-framework": {
+      "label": "Software & ML Framework",
+      "desc": "Frameworks (PyTorch, JAX, TensorFlow), ML compilers (TVM, XLA, MLIR), and the dependency supply chain."
+    },
+    "orchestration-cloud": {
+      "label": "Orchestration & Cloud",
+      "desc": "Cluster orchestration (K8s, Slurm, Ray), network fabric (InfiniBand, SDN), distributed protocols, and IAM."
+    },
+    "firmware-lowlevel": {
+      "label": "Firmware & Low-Level Systems",
+      "desc": "Hypervisors, GPU device drivers, CUDA/ROCm runtimes, and boot integrity / remote attestation."
+    },
+    "hardware-supply-chain": {
+      "label": "Hardware & Physical Supply Chain",
+      "desc": "Chip RTL, EDA toolchains, hardware root of trust, secure enclaves, and physical supply chain integrity."
+    }
+  },
+  "categories": {
+    "enabler": "Problems whose resolution unbottlenecks a class of downstream work. Solving an enabler doesn't itself ship an artifact, but failing to solve it degrades everything that depends on it.",
+    "widget": "Concrete, scoped deliverables: a verified runtime, a proven-correct sampler, a formally checked allocator. Each stands on its own as a security improvement to a specific stack layer."
+  }
+}

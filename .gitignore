@@ -56,3 +56,6 @@ docs/darpa-seedling/
 
 # typst temp wrappers (web compilation)
 paper/__wrapper_*.typ
+
+# copied from paper/common/ by prebuild script
+website/lib/tooltips.json
