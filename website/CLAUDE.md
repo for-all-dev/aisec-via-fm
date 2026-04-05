@@ -12,5 +12,8 @@
 ## Dev
 
 - `effect` when appropriate
-- will be a standard vercel deploy-- should be stateless (besides the pw env var)
+- Vercel deploy with Supabase backend for comments. See root `CLAUDE.md` for env var docs.
 - use `bun add` instead of manually patching `package.json` with whatever version you happen to pull out of your ass.
+- Two auth tiers: `pw-session` cookie (reader, can post comments) and `admin-session` cookie (can resolve/delete comments). Login at `/login`, admin at `/admin`.
+- Pages use `force-static` — comments are fetched client-side via `/api/comments` so no SSR change needed.
+- `supabase/` dir contains migration files. Apply schema changes with `npx supabase db push`.

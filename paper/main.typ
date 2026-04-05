@@ -46,4 +46,4 @@
 #include "problems/main.typ"
 
 // ── Bibliography ─────────────────────────────────────────────────
-#bibliography("refs.bib")
+#bibliography("common/refs.bib")

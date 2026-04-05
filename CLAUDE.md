@@ -63,6 +63,16 @@ There's a whole consideration here for Secure Program Synthesis as a broader fie
 - `cd website && pnpm run build` or `&& pnpm run dev` should freshly populate (and dev should watch for changes) in the `./paper` dir.
 - Write notes to yourself/other AI agents in `./docs/*.agents.md`.
 - **At the start of every session**, run `make dev` in a background subprocess. This gives you a live hot-reload loop for both typst and bun. Check its output for typst compilation errors and bun build errors instead of spending a separate tool call. Keep this proc running for the duration of the session.
+- Bibliography: `./paper/common/refs.bib` (shared by both typst compilation and website fragment compiler).
 
-Honestly, maybe we need to add auth and commenting ourselves in nextjs! I just don't think gdocs is a good product honestly! Table this, we'll retrofit `supabase` later if we want.
+## Supabase (comments)
+
+Section-anchored commenting system backed by Supabase Postgres. Schema and RLS policies live in `website/supabase/migrations/`. Apply with `npx supabase db push` from `website/`.
+
+Env vars (in `website/.env` and on Vercel):
+- `NEXT_PUBLIC_SUPABASE_URL` — project URL
+- `NEXT_PUBLIC_SUPABASE_ANON_KEY` — publishable key (client-safe, scoped by RLS)
+- `SUPABASE_SERVICE_ROLE_KEY` — secret key (server-only, bypasses RLS for admin resolve/delete)
+- `PASSWORD` — reader-tier site auth
+- `ADMIN_PASSWORD` — admin-tier auth (resolve/delete comments)
 
