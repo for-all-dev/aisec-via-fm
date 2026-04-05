@@ -382,6 +382,74 @@ body::after {
   font-size: 0.8rem;
 }
 
+/* comment thread */
+.comment-thread {
+  margin: 0.5rem 0 1rem;
+}
+
+.comment-toggle {
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--muted);
+  font-family: inherit;
+  font-size: 0.7rem;
+  padding: 0.15rem 0.5rem;
+  cursor: pointer;
+}
+
+.comment-toggle:hover {
+  border-color: var(--muted);
+  color: var(--fg-alt);
+}
+
+.comment-panel {
+  border: 1px solid var(--border);
+  border-top: none;
+  background: var(--bg-alt);
+  padding: 0.5rem 0.75rem;
+}
+
+.comment-action {
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--muted);
+  font-family: inherit;
+  font-size: 0.65rem;
+  padding: 0.1rem 0.4rem;
+  cursor: pointer;
+}
+
+.comment-action:hover {
+  border-color: var(--muted);
+  color: var(--fg-alt);
+}
+
+.comment-action-danger:hover {
+  border-color: var(--red);
+  color: var(--red);
+}
+
+/* hide-comments nav toggle */
+.nav-toggle {
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--muted);
+  font-family: inherit;
+  font-size: 0.7rem;
+  padding: 0.15rem 0.5rem;
+  cursor: pointer;
+}
+
+.nav-toggle:hover {
+  border-color: var(--muted);
+  color: var(--fg-alt);
+}
+
+.nav-toggle.active {
+  border-color: var(--green);
+  color: var(--green);
+}
+
 /* prompt decoration */
 .prompt::before {
   content: "> ";

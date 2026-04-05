@@ -2,6 +2,7 @@ import { notFound } from "next/navigation"
 import Link from "next/link"
 import { getSiteContent } from "../../../lib/content"
 import { stripHtml } from "../../../lib/typst-parser"
+import { CommentableProse } from "../../../components/commentable-prose"
 
 export const dynamic = "force-static"
 
@@ -41,7 +42,7 @@ export default async function ProblemPage({ params }: { params: Promise<{ id: st
         )}
       </div>
 
-      <div className="prose" style={{ marginBottom: "2rem" }} dangerouslySetInnerHTML={{ __html: problem.html }} />
+      <CommentableProse html={problem.html} page={`/problems/${id}`} className="prose" style={{ marginBottom: "2rem" }} />
 
       {layerDetails.length > 0 && (
         <section>

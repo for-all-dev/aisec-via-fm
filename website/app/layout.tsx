@@ -2,6 +2,7 @@ import type { Metadata } from "next"
 import { Geist_Mono } from "next/font/google"
 import Link from "next/link"
 import { XrefTooltips } from "../components/xref-tooltips"
+import { HideCommentsToggle } from "../components/hide-comments-toggle"
 import "./globals.css"
 
 const geistMono = Geist_Mono({
@@ -30,6 +31,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <Link href="/stack">the stack</Link>
           <Link href="/problems">problems</Link>
           <Link href="/about">about</Link>
+          <Link href="/admin">admin</Link>
+          <HideCommentsToggle />
           <a
             href={`${GH_REPO}/commit/${commit}`}
             className="commit-hash"

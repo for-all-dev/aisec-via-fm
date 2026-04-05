@@ -1,6 +1,7 @@
 import Link from "next/link"
 import { getSiteContent } from "../../lib/content"
 import type { Problem } from "../../lib/content"
+import { CommentableProse } from "../../components/commentable-prose"
 
 export const dynamic = "force-static"
 
@@ -31,7 +32,7 @@ export default async function StackPage() {
                 {label}
               </summary>
               <div className="layer-content">
-                <div className="prose" dangerouslySetInnerHTML={{ __html: html }} />
+                <CommentableProse html={html} page="/stack" className="prose" />
                 {related.length > 0 && (
                   <div style={{ marginTop: "1rem" }}>
                     <p style={{ color: "var(--muted)", fontSize: "0.75rem", marginBottom: "0.4rem" }}>
