@@ -1,6 +1,8 @@
 COMMIT := $(shell git rev-parse --short HEAD 2>/dev/null || echo dev)
 
-.PHONY: dev paper build
+.PHONY: dev paper build sync-texts
+
+.DEFAULT_GOAL := dev
 
 sync-texts:
 	cp paper/common/tooltips.json website/lib/tooltips.json
