@@ -10,6 +10,7 @@ The problems below split into two kinds.
 
 
 #include "advro.typ"
+#include "spec-elicitation.typ"
 #include "sel4-gpu-drivers.typ"
 #include "oci-runtime-hardening.typ"
 #include "ai-control-proof-carrying-code.typ"

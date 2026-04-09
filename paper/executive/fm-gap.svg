@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1120 280" font-family="-apple-system, 'Helvetica Neue', Arial, sans-serif">
+  <!-- Redraw of Evan Miyazono's "what you think you want / what you got" diagram.
+       Highlights the two gaps: (1) validation (spec elicitation) and
+       (2) verification (the only gap formal methods actually closes). -->
+
+  <defs>
+    <!-- Double-headed arrow shape for the gap labels -->
+    <symbol id="dblArrow" viewBox="0 0 120 48" overflow="visible">
+      <polygon points="0,24 20,6 20,16 100,16 100,6 120,24 100,42 100,32 20,32 20,42"
+               fill="#eaf7ea" stroke="#3fa34d" stroke-width="2" stroke-linejoin="round"/>
+    </symbol>
+  </defs>
+
+  <style>
+    .box       { fill: #ffffff; stroke: #1b1b1b; stroke-width: 2; }
+    .boxText   { font-size: 15px; fill: #1b1b1b; font-weight: 600; text-anchor: middle; }
+    .boxEm     { font-weight: 800; }
+    .arrowText { font-size: 13px; fill: #1b5f2a; font-style: italic; text-anchor: middle; }
+    .callout   { font-size: 12px; fill: #1b1b1b; text-anchor: middle; }
+    .pointer   { stroke: #1b1b1b; stroke-width: 1.25; fill: none; }
+  </style>
+
+  <!-- Row of five concept boxes -->
+  <!-- 1: THINK want -->
+  <rect class="box" x="10"   y="40" width="170" height="72" rx="4"/>
+  <text class="boxText" x="95"  y="72">What you <tspan class="boxEm">THINK</tspan></text>
+  <text class="boxText" x="95"  y="92">you <tspan class="boxEm">WANT</tspan></text>
+
+  <!-- 2: validation arrow -->
+  <use href="#dblArrow" x="190" y="54" width="120" height="48"/>
+  <text class="arrowText" x="250" y="83">validation</text>
+
+  <!-- 3: SAY want -->
+  <rect class="box" x="320" y="40" width="170" height="72" rx="4"/>
+  <text class="boxText" x="405" y="72">What you <tspan class="boxEm">SAY</tspan></text>
+  <text class="boxText" x="405" y="92">you <tspan class="boxEm">WANT</tspan></text>
+
+  <!-- 4: verification arrow -->
+  <use href="#dblArrow" x="500" y="54" width="120" height="48"/>
+  <text class="arrowText" x="560" y="83">verification</text>
+
+  <!-- 5: THINK got -->
+  <rect class="box" x="630" y="40" width="170" height="72" rx="4"/>
+  <text class="boxText" x="715" y="72">What you <tspan class="boxEm">THINK</tspan></text>
+  <text class="boxText" x="715" y="92">you <tspan class="boxEm">GOT</tspan></text>
+
+  <!-- 6: model arrow -->
+  <use href="#dblArrow" x="810" y="54" width="120" height="48"/>
+  <text class="arrowText" x="870" y="83">model</text>
+
+  <!-- 7: ACTUALLY got -->
+  <rect class="box" x="940" y="40" width="170" height="72" rx="4"/>
+  <text class="boxText" x="1025" y="72">What you <tspan class="boxEm">ACTUALLY</tspan></text>
+  <text class="boxText" x="1025" y="92">you <tspan class="boxEm">GOT</tspan></text>
+
+  <!-- Pointers from callouts up to the relevant arrows -->
+  <path class="pointer" d="M 250 180 L 250 108"/>
+  <polygon points="250,104 245,116 255,116" fill="#1b1b1b"/>
+
+  <path class="pointer" d="M 560 180 L 560 108"/>
+  <polygon points="560,104 555,116 565,116" fill="#1b1b1b"/>
+
+  <!-- Callout 1: validation gap -->
+  <text class="callout" x="250" y="200">Formal verification lacks good</text>
+  <text class="callout" x="250" y="218">tools &amp; workflows to</text>
+  <text class="callout" x="250" y="236">close this gap</text>
+
+  <!-- Callout 2: verification gap (what FM actually buys you) -->
+  <text class="callout" x="560" y="200">Formal verification only</text>
+  <text class="callout" x="560" y="218">makes guarantees</text>
+  <text class="callout" x="560" y="236">about this gap</text>
+</svg>
