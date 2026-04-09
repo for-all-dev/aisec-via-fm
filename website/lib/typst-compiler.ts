@@ -1,4 +1,5 @@
 import { NodeCompiler } from "@myriaddreamin/typst-ts-node-compiler"
+import katex from "katex"
 import fs from "fs"
 import path from "path"
 
@@ -112,7 +113,8 @@ export function extractLabels(src: string): Omit<LabelEntry, "route">[] {
 export function compileSnippetToHtml(snippet: string): string {
   const uid = Math.random().toString(36).slice(2, 10)
   const tmpPath = path.join(PAPER_DIR, `__snippet_${uid}.typ`)
-  fs.writeFileSync(tmpPath, snippet + '\n#bibliography("common/refs.bib")\n')
+  const { processed, mathExprs } = extractMathExpressions(snippet)
+  fs.writeFileSync(tmpPath, processed + '\n#bibliography("common/refs.bib")\n')
   try {
     const c = getCompiler()
     const bytes = c.html({ mainFilePath: tmpPath })
@@ -120,6 +122,7 @@ export function compileSnippetToHtml(snippet: string): string {
     let html = Buffer.from(bytes).toString("utf-8")
     const bodyMatch = html.match(/<body>([\s\S]*)<\/body>/)
     html = bodyMatch ? bodyMatch[1].trim() : html
+    html = renderMathPlaceholders(html, mathExprs)
     return html
   } finally {
     fs.unlinkSync(tmpPath)
@@ -154,9 +157,12 @@ export function compileFragmentToHtml(
     labelsByHeading.set(m[2].trim(), m[3])
   }
 
+  // Extract math expressions before any other processing (so $ delimiters are intact)
+  const { processed: mathProcessed, mathExprs } = extractMathExpressions(src)
+
   // Strip <prefix:label> tags from headings so they don't render as visible text.
   // The labels are already captured in labelsByHeading for id attribute injection.
-  let processed = src.replace(
+  let processed = mathProcessed.replace(
     new RegExp(`^(=+\\s+.+?)\\s+<${LABEL_RE.source}>\\s*$`, "gm"),
     "$1",
   )
@@ -245,11 +251,80 @@ export function compileFragmentToHtml(
       },
     )
 
+    // Post-process: render math placeholders with KaTeX
+    html = renderMathPlaceholders(html, mathExprs)
+
     return html
   } finally {
     fs.unlinkSync(wrapperPath)
     fs.unlinkSync(tmpSrcPath)
   }
+}
+
+/**
+ * Convert simple typst math to LaTeX.
+ * Handles the subset used in this paper: Greek letters, sum, subscripts, comparisons.
+ */
+function typstMathToLatex(typstMath: string): string {
+  let tex = typstMath
+  // Greek letters (typst uses bare names, LaTeX needs backslash)
+  const greeks = [
+    "alpha", "beta", "gamma", "delta", "epsilon", "zeta", "eta", "theta",
+    "iota", "kappa", "lambda", "mu", "nu", "xi", "pi", "rho", "sigma",
+    "tau", "upsilon", "phi", "chi", "psi", "omega",
+    "Gamma", "Delta", "Theta", "Lambda", "Xi", "Pi", "Sigma", "Phi", "Psi", "Omega",
+  ]
+  for (const g of greeks) {
+    tex = tex.replace(new RegExp(`\\b${g}\\b`, "g"), `\\${g}`)
+  }
+  // Typst operators to LaTeX
+  tex = tex.replace(/\bsum\b/g, "\\sum")
+  tex = tex.replace(/\bprod\b/g, "\\prod")
+  tex = tex.replace(/\bint\b/g, "\\int")
+  tex = tex.replace(/<=/g, "\\leq")
+  tex = tex.replace(/>=/g, "\\geq")
+  tex = tex.replace(/!=/g, "\\neq")
+  tex = tex.replace(/\bin\b/g, "\\in")
+  return tex
+}
+
+/**
+ * Extract inline math ($...$) from typst source, replacing each with a
+ * backtick-wrapped placeholder that survives HTML compilation.
+ * Returns the processed source and a map from placeholder index to original math.
+ */
+function extractMathExpressions(src: string): { processed: string; mathExprs: Map<number, string> } {
+  const mathExprs = new Map<number, string>()
+  let idx = 0
+  // Match inline math: $...$ but NOT escaped \$ (literal dollar signs in typst).
+  // Use negative lookbehind to skip \$ and negative lookahead to avoid matching
+  // across line boundaries (typst inline math doesn't span lines).
+  const processed = src.replace(/(?<!\\)\$([^$\n]+?)(?<!\\)\$/g, (_match, expr) => {
+    const i = idx++
+    mathExprs.set(i, expr.trim())
+    return `\`MATH:${i}\``
+  })
+  return { processed, mathExprs }
+}
+
+/**
+ * Replace MATH:n placeholders in compiled HTML with KaTeX-rendered math.
+ */
+function renderMathPlaceholders(html: string, mathExprs: Map<number, string>): string {
+  return html.replace(
+    /<code>MATH:(\d+)<\/code>/g,
+    (_match, idxStr) => {
+      const idx = parseInt(idxStr, 10)
+      const typstExpr = mathExprs.get(idx)
+      if (!typstExpr) return _match
+      const latex = typstMathToLatex(typstExpr)
+      try {
+        return katex.renderToString(latex, { throwOnError: false, output: "html" })
+      } catch {
+        return `<code>${typstExpr}</code>`
+      }
+    },
+  )
 }
 
 /** Escape a string for use in an HTML attribute value. */

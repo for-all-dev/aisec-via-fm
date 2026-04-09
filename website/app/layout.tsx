@@ -3,6 +3,7 @@ import { Geist_Mono } from "next/font/google"
 import Link from "next/link"
 import { XrefTooltips } from "../components/xref-tooltips"
 import { HideCommentsToggle } from "../components/hide-comments-toggle"
+import "katex/dist/katex.min.css"
 import "./globals.css"
 
 const geistMono = Geist_Mono({
