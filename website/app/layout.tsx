@@ -14,7 +14,7 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "Tractable Problems in AI Security via Formal Methods",
   description:
-    "A position paper surveying tractable formal-methods approaches to AI security across the ML stack.",
+    "The minimal, sane catalog of formal-methods opportunities across the ML training and inference stack.",
 }
 
 const GH_REPO = "https://github.com/for-all-dev/aisec-via-fm"
