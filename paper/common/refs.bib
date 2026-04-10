@@ -774,3 +774,25 @@
                   walls at 3+ meters, enabling website fingerprinting and
                   keystroke timing attacks}
 }
+
+@misc{slsa2023spec,
+  author =       {{SLSA Contributors}},
+  title =        {{SLSA} v1.0: Supply-chain Levels for Software Artifacts},
+  year =         2023,
+  url =          {https://slsa.dev/spec/v1.0/},
+  note =         {Security framework defining four provenance assurance
+                  levels (L0--L4) from no guarantees through hermetic
+                  reproducible builds; maintained by the OpenSSF}
+}
+
+@inproceedings{newman2022sigstore,
+  author =       {Newman, Zachary and Meyers, John Speed and Torres-Arias, Santiago},
+  title =        {Sigstore: Software Signing for Everybody},
+  booktitle =    {Proceedings of the 2022 ACM SIGSAC Conference on Computer
+                  and Communications Security (CCS)},
+  year =         2022,
+  doi =          {10.1145/3548606.3560596},
+  note =         {Introduces keyless signing via short-lived certificates
+                  bound to OIDC identities, with a transparency log for
+                  artifact provenance}
+}
