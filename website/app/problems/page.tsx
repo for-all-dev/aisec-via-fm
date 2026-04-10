@@ -1,3 +1,4 @@
+import { Suspense } from "react"
 import { getSiteContent } from "../../lib/content"
 import { ProblemList } from "../../components/problem-filters"
 
@@ -13,7 +14,9 @@ export default async function ProblemsPage() {
         <h1>Shovel-Ready Project Specs</h1>
       </div>
 
-      <ProblemList problems={problems} />
+      <Suspense>
+        <ProblemList problems={problems} />
+      </Suspense>
     </div>
   )
 }

@@ -1,6 +1,7 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
+import { useSearchParams, useRouter } from "next/navigation"
 import Link from "next/link"
 import type { Problem } from "../lib/types"
 import tooltips from "../lib/tooltips.json"
@@ -10,10 +11,34 @@ export const CATEGORY_TOOLTIPS = tooltips.categories as Record<string, string>
 
 const LAYERS = Object.keys(LAYER_TOOLTIPS)
 const CATEGORIES = ["widget", "enabler"] as const
+const LAYER_SET = new Set(LAYERS)
+const CATEGORY_SET = new Set<string>(CATEGORIES)
+
+function parseFilterParam(param: string | null): { layers: Set<string>; category: string | null } {
+  if (!param) return { layers: new Set(), category: null }
+  const tokens = param.split(",").filter(Boolean)
+  const layers = new Set<string>()
+  let category: string | null = null
+  for (const t of tokens) {
+    if (LAYER_SET.has(t)) layers.add(t)
+    else if (CATEGORY_SET.has(t)) category = t
+  }
+  return { layers, category }
+}
 
 export function ProblemList({ problems }: { problems: Problem[] }) {
-  const [activeLayers, setActiveLayers] = useState<Set<string>>(new Set())
-  const [activeCategory, setActiveCategory] = useState<string | null>(null)
+  const searchParams = useSearchParams()
+  const router = useRouter()
+  const initial = parseFilterParam(searchParams.get("filter"))
+  const [activeLayers, setActiveLayers] = useState<Set<string>>(initial.layers)
+  const [activeCategory, setActiveCategory] = useState<string | null>(initial.category)
+
+  useEffect(() => {
+    const parts = [...activeLayers]
+    if (activeCategory) parts.push(activeCategory)
+    const url = parts.length > 0 ? `?filter=${parts.join(",")}` : "/problems"
+    router.replace(url, { scroll: false })
+  }, [activeLayers, activeCategory, router])
 
   const toggleLayer = (id: string) => {
     setActiveLayers((prev) => {
