@@ -55,6 +55,19 @@ export function CommentableProse({
       parts.push({ html, anchor: null })
     }
 
+    // Split bibliography out of the last section so the comment thread
+    // appears before it, not after.
+    const bibRe = /<section role="doc-bibliography">/
+    const last = parts[parts.length - 1]
+    if (last) {
+      const bibMatch = bibRe.exec(last.html)
+      if (bibMatch) {
+        const bibHtml = last.html.slice(bibMatch.index)
+        last.html = last.html.slice(0, bibMatch.index)
+        parts.push({ html: bibHtml, anchor: null })
+      }
+    }
+
     return parts
   }, [html])
 
