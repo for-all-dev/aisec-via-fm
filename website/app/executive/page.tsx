@@ -30,7 +30,7 @@ export default async function ExecutivePage() {
               the stack →
             </Link>
             <p style={{ color: "var(--fg-alt)", fontSize: "0.8rem", marginTop: "0.3rem" }}>
-              {stack.length} layers of the ML training &amp; inference stack, each with status quo and attack surface.
+              {stack.length}{" "}layers of the ML training &amp; inference stack, each with status quo and attack surface.
             </p>
           </div>
           <div
@@ -44,7 +44,7 @@ export default async function ExecutivePage() {
               tractable problems →
             </Link>
             <p style={{ color: "var(--fg-alt)", fontSize: "0.8rem", marginTop: "0.3rem" }}>
-              {problems.length} shovel-ready project specs tagged by stack layer and category (enabler / widget).
+              {problems.length}{" "}shovel-ready project specs tagged by stack layer and category (enabler / widget).
             </p>
           </div>
           <div

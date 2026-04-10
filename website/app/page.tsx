@@ -56,9 +56,9 @@ export default async function HomePage() {
                         </h2>
                         <div>
                             {p.layers.map((l) => (
-                                <span key={l} className="tag-badge">
+                                <Link key={l} href={`/stack/${l}`} className="tag-badge">
                                     {l}
-                                </span>
+                                </Link>
                             ))}
                         </div>
                     </div>

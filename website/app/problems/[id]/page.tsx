@@ -32,7 +32,7 @@ export default async function ProblemPage({ params }: { params: Promise<{ id: st
         <h1 style={{ color: "var(--yellow)", fontSize: "1.3rem" }}>{problem.title}</h1>
         <div style={{ marginTop: "0.5rem" }}>
           {problem.layers.map((l) => (
-            <span key={l} className="tag-badge">{l}</span>
+            <Link key={l} href={`/stack/${l}`} className="tag-badge">{l}</Link>
           ))}
         </div>
         {problem.authors.length > 0 && (
