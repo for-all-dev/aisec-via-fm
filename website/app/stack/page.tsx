@@ -30,6 +30,12 @@ export default async function StackPage() {
                   [{id}]
                 </span>
                 {label}
+                <Link
+                  href={`/stack/${id}`}
+                  style={{ marginLeft: "0.5rem", fontSize: "0.7rem", color: "var(--cyan)" }}
+                >
+                  full page →
+                </Link>
               </summary>
               <div className="layer-content">
                 <CommentableProse html={html} page="/stack" className="prose" />

@@ -205,6 +205,10 @@ const loadAll = Effect.gen(function* () {
   return { stack, problems, abstractHtml, labelRegistry, digraph } satisfies SiteContent
 })
 
+let _cached: SiteContent | null = null
+
 export async function getSiteContent(): Promise<SiteContent> {
-  return Effect.runPromise(loadAll)
+  if (_cached) return _cached
+  _cached = await Effect.runPromise(loadAll)
+  return _cached
 }
