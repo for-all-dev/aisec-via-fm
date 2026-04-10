@@ -13,7 +13,7 @@ An inference server (`vLLM`, Hugging Face `TGI`, Nvidia `Triton`) manages GPU me
 
 The security-relevant surface here is large. The server deserializes model weights, often from formats like `SafeTensors` or `GGUF`, that have had their own history of arbitrary-code-execution bugs. (TODO: cite SafeTensors/GGUF CVEs) It accepts user-controlled input (prompts, generation parameters, `LoRA` adapter names) that flows deep into the batching and memory-allocation logic. A malformed request that triggers an out-of-bounds KV-cache write, for instance, could corrupt another user's in-flight completion in a multi-tenant deployment. Formal methods work in this area would target the memory-safety properties of the batching and caching layers, and correctness of the deserialization paths.
 
-TODO: incorporate this somewhere https://futuresearch.ai/blog/litellm-pypi-supply-chain-attack/
+Inference proxies like `LiteLLM` are also part of the dependency supply chain (@sec:dependency-supply-chain) --- a compromised package at this layer gives an attacker access to every API key and model endpoint the proxy routes.
 
 === Sandboxes <sec:sandboxes>
 
