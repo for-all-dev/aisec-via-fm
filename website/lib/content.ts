@@ -51,6 +51,7 @@ export interface SiteContent {
   stack: StackLayer[]
   problems: Problem[]
   abstractHtml: string
+  executiveHtml: string
   labelRegistry: Record<string, LabelEntry>
   digraph: Digraph
 }
@@ -198,11 +199,13 @@ const loadAll = Effect.gen(function* () {
     `#import "common/fns.typ": paper_abstract\n#paper_abstract`,
   )
 
+  const executiveHtml = compileFragmentToHtml("executive/main.typ", registryMap)
+
   // Convert registry map to plain object for JSON serialization
   const labelRegistry = Object.fromEntries(registryMap)
   const digraph = loadDigraph()
 
-  return { stack, problems, abstractHtml, labelRegistry, digraph } satisfies SiteContent
+  return { stack, problems, abstractHtml, executiveHtml, labelRegistry, digraph } satisfies SiteContent
 })
 
 let _cached: SiteContent | null = null

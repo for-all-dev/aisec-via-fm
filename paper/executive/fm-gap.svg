@@ -13,12 +13,12 @@
   </defs>
 
   <style>
-    .box       { fill: #ffffff; stroke: #1b1b1b; stroke-width: 2; }
-    .boxText   { font-size: 15px; fill: #1b1b1b; font-weight: 600; text-anchor: middle; }
+    .box       { fill: #2a2a2a; stroke: #e0e0e0; stroke-width: 2; }
+    .boxText   { font-size: 15px; fill: #e0e0e0; font-weight: 600; text-anchor: middle; }
     .boxEm     { font-weight: 800; }
     .arrowText { font-size: 13px; fill: #1b5f2a; font-style: italic; text-anchor: middle; }
-    .callout   { font-size: 12px; fill: #1b1b1b; text-anchor: middle; }
-    .pointer   { stroke: #1b1b1b; stroke-width: 1.25; fill: none; }
+    .callout   { font-size: 12px; fill: #e0e0e0; text-anchor: middle; }
+    .pointer   { stroke: #e0e0e0; stroke-width: 1.25; fill: none; }
   </style>
 
   <!-- Row of five concept boxes -->
@@ -56,10 +56,10 @@
 
   <!-- Pointers from callouts up to the relevant arrows -->
   <path class="pointer" d="M 250 180 L 250 108"/>
-  <polygon points="250,104 245,116 255,116" fill="#1b1b1b"/>
+  <polygon points="250,104 245,116 255,116" fill="#e0e0e0"/>
 
   <path class="pointer" d="M 560 180 L 560 108"/>
-  <polygon points="560,104 555,116 565,116" fill="#1b1b1b"/>
+  <polygon points="560,104 555,116 565,116" fill="#e0e0e0"/>
 
   <!-- Callout 1: validation gap -->
   <text class="callout" x="250" y="200">Formal verification lacks good</text>
