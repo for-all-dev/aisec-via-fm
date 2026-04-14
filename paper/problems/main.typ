@@ -24,3 +24,4 @@ The problems below split into two kinds.
 #include "capability-accumulation.typ"
 #include "audit-log-integrity.typ"
 #include "neuralese-gov.typ"
+#include "agent-weirdmachines.typ"
