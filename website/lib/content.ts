@@ -36,6 +36,7 @@ export interface StackLayer {
   label: string
   meta: ChapterMeta
   html: string
+  invites: string[]
 }
 
 export type { Problem } from "./types"
@@ -43,8 +44,9 @@ import type { Problem } from "./types"
 
 /** Machine-readable layer-problem mapping, built from problem file headers. */
 export interface Digraph {
-  layers: Record<string, { label: string; sec: string }>
-  problems: Record<string, { label: string; sec: string; layers: string[]; category: string }>
+  layers: Record<string, { label: string; sec: string; invites: string[] }>
+  problems: Record<string, { label: string; sec: string; layers: string[]; adversaries: string[]; category: string }>
+  adversaries: Record<string, { label: string; desc: string }>
 }
 
 export interface SiteContent {
@@ -131,8 +133,11 @@ function buildLabelRegistry(): Map<string, LabelEntry> {
 /** Build digraph from problem file comment headers and the STACK_LAYERS constant. */
 function loadDigraph(): Digraph {
   const layers: Digraph["layers"] = {}
-  for (const { id, label } of STACK_LAYERS) {
-    layers[id] = { label, sec: `sec:${id}` }
+  for (const { id, label, file } of STACK_LAYERS) {
+    const src = fsSync.readFileSync(path.join(PAPER_DIR, file), "utf-8")
+    const invitesMatch = src.match(/^\/\/ Invites: (.+)$/m)
+    const invites = invitesMatch ? invitesMatch[1].split(",").map((s) => s.trim()) : []
+    layers[id] = { label, sec: `sec:${id}`, invites }
   }
 
   const problems: Digraph["problems"] = {}
@@ -142,22 +147,30 @@ function loadDigraph(): Digraph {
     const src = fsSync.readFileSync(path.join(problemDir, f), "utf-8")
     const tagMatch = src.match(/^\/\/ Tag: (.+)$/m)
     const layersMatch = src.match(/^\/\/ Layers: (.+)$/m)
+    const adversariesMatch = src.match(/^\/\/ Adversaries: (.+)$/m)
     const categoryMatch = src.match(/^\/\/ Category: (.+)$/m)
     const headingMatch = src.match(/^==\s+(.+?)\s+<(sec:[a-z0-9-]+)>/m)
     if (tagMatch && layersMatch && headingMatch) {
       const tag = tagMatch[1].trim()
       const fileLayers = layersMatch[1].split(",").map((s) => s.trim())
+      const adversaries = adversariesMatch ? adversariesMatch[1].split(",").map((s) => s.trim()) : []
       const category = categoryMatch?.[1].trim() ?? "widget"
       problems[tag] = {
         label: headingMatch[1].trim(),
         sec: headingMatch[2],
         layers: fileLayers,
+        adversaries,
         category,
       }
     }
   }
 
-  return { layers, problems }
+  const adversaries: Digraph["adversaries"] = tooltips.adversaries as Record<
+    string,
+    { label: string; desc: string }
+  >
+
+  return { layers, problems, adversaries }
 }
 
 const loadAll = Effect.gen(function* () {
@@ -171,7 +184,7 @@ const loadAll = Effect.gen(function* () {
         Effect.map((raw) => {
           const meta = parseChapterMeta(id, raw)
           const html = compileFragmentToHtml(file, registryMap)
-          return { id, label, meta, html } satisfies StackLayer
+          return { id, label, meta, html, invites: meta.invites } satisfies StackLayer
         })
       )
     ),

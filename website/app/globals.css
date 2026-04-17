@@ -201,6 +201,22 @@ details.stack-layer > summary::-webkit-details-marker {
   text-decoration: none;
 }
 
+.adversary-badge {
+  display: inline-block;
+  border: 1px solid var(--red);
+  color: var(--red);
+  font-size: 0.7rem;
+  padding: 0.1rem 0.4rem;
+  margin: 0.15rem;
+}
+
+a.adversary-badge:hover {
+  color: var(--red);
+  border-color: var(--red);
+  background: color-mix(in srgb, var(--red) 12%, transparent);
+  text-decoration: none;
+}
+
 /* filter bar */
 .filter-bar {
   margin-bottom: 1.25rem;
@@ -251,6 +267,11 @@ details.stack-layer > summary::-webkit-details-marker {
 .filter-chip.widget.active {
   border-color: var(--pink);
   color: var(--pink);
+}
+
+.filter-chip.adversary.active {
+  border-color: var(--red);
+  color: var(--red);
 }
 
 /* problem card */

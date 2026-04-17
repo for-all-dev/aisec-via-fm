@@ -2,6 +2,9 @@ import { notFound } from "next/navigation"
 import Link from "next/link"
 import { getSiteContent } from "../../../lib/content"
 import { CommentableProse } from "../../../components/commentable-prose"
+import tooltips from "../../../lib/tooltips.json"
+
+const ADVERSARY_TOOLTIPS = tooltips.adversaries as Record<string, { label: string; desc: string }>
 
 export const dynamic = "force-static"
 
@@ -27,6 +30,23 @@ export default async function StackLayerPage({ params }: { params: Promise<{ slu
           <span style={{ color: "var(--cyan)" }}>{layer.id}</span>
         </p>
         <h1 style={{ color: "var(--yellow)", fontSize: "1.3rem" }}>{layer.label}</h1>
+        {layer.invites.length > 0 && (
+          <div style={{ marginTop: "0.5rem" }}>
+            <span style={{ color: "var(--muted)", fontSize: "0.7rem", marginRight: "0.4rem" }}>
+              invites:
+            </span>
+            {layer.invites.map((a) => (
+              <Link
+                key={a}
+                href={`/problems?filter=${a}`}
+                className="adversary-badge"
+                title={ADVERSARY_TOOLTIPS[a]?.desc}
+              >
+                {a}
+              </Link>
+            ))}
+          </div>
+        )}
       </div>
 
       <CommentableProse html={layer.html} page={`/stack/${slug}`} className="prose" style={{ marginBottom: "2rem" }} />

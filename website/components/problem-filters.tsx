@@ -8,22 +8,29 @@ import tooltips from "../lib/tooltips.json"
 
 const LAYER_TOOLTIPS = tooltips.layers as Record<string, { label: string; desc: string }>
 export const CATEGORY_TOOLTIPS = tooltips.categories as Record<string, string>
+const ADVERSARY_TOOLTIPS = tooltips.adversaries as Record<string, { label: string; desc: string }>
 
 const LAYERS = Object.keys(LAYER_TOOLTIPS)
 const CATEGORIES = ["widget", "enabler"] as const
+const ADVERSARIES = Object.keys(ADVERSARY_TOOLTIPS)
 const LAYER_SET = new Set(LAYERS)
 const CATEGORY_SET = new Set<string>(CATEGORIES)
+const ADVERSARY_SET = new Set(ADVERSARIES)
 
-function parseFilterParam(param: string | null): { layers: Set<string>; category: string | null } {
-  if (!param) return { layers: new Set(), category: null }
+function parseFilterParam(
+  param: string | null,
+): { layers: Set<string>; category: string | null; adversaries: Set<string> } {
+  if (!param) return { layers: new Set(), category: null, adversaries: new Set() }
   const tokens = param.split(",").filter(Boolean)
   const layers = new Set<string>()
+  const adversaries = new Set<string>()
   let category: string | null = null
   for (const t of tokens) {
     if (LAYER_SET.has(t)) layers.add(t)
+    else if (ADVERSARY_SET.has(t)) adversaries.add(t)
     else if (CATEGORY_SET.has(t)) category = t
   }
-  return { layers, category }
+  return { layers, category, adversaries }
 }
 
 export function ProblemList({ problems }: { problems: Problem[] }) {
@@ -32,13 +39,14 @@ export function ProblemList({ problems }: { problems: Problem[] }) {
   const initial = parseFilterParam(searchParams.get("filter"))
   const [activeLayers, setActiveLayers] = useState<Set<string>>(initial.layers)
   const [activeCategory, setActiveCategory] = useState<string | null>(initial.category)
+  const [activeAdversaries, setActiveAdversaries] = useState<Set<string>>(initial.adversaries)
 
   useEffect(() => {
-    const parts = [...activeLayers]
+    const parts = [...activeLayers, ...activeAdversaries]
     if (activeCategory) parts.push(activeCategory)
     const url = parts.length > 0 ? `?filter=${parts.join(",")}` : "/problems"
     router.replace(url, { scroll: false })
-  }, [activeLayers, activeCategory, router])
+  }, [activeLayers, activeCategory, activeAdversaries, router])
 
   const toggleLayer = (id: string) => {
     setActiveLayers((prev) => {
@@ -53,9 +61,19 @@ export function ProblemList({ problems }: { problems: Problem[] }) {
     setActiveCategory((prev) => (prev === cat ? null : cat))
   }
 
+  const toggleAdversary = (id: string) => {
+    setActiveAdversaries((prev) => {
+      const next = new Set(prev)
+      if (next.has(id)) next.delete(id)
+      else next.add(id)
+      return next
+    })
+  }
+
   const filtered = problems.filter((p) => {
     if (activeCategory && p.category !== activeCategory) return false
     if (activeLayers.size > 0 && !p.layers.some((l) => activeLayers.has(l))) return false
+    if (activeAdversaries.size > 0 && !p.adversaries.some((a) => activeAdversaries.has(a))) return false
     return true
   })
 
@@ -88,6 +106,19 @@ export function ProblemList({ problems }: { problems: Problem[] }) {
             </button>
           ))}
         </div>
+        <div className="filter-group">
+          <span className="filter-label">// blocks</span>
+          {ADVERSARIES.map((id) => (
+            <button
+              key={id}
+              className={`filter-chip adversary ${activeAdversaries.has(id) ? "active" : ""}`}
+              onClick={() => toggleAdversary(id)}
+              title={`${ADVERSARY_TOOLTIPS[id].label}: ${ADVERSARY_TOOLTIPS[id].desc}`}
+            >
+              {id}
+            </button>
+          ))}
+        </div>
       </div>
 
       <div>
@@ -111,6 +142,11 @@ export function ProblemList({ problems }: { problems: Problem[] }) {
               {p.layers.map((l) => (
                 <span key={l} className="tag-badge" title={LAYER_TOOLTIPS[l]?.desc}>
                   {l}
+                </span>
+              ))}
+              {p.adversaries.map((a) => (
+                <span key={a} className="adversary-badge" title={ADVERSARY_TOOLTIPS[a]?.desc}>
+                  {a}
                 </span>
               ))}
             </div>

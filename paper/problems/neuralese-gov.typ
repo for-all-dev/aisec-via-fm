@@ -1,13 +1,15 @@
 // Tag: neuralese-governance
 // Layers: execution-harness, software-framework, orchestration-cloud
+// Adversaries: malicious-model
 // Category: enabler
 // Authors: quinn
 
-#import "../common/fns.typ": related-layers
+#import "../common/fns.typ": related-layers, adversaries-blocked
 
 == Governance and Interpretability of Neuralese Proof Stacks <sec:neuralese-gov>
 
 #related-layers("neuralese-governance")
+#adversaries-blocked("neuralese-governance")
 
 table stakes is that proofs are cheap. We assume a proof oracle will make code and proofs that they're correct too cheap to meter.
 

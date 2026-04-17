@@ -1,7 +1,9 @@
-#import "../common/fns.typ": related-problems
+// Invites: supply-chain, physical-adversary, rogue-insider
+#import "../common/fns.typ": related-problems, adversaries-invited
 == Hardware and Physical Supply Chain <sec:hardware-supply-chain>
 
 #related-problems("hardware-supply-chain")
+#adversaries-invited("hardware-supply-chain")
 
 At the bottom of the stack is the silicon itself: the GPU, TPU, and NPU dies that run every training and inference workload, and the global supply chain that produces them. Compromise here is durable: a hardware trojan survives every software update, every OS reinstall, every firmware reflash. It is also opaque: you cannot read out the RTL of a fabricated chip to check what it does.
 

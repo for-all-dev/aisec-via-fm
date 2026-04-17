@@ -1,13 +1,15 @@
 // Tag: context-window-integrity
 // Layers: execution-harness
+// Adversaries: external-user, malicious-model
 // Category: widget
 // Authors: quinn, maxvh
 
-#import "../common/fns.typ": related-layers
+#import "../common/fns.typ": related-layers, adversaries-blocked
 
 == Context Window Integrity Under Adversarial Length <sec:context-window-integrity>
 
 #related-layers("context-window-integrity")
+#adversaries-blocked("context-window-integrity")
 
 A model's context window is a fixed-size resource. The serving harness fills it by concatenating, in priority order, a system prompt, developer instructions, retrieved context (from RAG or tool outputs), and the user message. When the user message or retrieved context is long enough, something has to be truncated --- and in most deployed systems, truncation is last-in-wins or proportional, not priority-respecting. An adversary who controls message length (trivially: just send a long message) or who can influence retrieved-context length (less trivially: poison a document store with padding) can force eviction of the system prompt. Once the system prompt is gone, so are the behavioral constraints it encodes.
 

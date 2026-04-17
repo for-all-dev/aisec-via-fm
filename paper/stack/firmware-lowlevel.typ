@@ -1,7 +1,9 @@
-#import "../common/fns.typ": related-problems
+// Invites: co-tenant, rogue-insider, supply-chain
+#import "../common/fns.typ": related-problems, adversaries-invited
 == Firmware and Low-Level Systems <sec:firmware-lowlevel>
 
 #related-problems("firmware-lowlevel")
+#adversaries-invited("firmware-lowlevel")
 
 Below the orchestration layer and above the silicon sits the firmware: hypervisors, device drivers, and boot chains. Code here runs at the highest privilege levels on both CPU and GPU. A bug is not a container escape --- it is a host compromise, often with no log entry at all.
 

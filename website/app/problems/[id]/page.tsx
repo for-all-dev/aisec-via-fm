@@ -3,6 +3,9 @@ import Link from "next/link"
 import { getSiteContent } from "../../../lib/content"
 import { stripHtml } from "../../../lib/typst-parser"
 import { CommentableProse } from "../../../components/commentable-prose"
+import tooltips from "../../../lib/tooltips.json"
+
+const ADVERSARY_TOOLTIPS = tooltips.adversaries as Record<string, { label: string; desc: string }>
 
 export const dynamic = "force-static"
 
@@ -35,6 +38,23 @@ export default async function ProblemPage({ params }: { params: Promise<{ id: st
             <Link key={l} href={`/stack/${l}`} className="tag-badge">{l}</Link>
           ))}
         </div>
+        {problem.adversaries.length > 0 && (
+          <div style={{ marginTop: "0.4rem" }}>
+            <span style={{ color: "var(--muted)", fontSize: "0.7rem", marginRight: "0.4rem" }}>
+              blocks:
+            </span>
+            {problem.adversaries.map((a) => (
+              <Link
+                key={a}
+                href={`/problems?filter=${a}`}
+                className="adversary-badge"
+                title={ADVERSARY_TOOLTIPS[a]?.desc}
+              >
+                {a}
+              </Link>
+            ))}
+          </div>
+        )}
         {problem.authors.length > 0 && (
           <p style={{ color: "var(--muted)", fontSize: "0.75rem", marginTop: "0.4rem" }}>
             authors: {problem.authors.join(", ")}

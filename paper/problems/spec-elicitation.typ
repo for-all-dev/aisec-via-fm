@@ -1,13 +1,15 @@
 // Tag: spec-elicitation
 // Layers: execution-harness, software-framework, orchestration-cloud
+// Adversaries: malicious-model
 // Category: enabler
 // Authors: quinn
 
-#import "../common/fns.typ": related-layers
+#import "../common/fns.typ": related-layers, adversaries-blocked
 
 == Specification Elicitation and Validation <sec:spec-elicitation>
 
 #related-layers("spec-elicitation")
+#adversaries-blocked("spec-elicitation")
 
 If proofs are cheap and specs are expensive, then specs are the bottleneck. Every widget in this document terminates in a spec: a verified sampler is verified against _some_ statement of what a sampler should do, an OCI runtime is hardened against _some_ threat model, an IAM policy is checked against _some_ notion of least privilege. The spec is where human intent meets machine-checkable formalism, and it is the part that no proof oracle can write for you --- or rather, if a proof oracle writes it for you, you have quietly handed over the thing you were trying to keep.
 

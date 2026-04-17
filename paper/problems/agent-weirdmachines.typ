@@ -1,13 +1,15 @@
 // Tag: agent-weirdmachines
 // Layers: execution-harness, orchestration-cloud
+// Adversaries: malicious-model
 // Category: enabler
 // Authors: quinn, maxvh
 
-#import "../common/fns.typ": related-layers
+#import "../common/fns.typ": related-layers, adversaries-blocked
 
 == Formal Theory of Weird Machines in Agents <sec:agent-weirdmachines>
 
 #related-layers("agent-weirdmachines")
+#adversaries-blocked("agent-weirdmachines")
 
 A weird machine @bratus2011weird is the unintended computational substrate an attacker programs when individually-legitimate operations compose into capabilities their designers never enumerated. LangSec @sassaman2013langsec named this and argued it is the root cause of most exploitation. Von Hippel @vonhippel2026sfo observes that the framing transfers directly to agentic harnesses: the "gadgets" are the tools the agent is permitted to call (`curl`, `cat`, `man`, a Python sandbox, a vector-store query), and the weird machine is whatever computation the tool set admits under composition. Adversarial agents will live off the land, and "is this permission set safe?" reduces to a question about the reachable states of a composed transition system no one has ever formally described.
 

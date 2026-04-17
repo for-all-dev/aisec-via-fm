@@ -1,13 +1,15 @@
 // Tag: edge-policy-verification
 // Layers: execution-harness, orchestration-cloud
+// Adversaries: external-user, malicious-model
 // Category: widget
 // Authors: quinn, maxvh
 
-#import "../common/fns.typ": related-layers
+#import "../common/fns.typ": related-layers, adversaries-blocked
 
 == Edge Policy Verification <sec:edge-policy>
 
 #related-layers("edge-policy-verification")
+#adversaries-blocked("edge-policy-verification")
 
 The API gateway in front of an inference service handles authentication, rate limiting, and authorization before a request ever reaches the model. Each of these is a distinct protocol with distinct failure modes, and they interact. JWT algorithm confusion @cve2015jwtalg let attackers forge tokens by switching from RSA to HMAC verification --- a bug that lived in production libraries for years because the state space of the auth handshake was never systematically explored. OAuth 2.0 flows compound the problem: the redirect-based token exchange has enough moving parts (authorization codes, refresh tokens, PKCE challenges, session binding) that implementation errors routinely produce exploitable states. These are not novel observations, but the standard response --- unit tests and penetration testing --- samples the state space rather than covering it.
 

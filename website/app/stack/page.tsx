@@ -2,6 +2,9 @@ import Link from "next/link"
 import { getSiteContent } from "../../lib/content"
 import type { Problem } from "../../lib/content"
 import { CommentableProse } from "../../components/commentable-prose"
+import tooltips from "../../lib/tooltips.json"
+
+const ADVERSARY_TOOLTIPS = tooltips.adversaries as Record<string, { label: string; desc: string }>
 
 export const dynamic = "force-static"
 
@@ -21,7 +24,7 @@ export default async function StackPage() {
 
       <section>
         <p className="text-muted text-xs mb-3">// click to expand</p>
-        {stack.map(({ id, label, html }) => {
+        {stack.map(({ id, label, html, invites }) => {
           const related = problemsForLayer(problems, id)
           return (
             <details key={id} className="stack-layer">
@@ -38,6 +41,23 @@ export default async function StackPage() {
                 </Link>
               </summary>
               <div className="layer-content">
+                {invites.length > 0 && (
+                  <div style={{ marginBottom: "0.75rem" }}>
+                    <span style={{ color: "var(--muted)", fontSize: "0.7rem", marginRight: "0.4rem" }}>
+                      invites:
+                    </span>
+                    {invites.map((a) => (
+                      <Link
+                        key={a}
+                        href={`/problems?filter=${a}`}
+                        className="adversary-badge"
+                        title={ADVERSARY_TOOLTIPS[a]?.desc}
+                      >
+                        {a}
+                      </Link>
+                    ))}
+                  </div>
+                )}
                 <CommentableProse html={html} page="/stack" className="prose" />
                 {related.length > 0 && (
                   <div style={{ marginTop: "1rem" }}>

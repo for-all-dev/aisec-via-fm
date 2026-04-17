@@ -1,13 +1,15 @@
 // Tag: ai-control-proof-carrying-code
 // Layers: execution-harness, software-framework, orchestration-cloud
+// Adversaries: malicious-model
 // Category: enabler
 // Authors: quinn
 
-#import "../common/fns.typ": related-layers
+#import "../common/fns.typ": related-layers, adversaries-blocked
 
 == AI Control via Proof-Carrying Code <sec:proof-carrying-code>
 
 #related-layers("ai-control-proof-carrying-code")
+#adversaries-blocked("ai-control-proof-carrying-code")
 
 Proof-carrying code @necula1997pcc and AI Control @greenblatt2024aicontrol @bhatt2025ctrlz are two literatures about the same problem: keep an untrusted producer on the far side of an interface and let only a small trusted checker decide what gets through. PCC's answer is that every proposed action arrives tagged with a machine-checkable certificate; the trusted base is the proof kernel and nothing else. AI Control's answer is that a weaker trusted monitor, backed by a scarce audit budget, decides per-action on a safety--usefulness Pareto frontier. The deterministic midpoint --- the untrusted agent emits code plus a proof in a standard ITP, the boundary rejects anything that does not typecheck, and the trusted base collapses to the kernel plus a human-written specification --- has been sketched at prototype scale @dougherty2025formalconfinement but not stress-tested.
 

@@ -1,7 +1,9 @@
-#import "../common/fns.typ": related-problems
+// Invites: external-user, malicious-model, co-tenant
+#import "../common/fns.typ": related-problems, adversaries-invited
 == Execution Harness <sec:execution-harness>
 
 #related-problems("execution-harness")
+#adversaries-invited("execution-harness")
 
 The execution harness is the outermost software layer of an ML deployment: the wrapper that actually calls the model and handles its inputs and outputs. A user's prompt enters here, gets tokenized and batched, passes through the model, and returns as a completion. Because every interaction transits this layer, it is simultaneously the easiest place to bolt on security controls and the place where a failure is most directly exploitable from the outside.
 

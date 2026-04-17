@@ -1,13 +1,15 @@
 // Tag: weight-integrity
 // Layers: execution-harness, software-framework, firmware-lowlevel
+// Adversaries: supply-chain, rogue-insider
 // Category: widget
 // Authors: quinn, maxvh
 
-#import "../common/fns.typ": related-layers
+#import "../common/fns.typ": related-layers, adversaries-blocked
 
 == Weight Integrity and Kernel Supply Chain <sec:weight-integrity>
 
 #related-layers("weight-integrity")
+#adversaries-blocked("weight-integrity")
 
 Model weights are the highest-value static artifact in an ML deployment. A frontier model's checkpoint runs tens to hundreds of gigabytes, sharded across a distributed filesystem, and any bit-flip or deliberate modification in those shards changes the model's behavior in ways that are hard to detect at inference time. The threat model is straightforward: an adversary with write access to the storage layer --- compromised NFS node, supply-chain attack on a model registry like `Hugging Face`, or a privilege escalation on the serving host --- rewrites a weight shard. Existing defenses amount to hash-checking at load time. But the loader itself is a large, unverified C++/Python codebase, and the check is only as trustworthy as the code that performs it. A compromised loader can skip the check, and a hash collision (unlikely but not formally excluded) defeats it silently.
 

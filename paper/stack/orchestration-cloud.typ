@@ -1,7 +1,9 @@
-#import "../common/fns.typ": related-problems
+// Invites: co-tenant, rogue-insider, network-mitm, supply-chain
+#import "../common/fns.typ": related-problems, adversaries-invited
 == Orchestration and Cloud Layer <sec:orchestration-cloud>
 
 #related-problems("orchestration-cloud")
+#adversaries-invited("orchestration-cloud")
 
 The orchestration layer manages the compute resources that ML workloads run on: scheduling jobs across GPU clusters, routing traffic between them, and controlling who can access what. It sits below the frameworks and above the firmware --- a layer of distributed systems software that most ML engineers interact with only through configuration files, but whose security properties determine whether isolation between tenants, jobs, and data pipelines actually holds.
 

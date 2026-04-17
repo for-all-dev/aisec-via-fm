@@ -25,5 +25,35 @@
   "categories": {
     "enabler": "Problems whose resolution unbottlenecks a class of downstream work. Solving an enabler doesn't itself ship an artifact, but failing to solve it degrades everything that depends on it.",
     "widget": "Concrete, scoped deliverables: a verified runtime, a proven-correct sampler, a formally checked allocator. Each stands on its own as a security improvement to a specific stack layer."
+  },
+  "adversaries": {
+    "supply-chain": {
+      "label": "Supply Chain",
+      "desc": "Malicious or compromised upstream: poisoned packages (PyPI/npm), tampered model weights, trojaned chips, EDA-tool insertions, counterfeit firmware."
+    },
+    "co-tenant": {
+      "label": "Co-tenant",
+      "desc": "A workload sharing infrastructure with the victim — same GPU partition, same K8s node, same NVLink fabric — that exploits weak isolation to read or corrupt the victim's state."
+    },
+    "malicious-model": {
+      "label": "Malicious Model",
+      "desc": "The model or agent itself acting adversarially, whether misaligned, jailbroken, or scheming: escapes its sandbox, composes tool calls into capabilities it was not granted, or emits inputs that exploit downstream parsers."
+    },
+    "rogue-insider": {
+      "label": "Rogue Insider",
+      "desc": "A principal with legitimate access abusing it: stolen signing keys, over-permissioned service accounts, push access to a model registry, BMC takeover."
+    },
+    "network-mitm": {
+      "label": "Network MITM",
+      "desc": "An on-path attacker between nodes or between client and server: tampering unauthenticated RDMA traffic, compromising an SDN controller, or performing traffic analysis on collective-ops patterns."
+    },
+    "physical-adversary": {
+      "label": "Physical Adversary",
+      "desc": "An attacker with physical access to hardware: probing HBM interposers, EM and power side channels, counterfeit or remarked chips, tampering with server chassis."
+    },
+    "external-user": {
+      "label": "External User",
+      "desc": "An external actor hitting the public API: crafted prompts that trigger deserialization bugs, content-filter evasion, or state-poisoning of rate-limiters and context windows."
+    }
   }
 }
