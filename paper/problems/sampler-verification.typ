@@ -11,7 +11,7 @@
 
 The sampler is the last piece of code between the model's output logits and the token that reaches the user. It applies temperature scaling, top-_k_ or top-_p_ filtering, and then draws from the resulting distribution. This is a small amount of code --- a few hundred lines in a typical inference server --- but it sits at a chokepoint. An adversary who controls the temperature parameter, the random seed, or the filtering threshold can bias the output distribution without touching weights or the forward pass. The attack surface is not hypothetical: inference servers expose these parameters via API, configuration files, and environment variables, and the sampler's internal state (particularly the PRNG) is rarely isolated from the rest of the serving process.
 
-The scoping here is what makes the problem attractive. Unlike weight loading or kernel validation, the sampler is small enough to verify in its entirety. The specification is a probability distribution parameterized by (logits, temperature, top-_k_, top-_p_, seed), and the property to check is that the implementation samples from exactly that distribution --- no hidden state, no side-channel inputs, no drift from the spec across calls.
+The scoping here is what makes the problem attractive. Unlike weight loading or kernel validation, the sampler is small enough to verify. The specification is a probability distribution parameterized by (logits, temperature, top-_k_, top-_p_, seed), and the property to check is that the implementation samples from exactly that distribution --- no hidden state, no side-channel inputs, no drift from the spec across calls.
 
 === Solution/project Sketch <sec:sampler-verification-sketch>
 

@@ -13,7 +13,7 @@ A model's context window is a fixed-size resource. The serving harness fills it 
 
 This is a resource-scheduling problem in disguise. The system prompt and developer instructions are hard reservations; user input and retrieved context are elastic. The invariant is simple to state: _the system prompt occupies a reserved prefix of guaranteed minimum size, and truncation of lower-priority sections never reduces the system-prompt allocation_. This is a monotonicity property --- increasing the length of a lower-priority section can only shrink other lower-priority sections, never the reserved prefix. It is exactly the kind of property that tools like `Dafny` and `Frama-C` are built to verify, because it reduces to an invariant over a bounded integer program (token counts, priority levels, allocation sizes).
 
-The reason this has not been done is that context assembly logic is typically embedded in application code --- a few dozen lines of Python in a `LangChain` pipeline or a custom harness --- and nobody has extracted a specification from it. But the specification is short, the code is short, and the proof obligation is a loop invariant. This is one of the lowest-effort, highest-value verification targets in the serving stack.
+The reason this has not been done is that context assembly logic is typically embedded in application code --- a few dozen lines of Python in a `LangChain` pipeline or a custom harness --- and nobody has extracted a specification from it. But the specification is short, the code is short, and the proof obligation is a loop invariant. This is a low-effort, high-value verification target in the serving stack.
 
 === Solution/project Sketch <sec:context-window-integrity-sketch>
 
