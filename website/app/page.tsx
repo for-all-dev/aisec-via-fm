@@ -12,7 +12,7 @@ export default async function HomePage() {
                 <p className="eyebrow">position paper · forall r&d</p>
                 <h1>Tractable Problems in AI Security via Formal Methods</h1>
                 <p>
-                    A minimal, sane catalog of formal-methods opportunities
+                    A minimal, sane catalog of formal methods opportunities
                     across the ML training and inference stack. An instruction
                     manual for how to spend 5–25 postdoc-years.
                 </p>
