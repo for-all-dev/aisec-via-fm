@@ -58,7 +58,7 @@ export default async function StackPage() {
                     ))}
                   </div>
                 )}
-                <CommentableProse html={html} page="/stack" className="prose" />
+                <CommentableProse html={html} page={`/stack/${id}`} className="prose" />
                 {related.length > 0 && (
                   <div style={{ marginTop: "1rem" }}>
                     <p style={{ color: "var(--muted)", fontSize: "0.75rem", marginBottom: "0.4rem" }}>
