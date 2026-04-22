@@ -22,6 +22,7 @@ The problems below split into two kinds.
 #include "verified-input-parsers.typ"
 #include "context-window-integrity.typ"
 #include "capability-accumulation.typ"
+#include "loop-termination.typ"
 #include "audit-log-integrity.typ"
 #include "neuralese-gov.typ"
 #include "agent-weirdmachines.typ"
