@@ -192,8 +192,10 @@ export function compileFragmentToHtml(
   // Strip #related-problems(...) and #related-layers(...) calls — the website
   // handles cross-references via its own label registry and digraph, not via
   // Typst's label/link system which requires all fragments in one compilation.
+  // Also strip #adversaries-invited(...) and #adversaries-blocked(...) — the
+  // website renders those in the page header with hover tooltips.
   processed = processed.replace(
-    /^#related-(?:problems|layers)\(.*\)\s*$/gm,
+    /^#(?:related-(?:problems|layers)|adversaries-(?:invited|blocked))\(.*\)\s*$/gm,
     "",
   )
 
