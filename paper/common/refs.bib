@@ -893,3 +893,307 @@
                   most accurate public {ARM} modeling work (scoped to the CPU
                   ISA). Accessed 2026-04-22}
 }
+
+@misc{zhang2025nvbleed,
+  author =       {Zhang, Yicheng and Nazaraliyev, Ravan and Dutta, Sankha Baran
+                  and Marquez, Andres and Barker, Kevin and Abu-Ghazaleh, Nael},
+  title =        {{NVBleed}: Covert and Side-Channel Attacks on {NVIDIA}
+                  Multi-{GPU} Interconnect},
+  year =         2025,
+  eprint =       {2503.17847},
+  archivePrefix ={arXiv},
+  primaryClass = {cs.CR},
+  url =          {https://arxiv.org/abs/2503.17847},
+  note =         {Reverse-engineers NVLink contention and performance-counter
+                  channels; fingerprints a co-tenant model with 97.8\% accuracy
+                  across VM boundaries on Google Cloud}
+}
+
+@misc{wilhelm2021epyckvm,
+  author =       {Wilhelm, Felix},
+  title =        {An {EPYC} escape: Case-study of a {KVM} breakout},
+  howpublished = {Google Project Zero blog},
+  year =         2021,
+  month =        jun,
+  url =          {https://projectzero.google/2021/06/an-epyc-escape-case-study-of-kvm.html},
+  note =         {Public writeup of {CVE-2021-29657}: a {KVM} guest-to-host
+                  escape via the \texttt{nested\_svm\_vmrun} path on AMD hosts.
+                  Affected Linux v5.10--v5.12-rc6}
+}
+
+@article{basu2019cadbase,
+  author =       {Basu, Kanad and Saeed, Samah Mohamed and Pilato, Christian
+                  and Ashraf, Mohammed and Nabeel, Mohammed Thari and
+                  Chakrabarty, Krishnendu and Karri, Ramesh},
+  title =        {{CAD-Base}: An Attack Vector into the Electronics Supply
+                  Chain},
+  journal =      {ACM Transactions on Design Automation of Electronic Systems
+                  (TODAES)},
+  volume =       24,
+  number =       4,
+  pages =        {38:1--38:30},
+  year =         2019,
+  doi =          {10.1145/3315574},
+  note =         {Shows every stage of the EDA pipeline (HLS, logic synthesis,
+                  place-and-route, verification, test, post-silicon validation)
+                  is a viable insertion point for hardware trojans}
+}
+
+@inproceedings{harrison2003fvatintel,
+  author =       {Harrison, John},
+  title =        {Formal Verification at {Intel}},
+  booktitle =    {18th Annual IEEE Symposium on Logic in Computer Science
+                  (LICS)},
+  pages =        {45--54},
+  year =         2003,
+  doi =          {10.1109/LICS.2003.1210044},
+  note =         {Overview of Intel's formal-verification effort, driven by
+                  the 1994 Pentium FDIV incident; covers HOL Light and the
+                  floating-point verification program}
+}
+
+@misc{yosyshq_riscvformal,
+  author =       {{YosysHQ}},
+  title =        {{riscv-formal}: {RISC-V} Formal Verification Framework},
+  year =         2024,
+  howpublished = {GitHub},
+  url =          {https://github.com/YosysHQ/riscv-formal},
+  note =         {Framework for formal verification of {RISC-V} processors
+                  using the {RISC-V} Formal Interface ({RVFI}) and SystemVerilog
+                  assertions. Accessed 2026-04-23}
+}
+
+@misc{openhw_corevverif,
+  author =       {{OpenHW Group}},
+  title =        {{CORE-V-VERIF}: Functional Verification for {CORE-V}
+                  {RISC-V} Cores},
+  year =         2024,
+  howpublished = {GitHub},
+  url =          {https://github.com/openhwgroup/core-v-verif},
+  note =         {Industrial-grade pre-silicon verification project for the
+                  {CV32E} and {CV64A} {RISC-V} core families, using
+                  SystemVerilog, UVM-1.2, SVA, and coverage-driven testing.
+                  Accessed 2026-04-23}
+}
+
+@article{choi2017kami,
+  author =       {Choi, Joonwon and Vijayaraghavan, Muralidaran and Sherman,
+                  Benjamin and Chlipala, Adam and {Arvind}},
+  title =        {{Kami}: A Platform for High-Level Parametric Hardware
+                  Specification and Its Modular Verification},
+  journal =      {Proceedings of the ACM on Programming Languages (ICFP)},
+  volume =       1,
+  year =         2017,
+  doi =          {10.1145/3110268},
+  note =         {Coq-embedded DSL for parametric hardware specification,
+                  used to formally verify {MIT}'s open-source {Riscy}
+                  {RISC-V} processor family}
+}
+
+@misc{cisa2025kev,
+  author =       {{Cybersecurity and Infrastructure Security Agency}},
+  title =        {Known Exploited Vulnerabilities Catalog},
+  year =         2025,
+  howpublished = {CISA},
+  url =          {https://www.cisa.gov/known-exploited-vulnerabilities-catalog},
+  note =         {Living catalog of vulnerabilities with evidence of
+                  in-the-wild exploitation; 1{,}484 entries at end of 2025
+                  (20\% YoY growth from 1{,}239 at end of 2024). Accessed
+                  2026-04-23}
+}
+
+@misc{reversinglabs2025nullifai,
+  author =       {{ReversingLabs}},
+  title =        {Malicious {ML} models discovered on {Hugging Face}
+                  platform},
+  howpublished = {ReversingLabs Blog},
+  year =         2025,
+  month =        feb,
+  url =          {https://www.reversinglabs.com/blog/rl-identifies-malware-ml-model-hosted-on-hugging-face},
+  note =         {``nullifAI'' technique: malicious pickle payloads in
+                  7z-compressed {PyTorch} archives evade {PickleScan} because
+                  the object-graph deserialization errors out after the reverse
+                  shell has already executed}
+}
+
+@misc{jfrog2025picklescan,
+  author =       {{JFrog Security Research}},
+  title =        {Unveiling 3 Zero-Day Vulnerabilities in {PickleScan}},
+  howpublished = {JFrog Blog},
+  year =         2025,
+  month =        dec,
+  url =          {https://jfrog.com/blog/unveiling-3-zero-day-vulnerabilities-in-picklescan/},
+  note =         {{CVE-2025-10155} (file-extension bypass),
+                  {CVE-2025-10157} (unsafe-globals bypass via submodule
+                  imports), and a magic-number bypass via \texttt{\_\_reduce\_\_}
+                  returning \texttt{eval()}. All evade {Hugging Face}'s primary
+                  pickle scanner}
+}
+
+@techreport{trailofbits2023safetensors,
+  author =       {{Trail of Bits}},
+  title =        {{EleutherAI}, {Hugging Face} {Safetensors} Library Security
+                  Assessment},
+  institution =  {Trail of Bits},
+  year =         2023,
+  month =        may,
+  url =          {https://github.com/trailofbits/publications/blob/master/reviews/2023-03-eleutherai-huggingface-safetensors-securityreview.pdf},
+  note =         {Found no critical security flaws; spec imprecisions
+                  (polyglot-file validation) fixed as part of the audit.
+                  Published 2023-05-23}
+}
+
+@misc{amd2023sevtio,
+  author =       {{Advanced Micro Devices}},
+  title =        {{AMD SEV-TIO}: Trusted {I/O} for Secure Encrypted
+                  Virtualization},
+  howpublished = {AMD Whitepaper},
+  year =         2023,
+  url =          {https://www.amd.com/content/dam/amd/en/documents/developer/sev-tio-whitepaper.pdf},
+  note =         {Extends {SEV-SNP} to {PCIe}-attached devices via the
+                  {PCI-SIG} {TDISP} protocol, enabling device attestation
+                  and encrypted {DMA} into confidential-VM memory without
+                  giving up {PCIe} passthrough}
+}
+
+@misc{unit42_cudatoolkit,
+  author =       {Zambelli, Alex},
+  title =        {Multiple Vulnerabilities Discovered in {NVIDIA CUDA}
+                  Toolkit},
+  howpublished = {Palo Alto Networks Unit 42 Blog},
+  year =         2025,
+  month =        feb,
+  url =          {https://unit42.paloaltonetworks.com/nvidia-cuda-toolkit-vulnerabilities/},
+  note =         {Nine vulnerabilities ({CVE-2024-53870} through
+                  {CVE-2024-53878}) in \texttt{cuobjdump} and
+                  \texttt{nvdisasm}; integer overflows and out-of-bounds reads
+                  in the parsing of {CUDA} fat binaries}
+}
+
+@inproceedings{blanchet2001proverif,
+  author =       {Blanchet, Bruno},
+  title =        {An Efficient Cryptographic Protocol Verifier Based on
+                  {Prolog} Rules},
+  booktitle =    {14th {IEEE} Computer Security Foundations Workshop (CSFW)},
+  pages =        {82--96},
+  year =         2001,
+  note =         {Introduces {ProVerif}: compiles protocols from an applied
+                  pi-calculus dialect into Horn clauses and proves secrecy,
+                  authentication, and equivalence properties by resolution.
+                  Received the CSF 2023 Test of Time Award}
+}
+
+@inproceedings{meier2013tamarin,
+  author =       {Meier, Simon and Schmidt, Benedikt and Cremers, Cas and
+                  Basin, David},
+  title =        {The {TAMARIN} Prover for the Symbolic Analysis of Security
+                  Protocols},
+  booktitle =    {25th International Conference on Computer Aided
+                  Verification (CAV)},
+  series =       {Lecture Notes in Computer Science},
+  volume =       8044,
+  pages =        {696--701},
+  year =         2013,
+  doi =          {10.1007/978-3-642-39799-8\_48},
+  note =         {Supports unbounded symbolic analysis with multiset-rewriting
+                  semantics, equational reasoning, and expressive adversary
+                  models}
+}
+
+@misc{sysdig2026aiattackchain,
+  author =       {{Sysdig Threat Research Team}},
+  title =        {{AI}-assisted cloud intrusion achieves admin access in 8
+                  minutes},
+  howpublished = {Sysdig Blog},
+  year =         2026,
+  month =        feb,
+  url =          {https://sysdig.com/blog/ai-assisted-cloud-intrusion-achieves-admin-access-in-8-minutes},
+  note =         {Incident of 2025-11-28: compromised {S3}-exposed credentials
+                  escalated to {AWS} administrator in eight minutes across 19
+                  distinct principals (5 {IAM} users, 6 roles used over 14
+                  sessions); {LLM}-assisted reconnaissance and Lambda-based
+                  privilege escalation}
+}
+
+@inproceedings{ammons2002miningspecs,
+  author =       {Ammons, Glenn and Bod\'{i}k, Rastislav and Larus, James R.},
+  title =        {Mining Specifications},
+  booktitle =    {Proceedings of the 29th ACM SIGPLAN-SIGACT Symposium on
+                  Principles of Programming Languages (POPL)},
+  pages =        {4--16},
+  year =         2002,
+  doi =          {10.1145/503272.503275},
+  note =         {Machine-learning approach to discovering formal {API}
+                  protocols from program execution traces; foundational
+                  spec-mining paper}
+}
+
+@inproceedings{claessen2000quickcheck,
+  author =       {Claessen, Koen and Hughes, John},
+  title =        {{QuickCheck}: A Lightweight Tool for Random Testing of
+                  {Haskell} Programs},
+  booktitle =    {Proceedings of the 5th ACM SIGPLAN International Conference
+                  on Functional Programming (ICFP)},
+  pages =        {268--279},
+  year =         2000,
+  doi =          {10.1145/351240.351266},
+  note =         {Founding paper of property-based testing: programmer states
+                  properties, tool generates random counterexamples}
+}
+
+@misc{anthropic2025postmortem,
+  author =       {{Anthropic}},
+  title =        {A postmortem of three recent issues},
+  howpublished = {Anthropic Engineering Blog},
+  year =         2025,
+  month =        sep,
+  url =          {https://www.anthropic.com/engineering/a-postmortem-of-three-recent-issues},
+  note =         {Describes an {XLA}:{TPU} approximate top-k miscompilation
+                  (bf16/fp32 precision mismatch via the
+                  \texttt{xla\_allow\_excess\_precision} flag) that silently
+                  produced wrong next-token selections for {Claude} Haiku 3.5,
+                  Sonnet 4, and Opus 3}
+}
+
+@misc{ggml2025gguf,
+  author =       {{ggml-org}},
+  title =        {{GHSA-96jg-mvhq-q7q7}: Heap Buffer Overflow via Integer
+                  Overflow in {GGUF} Tensor Parsing},
+  year =         2025,
+  howpublished = {GitHub Security Advisory},
+  url =          {https://github.com/ggml-org/llama.cpp/security/advisories/GHSA-96jg-mvhq-q7q7},
+  note =         {Integer overflow in \texttt{gguf\_init\_from\_file\_impl}
+                  allows an attacker-controlled {GGUF} model file to trigger
+                  heap corruption; related issues include {CVE-2024-21802},
+                  {CVE-2025-49847}, and the {TALOS-2024-1913} string-length
+                  overflow}
+}
+
+@techreport{sia2021supplychain,
+  author =       {{Semiconductor Industry Association} and {Boston Consulting
+                  Group}},
+  title =        {Strengthening the Global Semiconductor Supply Chain in an
+                  Uncertain Era},
+  institution =  {Semiconductor Industry Association},
+  year =         2021,
+  month =        apr,
+  url =          {https://www.semiconductors.org/strengthening-the-global-semiconductor-supply-chain-in-an-uncertain-era/},
+  note =         {100\% of leading-edge ($<$10\,nm) semiconductor manufacturing
+                  capacity sits in Taiwan (92\%) and South Korea (8\%); {TSMC}
+                  produces over 90\% of the world's most advanced chips}
+}
+
+@misc{sia2013anticounterfeit,
+  author =       {{Semiconductor Industry Association}},
+  title =        {Winning the Battle Against Counterfeit Semiconductor
+                  Products},
+  year =         2013,
+  howpublished = {SIA White Paper},
+  url =          {https://www.semiconductors.org/wp-content/uploads/2018/01/SIA-Anti-Counterfeiting-Whitepaper.pdf},
+  note =         {Estimates counterfeit semiconductors cost the {U.S.}
+                  semiconductor industry \$7.5 billion annually in lost
+                  revenue. (Note: some sources cite a much larger total
+                  figure for broader counterfeit-electronics impact; the
+                  \$170B-per-year number sometimes attributed to {DARPA} was
+                  not confirmed in this audit)}
+}

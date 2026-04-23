@@ -16,7 +16,7 @@ If proofs are cheap and specs are expensive, then specs are the bottleneck. Ever
 Two subproblems:
 
 - *Elicitation.* Getting the spec out of the stakeholder's head and into a formal language, without losing the parts they could not articulate. The classical software-engineering requirements-gathering literature is relevant but insufficient --- we need elicitation techniques that produce artifacts a kernel can consume, not prose a PM can sign off on.
-- *Validation.* Convincing yourself that the spec you wrote is the spec you meant. A proof of `P` against the wrong `P` is worse than useless: it launders a bug into a theorem. TODO: cite the property-based testing / spec-mining literature.
+- *Validation.* Convincing yourself that the spec you wrote is the spec you meant. A proof of `P` against the wrong `P` is worse than useless: it launders a bug into a theorem. The property-based testing tradition @claessen2000quickcheck and the spec-mining tradition @ammons2002miningspecs are the two complementary handles we have on this --- the first forces you to execute the spec against concrete inputs, the second infers candidate specs from observed behavior for the human to ratify or reject.
 
 TODO: discuss the relationship to @sec:neuralese-gov --- if the proof substrate is itself opaque, spec elicitation becomes unsolvable rather than merely hard, which is why we treat that as a separate enabler.
 
