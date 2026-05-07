@@ -1183,6 +1183,62 @@
                   produces over 90\% of the world's most advanced chips}
 }
 
+@article{meijer2026guardians,
+  author =       {Meijer, Erik},
+  title =        {Guardians of the Agents: Formal Verification of {AI}
+                  Workflows},
+  journal =      {Communications of the {ACM}},
+  volume =       69,
+  number =       1,
+  pages =        {46--52},
+  year =         2026,
+  month =        jan,
+  doi =          {10.1145/3777544},
+  url =          {https://cacm.acm.org/practice/guardians-of-the-agents/},
+  note =         {Frames prompt injection as a code-data confusion
+                  problem analogous to SQL injection; proposes that the
+                  LLM generate a structured plan with symbolic
+                  references that a static verifier discharges before
+                  execution using taint analysis, security automata,
+                  and {Z3}. Reference implementation:
+                  \url{https://github.com/metareflection/guardians}}
+}
+
+@misc{amodo2026taps,
+  author =       {{Amodo Design}},
+  title =        {Network Tapping for {AI} Verification: A Technical
+                  Assessment},
+  howpublished = {Technical note, Amodo Design},
+  year =         2026,
+  url =          {https://amododesign.com/network-tapping-tech-note/},
+  note =         {Optical tapping mechanics for AI-datacenter monitoring:
+                  passive splitters add no latency but consume link
+                  budget (a 1\,dB loss can break a 53\,Gbaud link);
+                  active OEO taps regenerate signal at $\sim$20\,ns
+                  latency and tens of watts per tap and introduce a new
+                  failure point on the live link}
+}
+
+@misc{cankaya2026taps,
+  author =       {Cankaya, Naci and Friedman, Anjay and Baker, Mauricio},
+  title =        {Research Note: The Fundamentals and Feasibility of
+                  Secure Network Taps for Verifying {AI} Datacenter Use},
+  howpublished = {The Datacenter Lie Detector (Substack)},
+  year =         2026,
+  month =        apr,
+  url =          {https://nacicankaya.substack.com/p/research-note-the-fundamentals-and},
+  note =         {Frames network taps as a verification primitive for
+                  AI-datacenter compliance under mutual distrust between
+                  operator and external verifier; argues for
+                  asynchronous outsourced verification with simple,
+                  formally verifiable wire-side hardware (L2-L4 header
+                  parse, SHA-3 hash, timestamp). Cost figures: NS edge
+                  taps $<$0.01\% of facility cost, EW storage
+                  0.3--0.75\%, EW compute 0.2--1.5\%; cites Arista 7130
+                  and Deutsche B\"orse as 400\,Gbps FPGA-capture
+                  precedents}
+}
+
 @misc{sia2013anticounterfeit,
   author =       {{Semiconductor Industry Association}},
   title =        {Winning the Battle Against Counterfeit Semiconductor
