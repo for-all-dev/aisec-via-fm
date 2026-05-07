@@ -1,7 +1,7 @@
 "use client"
 
 import { useCallback, useEffect, useState } from "react"
-import type { Comment } from "../../lib/supabase"
+import type { Comment } from "../../lib/db"
 
 export default function AdminPage() {
   const [password, setPassword] = useState("")

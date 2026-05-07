@@ -60,3 +60,4 @@ paper/__wrapper_*.typ
 
 # copied from paper/common/ by prebuild script
 website/lib/tooltips.json
+website/scripts/recovered-comments.json

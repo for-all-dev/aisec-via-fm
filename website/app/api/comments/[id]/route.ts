@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server"
-import { supabaseAdmin } from "../../../../lib/supabase"
+import { sql } from "../../../../lib/db"
 
 export async function DELETE(
   request: NextRequest,
@@ -12,14 +12,7 @@ export async function DELETE(
 
   const { id } = await params
 
-  const { error } = await supabaseAdmin
-    .from("comments")
-    .delete()
-    .eq("id", id)
-
-  if (error) {
-    return NextResponse.json({ error: error.message }, { status: 500 })
-  }
+  await sql`delete from comments where id = ${id}`
 
   return new NextResponse(null, { status: 204 })
 }
