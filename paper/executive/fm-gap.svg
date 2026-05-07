@@ -52,7 +52,7 @@
   <!-- 7: ACTUALLY got -->
   <rect class="box" x="940" y="40" width="170" height="72" rx="4"/>
   <text class="boxText" x="1025" y="72">What you <tspan class="boxEm">ACTUALLY</tspan></text>
-  <text class="boxText" x="1025" y="92">you <tspan class="boxEm">GOT</tspan></text>
+  <text class="boxText" x="1025" y="92"><tspan class="boxEm">GOT</tspan></text>
 
   <!-- Pointers from callouts up to the relevant arrows -->
   <path class="pointer" d="M 250 180 L 250 108"/>

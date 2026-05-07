@@ -242,3 +242,21 @@
     )
   }
 }
+
+/// Render the full adversary taxonomy as a two-column table.
+/// Source of truth is tooltips.json (shared with the website tooltips).
+#let adversary-table() = {
+  let rows = ()
+  for (aid, meta) in _adversary-meta {
+    rows.push(adversary-tag(meta.label))
+    rows.push(meta.desc)
+  }
+  table(
+    columns: (auto, 1fr),
+    inset: 8pt,
+    align: (left + horizon, left + top),
+    stroke: 0.5pt + rgb("#cbd5e1"),
+    [*Adversary*], [*Description*],
+    ..rows,
+  )
+}

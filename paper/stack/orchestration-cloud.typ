@@ -5,7 +5,7 @@
 #related-problems("orchestration-cloud")
 #adversaries-invited("orchestration-cloud")
 
-The orchestration layer manages the compute resources that ML workloads run on: scheduling jobs across GPU clusters, routing traffic between them, and controlling who can access what. It sits below the frameworks and above the firmware --- a layer of distributed systems software that most ML engineers interact with only through configuration files, but whose security properties determine whether isolation between tenants, jobs, and data pipelines actually holds.
+The orchestration layer manages the compute resources that ML workloads run on: scheduling jobs across GPU clusters, routing traffic between them, and controlling who can access what. It sits below the frameworks and above the firmware --- a layer of distributed systems software that most ML engineers interact with only through configuration files, but whose security properties determine whether isolation between tenants, jobs, and data pipelines actually holds. Following @sec:mechanism-not-policy we treat this layer as a stack of mechanisms (runtime confinement, distributed-protocol correctness, network-fabric isolation, IAM logic) and not as a question about scheduler optimization; placement and load-balancing decisions are downstream of these mechanisms and out of scope.
 
 === Cluster Orchestration <sec:cluster-orchestration>
 

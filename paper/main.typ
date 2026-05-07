@@ -44,6 +44,7 @@
 #include "executive/main.typ"
 #include "stack/main.typ"
 #include "problems/main.typ"
+#include "appendix/main.typ"
 
 // ── Bibliography ─────────────────────────────────────────────────
 #bibliography("common/refs.bib")
