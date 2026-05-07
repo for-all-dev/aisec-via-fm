@@ -265,10 +265,29 @@ export function compileFragmentToHtml(
 
 /**
  * Convert simple typst math to LaTeX.
- * Handles the subset used in this paper: Greek letters, sum, subscripts, comparisons.
+ * Handles the subset used in this paper: Greek letters, LTL/logical operators,
+ * upright text, paren-grouped sub/superscripts, and aligned multi-line blocks.
  */
-function typstMathToLatex(typstMath: string): string {
-  let tex = typstMath
+function typstMathToLatex(typstMath: string, display: boolean): string {
+  // Pull "..." text segments out first so operator regexes (`in`, `and`, ...)
+  // cannot sneak into identifiers like `live_in` or `mon-input`. Re-insert
+  // as escaped `\text{...}` at the end. Placeholders use private-use
+  // characters so no regex below ever matches inside one.
+  const TEXT_OPEN = ""
+  const TEXT_CLOSE = ""
+  const textSegments: string[] = []
+  let tex = typstMath.replace(/"([^"\n]+)"/g, (_m, txt) => {
+    const i = textSegments.push(txt) - 1
+    return `${TEXT_OPEN}${i}${TEXT_CLOSE}`
+  })
+  // Letter-only boundary: matches operator names that may abut `_` or digits
+  // (e.g. `diamond_(<=D)`, `delta_x`). JS `\b` treats `_` as a word char and
+  // would refuse to match those.
+  const B = "(?<![A-Za-z])"
+  const A = "(?![A-Za-z])"
+  const word = (s: string, repl: string) => {
+    tex = tex.replace(new RegExp(`${B}${s}${A}`, "g"), repl)
+  }
   // Greek letters (typst uses bare names, LaTeX needs backslash)
   const greeks = [
     "alpha", "beta", "gamma", "delta", "epsilon", "zeta", "eta", "theta",
@@ -276,32 +295,75 @@ function typstMathToLatex(typstMath: string): string {
     "tau", "upsilon", "phi", "chi", "psi", "omega",
     "Gamma", "Delta", "Theta", "Lambda", "Xi", "Pi", "Sigma", "Phi", "Psi", "Omega",
   ]
-  for (const g of greeks) {
-    tex = tex.replace(new RegExp(`\\b${g}\\b`, "g"), `\\${g}`)
+  for (const g of greeks) word(g, `\\${g}`)
+  // LTL / modal operators. Filled variants must run before the bare variant
+  // so the `square` / `diamond` prefix inside `square.filled` / `diamond.filled`
+  // is not consumed first.
+  word("square\\.filled", "\\blacksquare ")
+  word("square", "\\Box ")
+  word("diamond\\.filled", "\\blacklozenge ")
+  word("diamond", "\\Diamond ")
+  // Logical connectives
+  word("exists", "\\exists ")
+  word("forall", "\\forall ")
+  word("and", "\\land ")
+  word("or", "\\lor ")
+  word("not", "\\lnot ")
+  // Spacing
+  word("quad", "\\quad ")
+  word("wide", "\\qquad ")
+  // Arrows
+  tex = tex.replace(/->/g, "\\to ")
+  // Sums, products, integrals, set membership
+  word("sum", "\\sum")
+  word("prod", "\\prod")
+  word("int", "\\int")
+  word("in", "\\in ")
+  // Comparison operators
+  tex = tex.replace(/<=/g, "\\leq ")
+  tex = tex.replace(/>=/g, "\\geq ")
+  tex = tex.replace(/!=/g, "\\neq ")
+  // Paren-grouped sub/superscripts: typst `_(expr)` -> latex `_{expr}`.
+  // Only handles flat groups (no nested parens), which covers the LTL spec.
+  tex = tex.replace(/_\(([^()]+)\)/g, "_{$1}")
+  tex = tex.replace(/\^\(([^()]+)\)/g, "^{$1}")
+  // Re-insert "..." text segments as escaped \text{...}. Underscores inside
+  // \text{} confuse KaTeX (it tries to read them as subscripts), so escape
+  // them; same for other text-mode special chars likely to appear.
+  tex = tex.replace(new RegExp(`${TEXT_OPEN}(\\d+)${TEXT_CLOSE}`, "g"), (_m, i) => {
+    const txt = textSegments[parseInt(i, 10)]
+    const escaped = txt
+      .replace(/\\/g, "\\textbackslash ")
+      .replace(/_/g, "\\_")
+      .replace(/&/g, "\\&")
+      .replace(/%/g, "\\%")
+      .replace(/#/g, "\\#")
+    return `\\text{${escaped}}`
+  })
+  // Convert Typst math row breaks (single `\` at end of line) to KaTeX's
+  // `\\` line break. Run before the aligned wrap. Operator macros introduced
+  // earlier (e.g. `\Box `, `\quad `) cannot false-match this regex because
+  // they have a letter immediately after the backslash, not whitespace.
+  tex = tex.replace(/\\\s*\n/g, " \\\\\n")
+  // Multi-line display blocks: wrap in aligned so `\\` and `&` work.
+  if (display) {
+    tex = `\\begin{aligned}${tex}\\end{aligned}`
   }
-  // Typst operators to LaTeX
-  tex = tex.replace(/\bsum\b/g, "\\sum")
-  tex = tex.replace(/\bprod\b/g, "\\prod")
-  tex = tex.replace(/\bint\b/g, "\\int")
-  tex = tex.replace(/<=/g, "\\leq")
-  tex = tex.replace(/>=/g, "\\geq")
-  tex = tex.replace(/!=/g, "\\neq")
-  tex = tex.replace(/\bin\b/g, "\\in")
   return tex
 }
 
 /**
- * Extract inline math ($...$) from typst source, replacing each with a
- * backtick-wrapped placeholder that survives HTML compilation.
- * Returns the processed source and a map from placeholder index to original math.
+ * Extract typst math ($...$) from source, replacing each with a backtick-wrapped
+ * placeholder that survives HTML compilation. Captures both inline math and
+ * multi-line display blocks; the body is treated as display when it contains
+ * a `\\` row separator.
  */
 function extractMathExpressions(src: string): { processed: string; mathExprs: Map<number, string> } {
   const mathExprs = new Map<number, string>()
   let idx = 0
-  // Match inline math: $...$ but NOT escaped \$ (literal dollar signs in typst).
-  // Use negative lookbehind to skip \$ and negative lookahead to avoid matching
-  // across line boundaries (typst inline math doesn't span lines).
-  const processed = src.replace(/(?<!\\)\$([^$\n]+?)(?<!\\)\$/g, (_match, expr) => {
+  // Non-greedy match across any chars (incl. newlines) so multi-line $ ... $
+  // display blocks are captured. Lookbehinds skip `\$` literals.
+  const processed = src.replace(/(?<!\\)\$([\s\S]+?)(?<!\\)\$/g, (_match, expr) => {
     const i = idx++
     mathExprs.set(i, expr.trim())
     return `\`MATH:${i}\``
@@ -319,9 +381,16 @@ function renderMathPlaceholders(html: string, mathExprs: Map<number, string>): s
       const idx = parseInt(idxStr, 10)
       const typstExpr = mathExprs.get(idx)
       if (!typstExpr) return _match
-      const latex = typstMathToLatex(typstExpr)
+      // Treat any multi-line math as a display block; Typst math uses a
+      // single `\` (followed by a newline) for row breaks within `$ ... $`.
+      const display = typstExpr.includes("\n")
+      const latex = typstMathToLatex(typstExpr, display)
       try {
-        return katex.renderToString(latex, { throwOnError: false, output: "html" })
+        return katex.renderToString(latex, {
+          throwOnError: false,
+          output: "html",
+          displayMode: display,
+        })
       } catch {
         return `<code>${typstExpr}</code>`
       }
