@@ -23,11 +23,6 @@ export async function GET(request: NextRequest) {
 }
 
 export async function POST(request: NextRequest) {
-  const pw = request.cookies.get("pw-session")?.value
-  if (!pw || pw !== process.env.PASSWORD) {
-    return NextResponse.json({ error: "unauthorized" }, { status: 401 })
-  }
-
   const { page, anchor, body, name } = await request.json()
 
   if (!page || !anchor || !body) {

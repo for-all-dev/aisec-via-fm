@@ -73,6 +73,5 @@ Env vars (in `website/.env` and on Vercel):
 - `NEXT_PUBLIC_SUPABASE_URL` — project URL
 - `NEXT_PUBLIC_SUPABASE_ANON_KEY` — publishable key (client-safe, scoped by RLS)
 - `SUPABASE_SERVICE_ROLE_KEY` — secret key (server-only, bypasses RLS for admin resolve/delete)
-- `PASSWORD` — reader-tier site auth
 - `ADMIN_PASSWORD` — admin-tier auth (resolve/delete comments)
 
