@@ -89,6 +89,11 @@
   "hardware-supply-chain": _parse-invites("../stack/hardware-supply-chain.typ"),
 )
 
+// Public read-only accessor for the layer→invited-adversaries map. The
+// problem-meta/problem-files accessors are exported further down, after
+// the private definitions have been built up.
+#let layer-invites = _layer-invites
+
 // _problem-meta is inferred from the problem files' comment headers.
 // Each problem file must have:  // Tag: <id>  // Layers: <csv>  // Category: <cat>
 // and a heading line:  == Title <sec:label>
@@ -146,6 +151,11 @@
   }
   meta
 }
+
+// Public read-only accessors so figures.typ can render incidence matrices
+// without re-parsing source files.
+#let problem-meta = _problem-meta
+#let problem-files = _problem-files
 
 /// Given a layer id, return the list of problem ids that touch it.
 #let _problems-for-layer(layer-id) = {

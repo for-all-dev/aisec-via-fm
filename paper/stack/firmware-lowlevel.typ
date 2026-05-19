@@ -1,5 +1,6 @@
 // Invites: co-tenant, rogue-insider, supply-chain
 #import "../common/fns.typ": related-problems, adversaries-invited
+#import "../common/figures.typ": boot-chain
 == Firmware and Low-Level Systems <sec:firmware-lowlevel>
 
 #related-problems("firmware-lowlevel")
@@ -28,6 +29,11 @@ On the open-source side, NVIDIA released its kernel-mode GPU modules as open sou
 Worth naming what the open problem is and is not. Driver verification as a research methodology --- separation-logic proofs of a driver against an abstract hardware model --- is a demonstrated pattern @stewart2025sel4summit @bluerocksec2024vmmverification @bluerocksec2024cpusemantics. The unsolved half is the abstract hardware model itself. Vendors do not ship machine-checkable specifications of their devices; the most accurate public modeling effort, Peter Sewell's REMS Group under a long-running ARM collaboration @sewell2024rems, is scoped to the CPU ISA and does not cover the MMU, IOMMU, or anything resembling a GPU command processor. The pivot from such a model to a software proof is a further gap; sketches exist @bluerocksec2024cpusemantics but no one has closed it at scale. The tractable problem at @sec:sel4-gpu is accordingly as much about producing a formal model of a GPU command-submission interface as it is about proving a driver against one.
 
 === Boot Integrity and Firmware Supply Chain <sec:boot-integrity>
+
+#figure(
+  boot-chain(),
+  caption: [Two strategies for boot-chain integrity. _Verified boot_ halts on a bad signature at each stage but trusts whatever lives in the signature database. _Measured boot_ records hashes into a TPM and defers enforcement to an external policy plane that can release secrets, quarantine, or hard-reset based on attestation.],
+) <fig:boot-chain>
 
 None of the isolation above matters if the firmware itself has been tampered with. Secure Boot and measured boot chains establish trust from the hardware root of trust (RoT) through each firmware stage to the OS kernel: each stage cryptographically verifies the next before handing off execution. NVIDIA's H100 extends this model to the GPU, with a per-device ECC keypair, on-die RoT, and a measured boot sequence that produces an attestation report --- a signed manifest of every firmware component loaded. Combined with CPU-side TEEs (Intel `TDX`, AMD `SEV-SNP`), this enables composite remote attestation: a verifier can check that both CPU and GPU booted clean firmware before releasing model weights or training data to a node.
 

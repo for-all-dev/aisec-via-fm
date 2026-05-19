@@ -8,7 +8,13 @@ const PAPER_DIR = path.join(process.cwd(), "..", "paper")
 let _compiler: NodeCompiler | null = null
 function getCompiler(): NodeCompiler {
   if (!_compiler) {
-    _compiler = NodeCompiler.create({ workspace: PAPER_DIR })
+    // `inputs.target = "html"` is read by paper/common/figures.typ so cetz
+    // canvases get wrapped in html.frame(...) and emit inline SVG. Without
+    // this they render as empty <div>s on the website.
+    _compiler = NodeCompiler.create({
+      workspace: PAPER_DIR,
+      inputs: { target: "html" },
+    })
   }
   return _compiler
 }
@@ -181,12 +187,12 @@ export function compileFragmentToHtml(
     (_match, label) => `\`XREF:${label}\``,
   )
 
-  // Rewrite per-file #import paths for common/fns.typ — the source is copied to
-  // a temp file in paper/, so relative paths like "../common/fns.typ" would escape
-  // the workspace. Rewrite them to "common/fns.typ" which is correct from paper/.
+  // Rewrite per-file #import paths for files in common/ — the source is copied
+  // to a temp file in paper/, so relative paths like "../common/fns.typ" would
+  // escape the workspace. Rewrite them to be paper-root-relative.
   processed = processed.replace(
-    /^(#import\s+")[^"]*common\/fns\.typ(".*$)/gm,
-    "$1common/fns.typ$2",
+    /^(#import\s+")[^"]*common\/([a-z0-9_-]+\.typ)(".*$)/gm,
+    "$1common/$2$3",
   )
 
   // Strip #related-problems(...) and #related-layers(...) calls — the website

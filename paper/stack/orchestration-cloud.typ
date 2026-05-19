@@ -1,5 +1,6 @@
 // Invites: co-tenant, rogue-insider, network-mitm, supply-chain
 #import "../common/fns.typ": related-problems, adversaries-invited
+#import "../common/figures.typ": nvlink-topology
 == Orchestration and Cloud Layer <sec:orchestration-cloud>
 
 #related-problems("orchestration-cloud")
@@ -22,6 +23,11 @@ GPU training and inference jobs run inside containers managed by `Kubernetes`, `
 Large training runs communicate over `InfiniBand` or `RoCE` interconnects using RDMA --- remote direct memory access that bypasses the kernel to move data between GPU memory regions at line rate. This is a performance architecture, not a security architecture. RDMA's kernel bypass means that the standard OS-level network monitoring and access control stack is not in the path. `InfiniBand` partition keys (`P_Keys`) provide coarse tenant isolation at the hardware level, but verifying that traffic isolation policies are correctly enforced across a fabric of thousands of ports is a manual, configuration-driven process with no runtime audit trail. If you want to verify what is actually on the wire between nodes in a GPU cluster --- not what the SDN controller _says_ is on the wire --- you need an independent observation point, which is the problem the verified network tap (@sec:network-tap-fpga) is designed to solve.
 
 The SDN controllers that manage GPU cluster fabrics are themselves a concentrated target. An SDN controller is a single logical authority over all traffic routing decisions in the network; compromise it and you can redirect, mirror, or drop any flow. The `OpenFlow` protocol, which most SDN deployments use for controller-to-switch communication, did not require authentication of switches in early versions, and even post-1.2 versions with TLS support are frequently deployed without it. An attacker who gains access to the control plane can add a second malicious controller (a feature available in `OpenFlow` 1.2+) and persistently reroute traffic without touching the data plane hardware. The centralization that makes SDN manageable is exactly what makes it a single point of failure for traffic integrity.
+
+#figure(
+  nvlink-topology(),
+  caption: [`NVLink`/`NVSwitch` topology inside a typical eight-GPU node. The fabric manager that programs `NVSwitch` routing tables runs as a privileged host process; the resulting tenant boundary is software-configured rather than hardware-enforced, and the traffic that crosses it never touches the CPU, the PCIe bus, or the OS network stack.],
+) <fig:nvlink-topology>
 
 Within a single node, GPUs communicate over `NVLink` and `NVSwitch` at bandwidths up to 900 GB/s --- bypassing the host CPU, PCIe bus, and OS network stack. NVIDIA's fabric manager controls `NVSwitch` routing tables and restricts applications to designated address ranges, but this is a software-configured trust boundary, not a hardware-enforced one. There is no equivalent of IOMMU page-table isolation for `NVLink` traffic; the protection rests on correct configuration of the fabric manager, which runs as a privileged host process. A compromised fabric manager, or a bug in NVSwitch routing table setup, could allow one GPU's process to read or write another's memory region across the switch. For multi-tenant GPU servers using `NVLink`-connected GPUs --- the standard configuration in `DGX` systems and cloud GPU instances --- this is a lateral movement path that never touches the network and never appears in host OS logs.
 

@@ -1,5 +1,6 @@
 // Invites: supply-chain, malicious-model, rogue-insider
 #import "../common/fns.typ": related-problems, adversaries-invited
+#import "../common/figures.typ": compile-pipeline, dependency-tree
 == Software and ML Framework Layer <sec:software-framework>
 
 #related-problems("software-framework")
@@ -10,6 +11,11 @@ Between the orchestration infrastructure below and the execution harness above s
 === Compilers <sec:compilers>
 
 An ML compiler takes a high-level model description and lowers it through several intermediate representations to GPU machine code. The typical path is something like `PyTorch` → `torch.compile` → `Triton` IR → `LLVM` IR → `PTX` → `SASS`, though the specifics vary: `TVM` uses its own `Relay`/`TIR` stack, `XLA` compiles through `HLO` and `StableHLO`, and `JAX` traces through `jaxpr` before hitting `XLA`. Each stage applies optimization passes --- operator fusion, memory layout transforms, quantization, tiling --- that rewrite the computation in ways the model author never sees directly.
+
+#figure(
+  compile-pipeline(),
+  caption: [A typical `PyTorch` lowering path, with sample injection points (red) where a poisoned pass could alter what the silicon computes without changing what the source, weights, or training logs look like.],
+) <fig:compile-pipeline>
 
 The attack surface is a modern instance of Thompson's "Trusting Trust." A poisoned compiler pass could inject a small additive bias into attention weights, swap an activation function under specific input conditions, or silently alter a quantization rounding mode. The result would be a model that behaves correctly on benchmarks but misbehaves on targeted inputs, with no trace of the modification in source code, model weights, or training logs. The compilation chain is long enough that auditing every stage by hand is not feasible.
 
@@ -30,6 +36,11 @@ The `SafeTensors` format, developed by `Hugging Face`, stores only tensor data a
 Beyond serialization, the frameworks expose attack surface through JIT compilation and custom operators. `PyTorch`'s `torch.utils.cpp_extension.load()` compiles C++/`CUDA` code into `/tmp` and dynamically loads the resulting shared library. Any process that can influence the source or the cached `.so` gets native code execution. `TensorFlow` has accumulated roughly 435 CVEs across 44 CWE categories @zhang2025tensorflowcves, many in parsing and memory management of its graph representation. Formal verification of core tensor operations --- proving that `softmax`, `layernorm`, or `matmul` produce results consistent with their mathematical definitions across all compilation backends --- remains open territory.
 
 === Dependency Supply Chain <sec:dependency-supply-chain>
+
+#figure(
+  dependency-tree(),
+  caption: [The transitive-dependency surface of a typical ML project. Direct dependencies (inner green ring) pull in cascading transitive deps to a measured maximum depth of 23 @mahon2025pypitfall. Red nodes are real 2022-26 compromises (`torchtriton`, `Ultralytics`, `litellm`) that reached production through indirect pulls.],
+) <fig:dependency-tree>
 
 A typical ML project does not just depend on `PyTorch` or `TensorFlow`. It depends on a graph of packages --- data loaders, tokenizers, experiment trackers, serving utilities, `CUDA` bindings --- that pull in their own transitive dependencies. Mahon et al. @mahon2025pypitfall analyzed 378,573 `PyPI` packages and found that the average package has 129.6 transitive dependencies spanning a dependency chain up to 23 levels deep. A single CVE in `urllib3` created guaranteed exposure in 1,906 downstream packages. The ML ecosystem sits on top of all of this and adds its own layer of domain-specific packages with fast release cycles and small maintainer teams.
 
