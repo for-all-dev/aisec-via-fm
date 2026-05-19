@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server"
-import { sql } from "../../../../lib/db"
+import { getSql } from "../../../../lib/db"
 
 export async function DELETE(
   request: NextRequest,
@@ -12,6 +12,7 @@ export async function DELETE(
 
   const { id } = await params
 
+  const sql = getSql()
   await sql`delete from comments where id = ${id}`
 
   return new NextResponse(null, { status: 204 })

@@ -1,7 +1,8 @@
 import { NextRequest, NextResponse } from "next/server"
-import { sql, type Comment } from "../../../lib/db"
+import { getSql, type Comment } from "../../../lib/db"
 
 export async function GET(request: NextRequest) {
+  const sql = getSql()
   const page = request.nextUrl.searchParams.get("page")
   const anchor = request.nextUrl.searchParams.get("anchor")
   const admin =
@@ -29,6 +30,7 @@ export async function POST(request: NextRequest) {
     )
   }
 
+  const sql = getSql()
   const [row] = await sql<{ id: string }[]>`
     insert into comments (page, anchor, body, name)
     values (${page}, ${anchor}, ${body}, ${name || null})
