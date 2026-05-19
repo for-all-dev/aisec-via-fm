@@ -1,17 +1,20 @@
 import postgres from "postgres"
 
-const connectionString = process.env.DATABASE_URL
+let client: ReturnType<typeof postgres> | undefined
 
-if (!connectionString) {
-  throw new Error("DATABASE_URL is not set")
+export function getSql() {
+  if (!client) {
+    const url = process.env.DATABASE_URL
+    if (!url) throw new Error("DATABASE_URL is not set")
+    client = postgres(url, {
+      ssl: "require",
+      max: 5,
+      idle_timeout: 20,
+      connect_timeout: 10,
+    })
+  }
+  return client
 }
-
-export const sql = postgres(connectionString, {
-  ssl: "require",
-  max: 5,
-  idle_timeout: 20,
-  connect_timeout: 10,
-})
 
 export type Comment = {
   id: string
