@@ -1,0 +1,1 @@
+../../../paper/common/figures.typ

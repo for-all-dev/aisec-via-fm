@@ -45,7 +45,7 @@
 
   let lx = 0
   let lw = 9
-  let lh = 0.85
+  let lh = 1.1
 
   for (name, sub, y) in layers {
     rect((lx, y * lh), (lx + lw, y * lh + lh),

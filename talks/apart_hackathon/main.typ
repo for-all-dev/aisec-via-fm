@@ -1,5 +1,6 @@
 #import "@preview/touying:0.7.3": *
 #import themes.simple: *
+#import "assets/figures.typ": stack-overview
 
 #show: simple-theme.with(
   aspect-ratio: "16-9",
@@ -10,55 +11,26 @@
 
 = Tractable Problems in AI Security via Formal Methods
 
-== The one-sentence pitch
+== Forall R&D:
 
-A document you can hand to any formal methods expert who is worried about AI safety, and walk away with a list of shovel-ready projects they can spend the next five postdoc-years on.
-
-#pause
-
-Or: take a requirements list off the document and pay them to build the widget.
+Guiding AI safety orgs through the formal methods explosion.
 
 == What formal methods can and can't claim
 
+#text(size: 18pt)[
 #figure(
   image("assets/fm-gap.svg", width: 70%),
   caption: [After Evan Miyazono. FM closes the middle gap only.],
 )
 
-== What FM can and can't claim, in words
-
 - *Elicitation gap* (left): is the spec the thing we actually wanted? Out of scope for the proof.
 - *Verification gap* (middle): does the implementation meet the spec? This is what FM does.
 - *Modeling gap* (right): does the proof's model of the hardware/OS/network match reality?
+]
 
-#pause
+== The ML training and inference stack, in five layers
 
-Most real-world failures live on the ends. A widget without an honest story for both ends is not a widget.
-
-== The ML stack, in five layers
-
-+ *Execution harness* --- inference servers, sandboxes, API gateways
-+ *Software & ML framework* --- compilers, PyTorch/JAX, dependency supply chain
-+ *Orchestration & cloud* --- K8s/Slurm/Ray, fabric, IAM
-+ *Firmware & low-level* --- hypervisors, device drivers, boot integrity
-+ *Hardware & physical* --- RTL, secure enclaves, side channels
-
-#pause
-
-Each layer has a status quo and an attack surface. Each layer has FM-shaped widgets that would close part of it.
-
-== Stack: who's attacking what
-
-#pause
-
-- A *co-tenant agent* breaks containment at L1 or L4.
-- A *malicious model* with tool use breaks the sandbox at L1, the runtime at L3.
-- A *supply chain* compromise lands in the loader at L2 or kernel binaries at L4.
-- A *physical adversary* or insider goes after the fabric at L3 or the chip at L5.
-
-#pause
-
-The widgets pair off against these threats. The matrix on the website is the many-to-many of layers × problems × adversaries.
+#align(center, scale(170%, reflow: true, stack-overview()))
 
 == The tractable problems
 
