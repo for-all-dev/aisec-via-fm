@@ -28,7 +28,7 @@ Guiding AI safety orgs through the formal methods explosion.
 - *Modeling gap* (right): does the proof's model of the hardware/OS/network match reality?
 ]
 
-== The ML training and inference stack, in five layers
+== The ML training and inference stack
 
 #align(center, scale(170%, reflow: true, stack-overview()))
 

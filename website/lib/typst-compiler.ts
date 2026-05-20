@@ -151,10 +151,11 @@ export function compileSnippetToHtml(snippet: string): string {
 export function compileFragmentToHtml(
   relPath: string,
   labelRegistry?: Map<string, LabelEntry>,
+  sourceOverride?: string,
 ): string {
   const uid = Math.random().toString(36).slice(2, 10)
   const srcPath = path.join(PAPER_DIR, relPath)
-  const src = fs.readFileSync(srcPath, "utf-8")
+  const src = sourceOverride ?? fs.readFileSync(srcPath, "utf-8")
 
   // Extract labels: heading lines like `== Title <sec:some-label>`
   // Map from heading text (trimmed) -> label

@@ -2,9 +2,7 @@
 
 = The ML Inference and Training Stack <sec:stack>
 
-#lorem(60)
-
-TODO: notes about what's in/out of scope.
+The five layers below run top to bottom in the order an adversary walks the stack. Each section that follows opens on the layer's status quo and current attack surface, then surfaces the FM-shaped widgets that would close part of it. Scope follows @sec:scope --- infrastructure only; the model itself is out of frame.
 
 #figure(
   stack-overview(),

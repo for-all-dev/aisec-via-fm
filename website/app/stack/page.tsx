@@ -13,7 +13,7 @@ function problemsForLayer(problems: Problem[], layerId: string) {
 }
 
 export default async function StackPage() {
-  const { stack, problems } = await getSiteContent()
+  const { stack, stackPreludeHtml, problems } = await getSiteContent()
 
   return (
     <div className="page">
@@ -21,6 +21,8 @@ export default async function StackPage() {
         <p className="eyebrow">the stack</p>
         <h1>ML Training & Inference Stack</h1>
       </div>
+
+      <CommentableProse html={stackPreludeHtml} page="/stack" className="prose mb-6" />
 
       <section>
         <p className="text-muted text-xs mb-3">// click to expand</p>

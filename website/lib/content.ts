@@ -51,6 +51,7 @@ export interface Digraph {
 
 export interface SiteContent {
   stack: StackLayer[]
+  stackPreludeHtml: string
   problems: Problem[]
   abstractHtml: string
   executiveHtml: string
@@ -214,11 +215,27 @@ const loadAll = Effect.gen(function* () {
 
   const executiveHtml = compileFragmentToHtml("executive/main.typ", registryMap)
 
+  // Stack section prelude: stack/main.typ minus the per-layer #includes.
+  // Strips the top-level heading too — the page already has its own <h1>.
+  const stackMainSrc = fsSync.readFileSync(path.join(PAPER_DIR, "stack/main.typ"), "utf-8")
+  const stackPreludeSrc = stackMainSrc
+    .replace(/^#include\s+".*"\s*$/gm, "")
+    .replace(/^=\s+.+$/gm, "")
+  const stackPreludeHtml = compileFragmentToHtml("stack/main.typ", registryMap, stackPreludeSrc)
+
   // Convert registry map to plain object for JSON serialization
   const labelRegistry = Object.fromEntries(registryMap)
   const digraph = loadDigraph()
 
-  return { stack, problems, abstractHtml, executiveHtml, labelRegistry, digraph } satisfies SiteContent
+  return {
+    stack,
+    stackPreludeHtml,
+    problems,
+    abstractHtml,
+    executiveHtml,
+    labelRegistry,
+    digraph,
+  } satisfies SiteContent
 })
 
 let _cached: SiteContent | null = null
