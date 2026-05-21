@@ -62,7 +62,10 @@ When the workload is an AI agent that writes and runs its own code, "process iso
 
 #pause
 
-Empirical companion: BoxArena. Fix the attacker, vary the runtime, see what gets out.
+#figure(
+  image("assets/sandbox-escape-bench.png", width: 25%),
+  caption: [https://github.com/UKGovernmentBEIS/sandbox_escape_bench],
+)
 
 == BoxArena: early leaderboard
 
@@ -93,7 +96,7 @@ There are verified kernels that could host a better stack (seL4, CertiKOS). None
 
 The methodology is settled. The blocker is that *no GPU vendor publishes a machine-readable description of their hardware*.
 
-== The actual scope
+== Semi-minimal prototype scope
 
 Pick the smallest useful target: command submission for one open-source GPU stack.
 
@@ -149,6 +152,10 @@ Two subproblems:
 
 If you prompt Opus 5 to write the box to train and deploy Opus 6 in, what are the odds that it goes with Lean or Isabelle or some human-provenance'd proof stack, when its capable of making its own proofstack? #pause This *neuralese proofstack* may have real security or performance upside, but then you see the problem when you try to keep the human in the loop on specification...
 
+#pause
+
+It'd be great to think about *governance* and *interpretability* of neuralese proofstacks.
+
 = Hackathon-shaped projects
 
 - *Expand on BoxArena.* Vibecode a runtime, run the attack surfaces, publish the result.
@@ -160,10 +167,6 @@ If you prompt Opus 5 to write the box to train and deploy Opus 6 in, what are th
 = Tractable Problems in AI Security via Formal Methods
 
 #align(center)[
-  #text(size: 32pt)[Questions?]
-
-  #v(0.5em)
-
   #link("https://tractable.for-all.dev")[tractable.for-all.dev] \
   quinn\@for-all.dev
 ]
