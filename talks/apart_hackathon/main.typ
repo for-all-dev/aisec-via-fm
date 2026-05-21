@@ -11,21 +11,24 @@
 
 = Tractable Problems in AI Security via Formal Methods
 
-== Forall R&D:
+= Forall R&D guides AI safety organizations through the formal methods explosion. And ships cyberhardening evals.
 
-Guiding AI safety orgs through the formal methods explosion.
+== Worldview
+
+- Formal methods as a _boxing_ technology
+- _Alignment_ via FM is out of scope
 
 == What formal methods can and can't claim
 
 #text(size: 18pt)[
 #figure(
-  image("assets/fm-gap.svg", width: 70%),
-  caption: [After Evan Miyazono. FM closes the middle gap only.],
+  image("assets/fm-gap.svg", width: 90%),
+  caption: [After Evan Miyazono. Formal methods closes the middle gap only.],
 )
 
-- *Elicitation gap* (left): is the spec the thing we actually wanted? Out of scope for the proof.
-- *Verification gap* (middle): does the implementation meet the spec? This is what FM does.
-- *Modeling gap* (right): does the proof's model of the hardware/OS/network match reality?
+- *Did we ask for the right thing?* (left): is the written spec what we actually wanted? Out of scope for the proof.
+- *Does the code match the spec?* (middle): this is what formal methods does.
+- *Does the spec's picture of the world match reality?* (right): the hardware, the OS, the network.
 ]
 
 == The ML training and inference stack
@@ -36,162 +39,125 @@ Guiding AI safety orgs through the formal methods explosion.
 
 17 entries on the website. Two flavors:
 
-#pause
+- *Enablers* unblock a whole class of downstream work. Examples: making proof tools robust against adversaries, keeping specs human-readable, spec elicitation & validation.
+- *Widgets* are concrete, scoped deliverables. Examples: GPU drivers for verified kernels, container runtime hardening, the network tap.
 
-- *Enablers* unbottleneck a class of downstream work. Examples: adversarial robustness of FM tools, neuralese governance, spec elicitation.
-- *Widgets* are concrete, scoped deliverables. Examples: seL4 GPU drivers, OCI runtime hardening, verified network tap.
+== In the talk: three widgets, two enablers
 
-#pause
+A slide or two on each.
 
-An enabler with many dependents should be addressed early. A widget contingent on an unsolved enabler should be sequenced accordingly.
-
-== Deep dive: three widgets, two enablers
-
-I'll spend a slide or two on each.
-
-+ OCI runtime hardening
-+ seL4-native GPU drivers
-+ Verified network tap
++ Hardening the container runtime
++ GPU drivers for verified kernels
++ A verified network tap
 + Spec elicitation and validation
-+ Interpretability and governance of neuralese proof stacks
++ Keeping proofs human-readable
 
-== Widget 1: OCI runtime hardening
+= Widget 1: hardening the container runtime
 
-`runc` was never designed to resist an adversary _inside_ the container. The CVE record reflects this.
-
-#pause
-
-When the workload is an agent with tool use --- writes code, executes it --- "process isolation" is not a security boundary.
+The standard container runtime was never designed to resist an attacker _inside_ the container.
 
 #pause
 
-Empirical work: BoxArena (Dougherty 2026) inverts the offensive framing. Fix the attacker model, vary the runtime. Five attack surfaces (fs, socket, process, network, syscall) across `runc`, `runsc`, `crun`, `Kata`.
-
-== OCI hardening: what the verified version looks like
-
-Decomposes into tractable pieces:
+When the workload is an AI agent that writes and runs its own code, "process isolation" is not a security boundary.
 
 #pause
 
-- A formal model of the Linux ABI surface a hardened container actually uses (\~80 syscalls, not 350+).
-- A specification of the confinement policy (drop caps, read-only rootfs, seccomp allowlist, no-new-privs).
-- A proof that the runtime's state machine preserves the policy across all reachable states.
+Empirical companion: BoxArena. Fix the attacker, vary the runtime, see what gets out.
+
+== BoxArena: early leaderboard
+
+#figure(
+  image("assets/boxarena-leaderboard.png", width: 85%),
+  caption: [Live at #link("https://box-arena.vercel.app")[box-arena.vercel.app].],
+)
+
+== The verified version
+
+Three pieces:
 
 #pause
 
-Lineage: `CLInc` (Bevier 1989, gates to apps), `seL4` (Klein 2009, microkernel functional correctness).
+- A precise description of which kernel calls a hardened container actually uses (about 80, not 350+).
+- A statement of the confinement policy (no root, read-only filesystem, no new privileges).
+- A proof that the runtime preserves the policy from every state it can reach.
 
-== Widget 2: GPU drivers native to kernels other than linux
+= Widget 2: GPU drivers for verified kernels
 
-Multi-tenant GPU workloads run on hypervisors whose TCB is orders of magnitude too large to verify, with a proprietary ring-0 driver from the vendor.
-
-#pause
-
-Candidates to host an ML-grade GPU stack:
-- `seL4` --- most complete proof, no GPU support at all.
-- `CertiKOS` --- verified concurrent OS kernel with hypervisor extensions; layered refinement methodology, multicore.
-- `NOVA` (not really a kernel) --- partial proof covers concurrency and weak memory, host/guest split built in.
+GPU workloads today run on a stack whose trusted code base is far too large to verify, plus a closed driver from the vendor.
 
 #pause
 
-The methodology (separation logic, abstract HW model) is settled. The blocker is that *the abstract hardware model does not exist*. No GPU vendor publishes a machine-checkable spec of their command processor.
-
-== seL4 GPU: the actual scope
-
-Pick the smallest useful surface: command submission for one open stack (`NVK`/`Nouveau` or an `AMDGPU` subset).
+There are verified kernels that could host a better stack (seL4, CertiKOS). None of them have GPU support.
 
 #pause
 
-Property: _no sequence of guest-supplied command packets causes the driver to program an IOMMU mapping or issue a DMA outside the guest's declared memory region._
+The methodology is settled. The blocker is that *no GPU vendor publishes a machine-readable description of their hardware*.
+
+== The actual scope
+
+Pick the smallest useful target: command submission for one open-source GPU stack.
 
 #pause
 
-Two stopping points:
-- Verified module against a stubbed hardware model --- shippable as reference.
-- Same driver against a model co-developed with the vendor or with REMS (Sewell) --- the research contribution.
-
-== Widget 3: Verified network tap
-
-The threat: the SDN controller and fabric manager on a GPU cluster _are_ the thing whose compromise we are worried about. Their own logs cannot be evidence.
+Property to prove: _no sequence of guest commands causes the driver to read or write memory outside the guest's declared region._
 
 #pause
 
-The artifact: a passive (or active OEO) tap on the fiber, with an FPGA capture path proven against an LTL contract. North-south at the datacenter edge, east-west for storage, sampled for compute.
+Two stopping points: verified against a stubbed hardware model (shippable as reference), or against a model co-developed with the vendor (the research contribution).
+
+= Widget 3: a verified network tap
+
+The threat: on a GPU cluster, the network controller itself is part of what we worry about being compromised. Its own logs are not evidence.
+
+The artifact: a tap on the fiber with a capture path proven correct (cheap at the cluster edge, modestly expensive between storage nodes).
+
+#figure(
+  image("assets/cankaya-tap-placement.png", width: 78%),
+    caption: [From #link("https://nacicankaya.substack.com/p/research-note-the-fundamentals-and")[Cankaya 2026]. Numbered tap points: edge uplink, inter-pod, storage fabric, inter-rack.],
+)
+
+== What the tap must prove
+
+#text(size: 18pt)[
+$ square ( "live_in"(p) &-> diamond_(<= D) "live_out"(p) ) & quad "(P1) packets that come in go out" \
+  square ( "live_out"(p) &-> diamond.filled "live_in"(p) ) & quad "(P2) packets that go out came in" \
+  square ( "live_in"(p) &-> diamond_(<= D') "mon"("image"(p)) ) & quad "(P3) every packet is mirrored" \
+  square ( "mon"(r) &-> diamond.filled (exists p. "live_in"(p) and "image"(p) = r) ) & quad "(P4) every mirror really happened" \
+  square ( "live_out"(p) &-> not "depends-on"(p, "mon-input") ) & quad "(P5) the monitor can't influence traffic" \
+  square ( "fail" &-> square ( "live_in"(p) -> diamond_(<= D) "live_out"(p) ) ) & quad "(P6) on failure, fall back to a wire" $
+]
 
 #pause
 
-Costs (Cankaya et al., 2026): under 0.01% of facility upfront for the edge tap; 0.3--0.75% for east-west. FPGA capture at 400 Gbps is a solved hardware problem (Arista 7130, Deutsche Börse).
+P5 is what defeats a colluding monitor. P6 is what makes it deployable in production.
 
-== Verified network tap: the LTL contract
+= Enabler 1: spec elicitation and validation
 
-$ square ( "live_in"(p) &-> diamond_(<= D) "live_out"(p) ) & quad "(P1) forwarding completeness" \
-  square ( "live_out"(p) &-> diamond.filled "live_in"(p) ) & quad "(P2) forwarding fidelity" \
-  square ( "live_in"(p) &-> diamond_(<= D') "mon"("image"(p)) ) & quad "(P3) mirror completeness" \
-  square ( "mon"(r) &-> diamond.filled (exists p. "live_in"(p) and "image"(p) = r) ) & quad "(P4) mirror soundness" \
-  square ( "live_out"(p) &-> not "depends-on"(p, "mon-input") ) & quad "(P5) no back-channel" \
-  square ( "fail" &-> square ( "live_in"(p) -> diamond_(<= D) "live_out"(p) ) ) & quad "(P6) fail-to-wire" $
-
-#pause
-
-P5 is the noninterference property that defeats verifier collusion. P6 is fail-open: a fault must downgrade to a transparent pass-through, never a link cut.
-
-== Enabler 1: Spec elicitation and validation
-
-Proofs are cheap. Specs are expensive. Every widget in this document terminates in a spec --- a verified sampler, a hardened runtime, an IAM policy --- and the spec is the part the proof oracle cannot write for you. Or rather, if it does, you have quietly handed over the thing you were trying to keep.
+*Proofs are getting cheap*. #pause *Specs are not.* #pause You probably want lots of human-in-the-loop on specs, even in the long term, even when human is out of the loop on code and proofs.
 
 #pause
 
 Two subproblems:
-- *Elicitation.* Stakeholder intent into a formal artifact. Requirements engineering with kernels, not PMs, as the consumer.
-- *Validation.* The spec you wrote vs. the spec you meant. A proof of the wrong $P$ launders a bug into a theorem.
+- *Elicitation.* Turning what stakeholders want into a precise artifact.
+- *Validation.* The spec you wrote vs. the spec you meant. A proof of the wrong thing turns a bug into a theorem.
+
+= Enabler 2: keeping specs human-readable
+
+*To be clear: this would be a bad problem to have. We do not condone causing this problem*
 
 #pause
 
-Handles: property-based testing (`QuickCheck`), spec mining (Ammons 2002), differential specification --- two independently elicited specs, checked for agreement.
+If you prompt Opus 5 to write the box to train and deploy Opus 6 in, what are the odds that it goes with Lean or Isabelle or some human-provenance'd proof stack, when its capable of making its own proofstack? #pause This *neuralese proofstack* may have real security or performance upside, but then you see the problem when you try to keep the human in the loop on specification...
 
-== Enabler 2: Interp and governance of neuralese proof stacks
+= Hackathon-shaped projects
 
-Warning: this would be a bad problem to have. We do not _condone_ this problem.
+- *Expand on BoxArena.* Vibecode a runtime, run the attack surfaces, publish the result.
+- *Specify ten kernel calls in a proof assistant.* A subset of a kernel is useful, if you write up what you learned well.
+- *Sketch a toy network tap.* Just the forwarding properties. Stub the hardware.
+- *Try differential specs.* Pick a small library, have two people write specs independently, diff them.
+- *Audit a proof checker you didn't write.* Pick one tactic, write the inspector.
 
-The "proofs are cheap" world assumes a known, trusted, human-readable proof substrate: `Lean`, `Rocq`, `Verus`, `Z3`.
-
-#pause
-
-What if that assumption is violated? A proof oracle competent enough to make proofs free is also competent enough to write its own proof stack --- one where human interpretability is not a first-class feature.
-
-#pause
-
-Then spec elicitation runs against syntax nobody has ever seen, and proof checking runs in a kernel nobody has audited. The trusted base evaporates.
-
-#pause
-
-The enabler: keep the proof substrate inside what humans can read, audit, and govern. Otherwise every other widget in this document is built on opaque foundations.
-
-== What to do this weekend
-
-If you came here to build, some hackathon-shaped ideas:
-
-#pause
-
-- *Reproduce a BoxArena entry.* Pick a runtime, write the harness, run the five surfaces, publish the leaderboard row.
-- *Spec a tiny piece of the OCI ABI in Lean or Rocq.* Even ten syscalls is useful.
-- *Toy verified network tap in `Cryptol` or `SymbiYosys`.* P1, P2, P6 only. Stub the SerDes.
-- *Try differential specification.* Pick a small library (parser, queue, token bucket). Elicit two independent specs from two collaborators. Diff them.
-- *Sketch a proof-stack interp bench.* What would it take to audit a proof kernel you didn't design? Pick one tactic, write the inspector.
-
-== What to do over the next year
-
-#pause
-
-- If you're a *PL/FM researcher* looking for an AI-safety entry point: control protocols as a process calculus, or the verified OCI runtime.
-- If you're an *ML person* worried about agentic deployment: BoxArena, sampler verification, context-window integrity.
-- If you're *funding-shaped*: pay for the spec-elicitation work. It is the bottleneck the document points at.
-
-#pause
-
-The website is the live menu: #link("https://tractable.for-all.dev")[tractable.for-all.dev]. The tags are layer × adversary × category. Filter to your shape.
-
-#pause
+= Tractable Problems in AI Security via Formal Methods
 
 #align(center)[
   #text(size: 32pt)[Questions?]
