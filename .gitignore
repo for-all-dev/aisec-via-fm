@@ -61,3 +61,7 @@ paper/__wrapper_*.typ
 # copied from paper/common/ by prebuild script
 website/lib/tooltips.json
 website/scripts/recovered-comments.json
+
+# copied from paper/ and talks/ by prebuild script
+website/public/paper.pdf
+website/public/apart-hackathon.pdf
