@@ -503,10 +503,10 @@
   set-style(content: (padding: 2pt))
 
   // 8 GPUs in two rows of 4, NVSwitch in the middle
-  let gw = 0.85
-  let gh = 0.55
+  let gw = 1.1
+  let gh = 0.7
   let gap-x = 0.45
-  let row-y = 2.2
+  let row-y = 2.35
 
   for i in range(4) {
     let x = i * (gw + gap-x)
@@ -525,17 +525,18 @@
   // NVSwitch in the middle band
   let sw-x0 = 0.4
   let sw-x1 = 3 * (gw + gap-x) + gw - 0.4
+  let sw-h = 0.75
   let sw-y = row-y/2 - 0.05
-  rect((sw-x0, sw-y), (sw-x1, sw-y + 0.55),
+  rect((sw-x0, sw-y), (sw-x1, sw-y + sw-h),
     fill: _warn-fill, stroke: _warn-stroke + 0.6pt, radius: 2pt)
-  content(((sw-x0 + sw-x1)/2, sw-y + 0.28), anchor: "center",
-    text(size: 8pt, weight: "bold", fill: _warn-stroke,
-      "NVSwitch  ·  fabric manager (host privileged)"))
+  content(((sw-x0 + sw-x1)/2, sw-y + sw-h/2), anchor: "center",
+    text(size: 7.5pt, weight: "bold", fill: _warn-stroke,
+      "NVSwitch · fabric manager\n(host-privileged)"))
 
   // NVLink lines from each GPU into the switch
   for i in range(4) {
     let x = i * (gw + gap-x) + gw/2
-    line((x, row-y), (x, sw-y + 0.55),
+    line((x, row-y), (x, sw-y + sw-h),
       stroke: _layer-stroke + 0.4pt)
     line((x, gh), (x, sw-y),
       stroke: _layer-stroke + 0.4pt)
@@ -554,12 +555,6 @@
   content((3 * (gw + gap-x) + gw + tb-pad + 0.1, gh/2),
     anchor: "west",
     text(size: 6.5pt, fill: _adv-stroke, weight: "bold", "tenant B"))
-
-  // Annotation: "no IOMMU for NVLink traffic"
-  content(((sw-x0 + sw-x1)/2, sw-y - 0.32),
-    anchor: "center",
-    text(size: 6.5pt, fill: _muted, style: "italic",
-      "NVLink bypasses CPU, PCIe, OS network stack; no IOMMU-equivalent isolation"))
 }))
 
 #let layer-adversary-matrix(layer-invites) = _maybe-frame(canvas({
