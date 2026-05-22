@@ -435,76 +435,66 @@
   import draw: *
   set-style(content: (padding: 2pt))
 
-  // Center: the project
-  let cx = 0
-  let cy = 0
-  circle((cx, cy), radius: 0.42, fill: _layer-fill, stroke: _layer-stroke + 0.6pt)
-  content((cx, cy), anchor: "center",
-    text(size: 7pt, weight: "bold", "ML\nproject"))
+  let left-x = -2.2
+  let right-x = 8.4
+  let inner-w = right-x - left-x
 
-  // Concentric rings: direct deps, depth 2, depth 5, depth 10, depth 23
-  let rings = (
-    (0.95, "direct deps", 8),
-    (1.55, "depth 2-3", 16),
-    (2.20, "depth 4-6", 28),
-    (2.85, "depth 7-12", 36),
-    (3.50, "depth 13-23", 24),
+  // Title
+  let top-y = 4.2
+  content((left-x, top-y + 0.4), anchor: "west",
+    text(size: 8pt, weight: "bold",
+      [The `PyPI` dependency surface @mahon2025pypitfall]))
+
+  // Stat tiles (all numbers directly from Mahon et al. 2025).
+  let tiles = (
+    ("378K",  [`PyPI` packages\ analyzed]),
+    ("129.6", [avg transitive\ deps per pkg]),
+    ("23",    [max chain\ depth]),
+    ("141K",  [pkgs exposed to\ known-vuln versions]),
   )
-
-  // Lines from center outward (draw first so they're under nodes)
-  for (r, _, n) in rings {
-    let step = 360deg / n
-    for i in range(n) {
-      let theta = step * i
-      let x = r * calc.cos(theta)
-      let y = r * calc.sin(theta)
-      line((cx, cy), (x, y), stroke: rgb("#cbd5e1") + 0.2pt)
-    }
+  let n = tiles.len()
+  let tile-gap = 0.15
+  let tile-w = (inner-w - (n - 1) * tile-gap) / n
+  let tile-h = 1.1
+  let tiles-top-y = top-y - 0.1
+  for (i, (val, label)) in tiles.enumerate() {
+    let x0 = left-x + i * (tile-w + tile-gap)
+    rect((x0, tiles-top-y - tile-h), (x0 + tile-w, tiles-top-y),
+      fill: _layer-fill, stroke: _layer-stroke + 0.5pt, radius: 2pt)
+    content((x0 + tile-w / 2, tiles-top-y - 0.35), anchor: "center",
+      text(size: 13pt, weight: "bold", val))
+    content((x0 + tile-w / 2, tiles-top-y - 0.82), anchor: "center",
+      text(size: 6.5pt, fill: _muted, label))
   }
 
-  // Nodes on each ring
-  for (ri, (r, label, n)) in rings.enumerate() {
-    let step = 360deg / n
-    let node-r = if ri < 2 { 0.12 } else if ri < 4 { 0.09 } else { 0.07 }
-    let fill = if ri == 0 { _ok-fill } else if ri < 3 { _layer-fill } else { rgb("#f1f5f9") }
-    let stroke = if ri == 0 { _ok-stroke } else { _layer-stroke }
-    for i in range(n) {
-      let theta = step * i
-      let x = r * calc.cos(theta)
-      let y = r * calc.sin(theta)
-      circle((x, y), radius: node-r,
-        fill: fill, stroke: stroke + 0.3pt)
-    }
-  }
+  // Divider
+  let div-y = tiles-top-y - tile-h - 0.35
+  line((left-x, div-y), (right-x, div-y),
+    stroke: _muted + 0.3pt)
 
-  // Highlight a few "attack" nodes
-  let mark-pos = (
-    (rings.at(1).at(0), 60deg, "torchtriton"),
-    (rings.at(2).at(0), 200deg, "ultralytics"),
-    (rings.at(3).at(0), 330deg, "litellm"),
+  // Compromise callouts
+  content((left-x, div-y - 0.35), anchor: "west",
+    text(size: 7pt, weight: "bold", fill: _adv-stroke,
+      [Real compromises that reached production via transitive pulls:]))
+
+  let attacks = (
+    ("2022", "torchtriton", [dependency confusion against `PyTorch`-nightly @pytorch2022torchtriton]),
+    ("2024", "Ultralytics", [`CI/CD` injection · 60M+ `PyPI` downloads @reversing2024ultralytics]),
+    ("2026", "litellm",     [direct `PyPI` upload bypassing the `GitHub` release pipeline @futuresearch2026litellm]),
   )
-  for (r, theta, name) in mark-pos {
-    let x = r * calc.cos(theta)
-    let y = r * calc.sin(theta)
-    circle((x, y), radius: 0.13,
-      fill: _adv-fill, stroke: _adv-stroke + 0.5pt)
-    // label slightly outside
-    let lx = (r + 0.6) * calc.cos(theta)
-    let ly = (r + 0.6) * calc.sin(theta)
-    content((lx, ly), anchor: "center",
-      text(size: 6pt, fill: _adv-stroke, weight: "bold", name))
-    line((x + 0.12 * calc.cos(theta), y + 0.12 * calc.sin(theta)),
-         (lx - 0.35 * calc.cos(theta), ly - 0.35 * calc.sin(theta)),
-      stroke: _adv-stroke + 0.3pt)
+  let attack-y0 = div-y - 0.75
+  let attack-step = 0.55
+  for (i, (yr, name, desc)) in attacks.enumerate() {
+    let y = attack-y0 - i * attack-step
+    rect((left-x - 0.05, y - 0.18), (left-x + 0.5, y + 0.18),
+      fill: _adv-fill, stroke: _adv-stroke + 0.4pt, radius: 1.5pt)
+    content((left-x + 0.225, y), anchor: "center",
+      text(size: 6.5pt, weight: "bold", fill: _adv-stroke, yr))
+    content((left-x + 0.65, y), anchor: "west",
+      text(size: 7pt, weight: "bold", raw(name)))
+    content((left-x + 2.4, y), anchor: "west",
+      text(size: 6.5pt, fill: _muted, desc))
   }
-
-  // Outer label legend on the right
-  let leg-x = 4.4
-  content((leg-x, 1.0), anchor: "west",
-    text(size: 6.5pt, [Mahon et al. (2025): avg `PyPI` package has 129.6 transitive deps, max depth 23.]))
-  content((leg-x, 0.2), anchor: "west",
-    text(size: 6.5pt, fill: _adv-stroke,
-      [Red nodes: 2022-26 real-world compromises that reached production ML stacks via transitive pulls.]))
 }))
 
 // ── Figure 6: NVLink/NVSwitch trust boundary inside a node ────────

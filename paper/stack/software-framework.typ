@@ -39,7 +39,7 @@ Beyond serialization, the frameworks expose attack surface through JIT compilati
 
 #figure(
   dependency-tree(),
-  caption: [The transitive-dependency surface of a typical ML project. Direct dependencies (inner green ring) pull in cascading transitive deps to a measured maximum depth of 23 @mahon2025pypitfall. Red nodes are real 2022-26 compromises (`torchtriton`, `Ultralytics`, `litellm`) that reached production through indirect pulls.],
+  caption: [Top: ecosystem-level statistics on the transitive-dependency surface from @mahon2025pypitfall. Bottom: three real compromises that reached production ML stacks via transitive pulls in 2022--2026.],
 ) <fig:dependency-tree>
 
 A typical ML project does not just depend on `PyTorch` or `TensorFlow`. It depends on a graph of packages --- data loaders, tokenizers, experiment trackers, serving utilities, `CUDA` bindings --- that pull in their own transitive dependencies. Mahon et al. @mahon2025pypitfall analyzed 378,573 `PyPI` packages and found that the average package has 129.6 transitive dependencies spanning a dependency chain up to 23 levels deep. A single CVE in `urllib3` created guaranteed exposure in 1,906 downstream packages. The ML ecosystem sits on top of all of this and adds its own layer of domain-specific packages with fast release cycles and small maintainer teams.
