@@ -27,9 +27,9 @@ An alternative architecture closes the same gap from the other direction: rather
 
 The verification target is the log component itself, against an abstract specification of an append-only Merkle log. Three local properties:
 
-+ The `append(entry)` operation produces a tree whose root is a valid extension of the previous root; no implementation path produces a signed root that omits a previously committed entry.
-+ `consistency_proof(old_root, new_root)` is sound (it only verifies for genuinely-consistent trees) and complete (it verifies whenever the trees are consistent).
-+ The signing operation has no path that produces a signed tree head for a tree the log did not append to in order.
+- The `append(entry)` operation produces a tree whose root is a valid extension of the previous root; no implementation path produces a signed root that omits a previously committed entry.
+- `consistency_proof(old_root, new_root)` is sound (it only verifies for genuinely-consistent trees) and complete (it verifies whenever the trees are consistent).
+- The signing operation has no path that produces a signed tree head for a tree the log did not append to in order.
 
 These are local properties of a single program and discharge cleanly in `Dafny` or `F*` as a refinement against the abstract spec. The result is a verified log component whose tamper-evidence guarantees rest on a small cryptographic structure rather than the permission graph surrounding it --- a property that any third party with two signed tree heads can re-check independently of the operator, which Sketch A's approach cannot offer. Sketch A and Sketch B are alternatives: pick one (or run both, treating Sketch B's verified log as the storage primitive Sketch A's permission model protects).
 

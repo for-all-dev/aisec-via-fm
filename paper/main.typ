@@ -40,6 +40,10 @@
 ]
 #v(1.5em)
 
+// ── Table of contents ────────────────────────────────────────────
+#outline(indent: auto, depth: 3)
+#pagebreak()
+
 // ── Body ─────────────────────────────────────────────────────────
 #include "executive/main.typ"
 #include "stack/main.typ"
