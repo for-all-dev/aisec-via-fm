@@ -13,7 +13,7 @@
 
 `Agda`'s issue label #link("https://github.com/agda/agda/issues?q=label%3Afalse")["false" on GitHub sits at the time of this commit at 10 open and 76 closed]. `Agda`'s issue label "false" tracks the _proofs of false_ that Agda allows or has allowed. `Rocq` runs the same play under a different name: the #link("https://github.com/rocq-prover/rocq/issues?q=label%3A%22kind%3A+critical%22")[`critical` label] is reserved for proofs of false. One asks, "isn't the whole point of a type theory that it be sound?"
 
-So you see we have a problem. If ITP and other FM tools are not adversarially robust, scheming or reward hacking AIs will readily leverage novel zerodays to violate security properties.
+So you see we have a problem. If ITP and other FM tools are not adversarially robust, scheming or reward hacking AIs will readily leverage novel zerodays to violate security properties. ARIA's _Safeguarded AI: Cybersecurity_ solicitation @aria2026safeguardedcyber names a "verified proof-checking kernel" robust to adversarial AI proof generation as one of its example targets, framing the proof checker as the single point of trust if AI agents are to produce verified artefacts at scale --- the same enabler, arrived at independently.
 
 @demoura2026watchersprovers discusses some of this to set up the #link("https://arena.lean-lang.org/")[`Lean` kernel arena]. TODO: elaborate.
 

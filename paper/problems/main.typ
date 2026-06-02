@@ -28,6 +28,7 @@ The problems below split into two kinds.
 #include "weight-integrity.typ"
 #include "sampler-verification.typ"
 #include "verified-input-parsers.typ"
+#include "verified-protocol-boundaries.typ"
 #include "context-window-integrity.typ"
 #include "capability-accumulation.typ"
 #include "audit-log-integrity.typ"

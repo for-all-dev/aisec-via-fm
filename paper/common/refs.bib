@@ -58,6 +58,33 @@
   url =          {https://arxiv.org/abs/2405.06624}
 }
 
+@misc{ammann2026safeguardedthesis,
+  author =       {Ammann, Nora},
+  title =        {Safeguarded {AI}: Programme Thesis},
+  howpublished = {Advanced Research and Invention Agency (ARIA), v2.0},
+  year =         2026,
+  url =
+                  {https://aria.org.uk/media/ikrkutfk/safeguarded-ai-programme-thesis-v2.pdf},
+  note =         {Revised thesis for ARIA's Safeguarded AI programme; reframes
+                  the goal around accelerating AI-enabled mathematical modelling
+                  and formal verification to close the software-verification gap
+                  and build societal resilience}
+}
+
+@misc{aria2026safeguardedcyber,
+  author =       {{Advanced Research and Invention Agency}},
+  title =        {Safeguarded {AI}: Cybersecurity --- Call for Proposals},
+  howpublished = {ARIA funding call, v1.0},
+  year =         2026,
+  month =        may,
+  day =          20,
+  url =
+                  {https://aria.org.uk/media/1padxpaf/safeguarded-ai_cybersecurity_solicitation.pdf},
+  note =         {Two-track (blue-team / red-team) solicitation applying the
+                  Safeguarded AI programme to cybersecurity targets; includes
+                  example targets and evaluation criteria}
+}
+
 @inproceedings{bhat2024leanmlir,
   author =       {Bhat, Siddharth and Keizer, Alex de and Hughes, Chris and
                   Goens, Andr\'{e}s and Grosser, Tobias},
@@ -378,6 +405,96 @@
   year =         2019,
   note =         {Produces verified zero-copy parsers from format specifications
                   with extraction to C}
+}
+
+@inproceedings{bhargavan2017everest,
+  author =       {Bhargavan, Karthikeyan and Bond, Barry and Delignat-Lavaud,
+                  Antoine and Fournet, C\'{e}dric and Hawblitzel, Chris and
+                  Hri\c{t}cu, C\u{a}t\u{a}lin and Ishtiaq, Samin and Kohlweiss,
+                  Markulf and Leino, Rustan and Lorch, Jay and Maillard, Kenji
+                  and Pan, Jianyang and Parno, Bryan and Protzenko, Jonathan and
+                  Ramananandro, Tahina and Rane, Ashay and Rastogi, Aseem and
+                  Swamy, Nikhil and Thompson, Laure and Wang, Peng and
+                  Zanella-B\'{e}guelin, Santiago and Zinzindohou\'{e}, Jean-Karim},
+  title =        {Everest: Towards a Verified, Drop-in Replacement of {HTTPS}},
+  booktitle =    {2nd Summit on Advances in Programming Languages (SNAPL)},
+  year =         2017,
+  url =          {https://drops.dagstuhl.de/entities/document/10.4230/LIPIcs.SNAPL.2017.1},
+  note =         {Project Everest: end-to-end verified TLS/HTTPS stack in F*}
+}
+
+@inproceedings{bhargavan2013mitls,
+  author =       {Bhargavan, Karthikeyan and Fournet, C\'{e}dric and Kohlweiss,
+                  Markulf and Pironti, Alfredo and Strub, Pierre-Yves},
+  title =        {Implementing {TLS} with Verified Cryptographic Security},
+  booktitle =    {IEEE Symposium on Security and Privacy (S\&P)},
+  year =         2013,
+  note =         {miTLS: verified reference implementation of TLS supporting wire
+                  formats, ciphersuites, sessions, re-handshakes, and resumption}
+}
+
+@inproceedings{zinzindohoue2017hacl,
+  author =       {Zinzindohou\'{e}, Jean-Karim and Bhargavan, Karthikeyan and
+                  Protzenko, Jonathan and Beurdouche, Benjamin},
+  title =        {{HACL}*: A Verified Modern Cryptographic Library},
+  booktitle =    {ACM SIGSAC Conference on Computer and Communications Security
+                  (CCS)},
+  year =         2017,
+  url =          {https://eprint.iacr.org/2017/536},
+  note =         {Verified C cryptographic primitives extracted from F*}
+}
+
+@inproceedings{protzenko2020evercrypt,
+  author =       {Protzenko, Jonathan and Parno, Bryan and Fromherz, Aymeric and
+                  Hawblitzel, Chris and Polubelova, Marina and Bhargavan,
+                  Karthikeyan and Beurdouche, Benjamin and Choi, Joonwon and
+                  Delignat-Lavaud, Antoine and Fournet, C\'{e}dric and Kulatova,
+                  Natalia and Ramananandro, Tahina and Rastogi, Aseem and Swamy,
+                  Nikhil and Wintersteiger, Christoph M. and Zanella-B\'{e}guelin,
+                  Santiago},
+  title =        {{EverCrypt}: A Fast, Verified, Cross-Platform Cryptographic
+                  Provider},
+  booktitle =    {IEEE Symposium on Security and Privacy (S\&P)},
+  year =         2020,
+  url =          {https://eprint.iacr.org/2019/757},
+  note =         {Verified cryptographic provider with agile, multiplexing API}
+}
+
+@inproceedings{gancher2023owl,
+  author =       {Gancher, Joshua and Gibson, Sydney and Singh, Pratap and
+                  Dharanikota, Samvid and Parno, Bryan},
+  title =        {{Owl}: Compositional Verification of Security Protocols via an
+                  Information-Flow Type System},
+  booktitle =    {IEEE Symposium on Security and Privacy (S\&P)},
+  year =         2023,
+  url =          {https://eprint.iacr.org/2023/473},
+  note =         {Computational-model protocol verification via information-flow
+                  and refinement types; extracts to Rust}
+}
+
+@inproceedings{cai2025vest,
+  author =       {Cai, Yi and Singh, Pratap and Lin, Zhengyao and Bosamiya, Jay
+                  and Gancher, Joshua and Surbatovich, Milijana and Parno, Bryan},
+  title =        {{Vest}: Verified, Secure, High-Performance Parsing and
+                  Serialization for {Rust}},
+  booktitle =    {USENIX Security Symposium},
+  year =         2025,
+  url =          {https://www.usenix.org/conference/usenixsecurity25/presentation/cai-yi},
+  note =         {RFC-like DSL generating verified high-performance Rust parsers
+                  and serializers in Verus; side-channel resistant}
+}
+
+@misc{qualys2024regresshion,
+  author =       {{Qualys Threat Research Unit}},
+  title =        {{regreSSHion}: Remote Unauthenticated Code Execution
+                  Vulnerability in {OpenSSH} Server ({CVE-2024-6387})},
+  howpublished = {Qualys Security Advisory},
+  year =         2024,
+  month =        jul,
+  day =          1,
+  url =          {https://blog.qualys.com/vulnerabilities-threat-research/2024/07/01/regresshion-remote-unauthenticated-code-execution-vulnerability-in-openssh-server},
+  note =         {Signal-handler race condition (regression of CVE-2006-5051) in
+                  sshd yielding pre-auth remote root; ~14M exposed instances}
 }
 
 @inproceedings{bratus2011weird,
