@@ -41,7 +41,7 @@
 #v(1.5em)
 
 // ── Table of contents ────────────────────────────────────────────
-#outline(indent: auto, depth: 3)
+#outline(indent: auto, depth: 2)
 #pagebreak()
 
 // ── Body ─────────────────────────────────────────────────────────
