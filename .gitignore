@@ -65,6 +65,7 @@ website/scripts/recovered-comments.json
 # copied from paper/ and talks/ by prebuild script
 website/public/paper.pdf
 website/public/apart-hackathon.pdf
+website/public/ndist.pdf
 
 # oversized cited-source PDF kept locally, not in repo
 docs/citations/securing-ai-model-weights.pdf

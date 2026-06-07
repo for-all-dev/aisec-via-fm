@@ -3,8 +3,8 @@
     "version": "0.1.0",
     "private": true,
     "scripts": {
-        "prebuild": "cp ../paper/common/tooltips.json lib/tooltips.json && cp ../paper/main.pdf public/paper.pdf && cp ../talks/apart_hackathon/main.pdf public/apart-hackathon.pdf",
-        "predev": "cp ../paper/common/tooltips.json lib/tooltips.json && cp ../paper/main.pdf public/paper.pdf && cp ../talks/apart_hackathon/main.pdf public/apart-hackathon.pdf",
+        "prebuild": "cp ../paper/common/tooltips.json lib/tooltips.json && cp ../paper/main.pdf public/paper.pdf && cp ../talks/apart_hackathon/main.pdf public/apart-hackathon.pdf && cp ../talks/ndist/main.pdf public/ndist.pdf",
+        "predev": "cp ../paper/common/tooltips.json lib/tooltips.json && cp ../paper/main.pdf public/paper.pdf && cp ../talks/apart_hackathon/main.pdf public/apart-hackathon.pdf && cp ../talks/ndist/main.pdf public/ndist.pdf",
         "dev": "next dev",
         "build": "next build",
         "start": "next start",
