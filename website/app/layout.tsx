@@ -29,7 +29,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <Link href="/" className="site-title">
             tractable.for-all.dev
           </Link>
-          <Link href="/executive">executive summary</Link>
+          <Link href="/executive">introduction</Link>
           <Link href="/stack">the stack</Link>
           <Link href="/problems">problems</Link>
           <Link href="/about">about</Link>

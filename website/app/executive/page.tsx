@@ -10,7 +10,7 @@ export default async function ExecutivePage() {
   return (
     <div className="page">
       <div className="page-header">
-        <p className="eyebrow">executive summary</p>
+        <p className="eyebrow">introduction</p>
         <h1>Tractable Problems in AI Security via Formal Methods</h1>
       </div>
 
