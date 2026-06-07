@@ -24,6 +24,7 @@ The problems below split into two kinds.
 #include "ai-control-proof-carrying-code.typ"
 #include "edge-policy-verification.typ"
 #include "scheduler-cotenancy.typ"
+#include "fabric-policy-verification.typ"
 #include "network-tap-fpga.typ"
 #include "weight-integrity.typ"
 #include "sampler-verification.typ"
