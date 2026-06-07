@@ -24,6 +24,8 @@
 
 / Authors: Quinn Dougherty, Max von Hippel, Gregory Malecha, Nora Ammann
 
+We mostly write about model weight confidentiality and integrity, but other notions of AI security are in scope. Not the biggest possible tent, but more than two invariants.
+
 == The White House
 
 #figure(image("assets/whitehouse.png"), caption: "Demands hardened critical infrastructure, doesn't say how.")
