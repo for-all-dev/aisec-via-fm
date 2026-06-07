@@ -1476,3 +1476,238 @@
                   {CakeML} verified compiler, giving an end-to-end trusted
                   stack down to machine code}
 }
+
+@article{thompson1984trust,
+  author =       {Thompson, Ken},
+  title =        {Reflections on Trusting Trust},
+  journal =      {Communications of the ACM},
+  volume =       27,
+  number =       8,
+  pages =        {761--763},
+  year =         1984,
+  month =        aug,
+  doi =          {10.1145/358198.358210},
+  url =          {https://www.cs.cmu.edu/~rdriley/487/papers/Thompson_1984_ReflectionsonTrustingTrust.pdf},
+  note =         {1983 Turing Award lecture. The self-replicating compiler
+                  backdoor: a trojan in the compiler binary reproduces itself
+                  when compiling the compiler's clean source, leaving no trace
+                  in any source code}
+}
+
+@misc{birsan2021depconfusion,
+  author =       {Birsan, Alex},
+  title =        {Dependency Confusion: How {I} Hacked Into {Apple},
+                  {Microsoft} and Dozens of Other Companies},
+  howpublished = {Medium},
+  year =         2021,
+  month =        feb,
+  url =          {https://medium.com/@alex.birsan/dependency-confusion-4a5d60fec610},
+  note =         {Uploaded packages to public npm/PyPI/RubyGems indices under
+                  the names of companies' private internal packages at high
+                  version numbers; default resolver priority delivered the
+                  public versions, yielding code execution inside Microsoft,
+                  Apple, Uber, and 30+ other companies}
+}
+
+@inproceedings{beurdouche2015messystate,
+  author =       {Beurdouche, Benjamin and Bhargavan, Karthikeyan and
+                  Delignat-Lavaud, Antoine and Fournet, C{\'e}dric and
+                  Kohlweiss, Markulf and Pironti, Alfredo and Strub,
+                  Pierre-Yves and Zinzindohoue, Jean Karim},
+  title =        {A Messy State of the Union: Taming the Composite State
+                  Machines of {TLS}},
+  booktitle =    {2015 IEEE Symposium on Security and Privacy},
+  pages =        {535--552},
+  year =         2015,
+  doi =          {10.1109/SP.2015.39},
+  note =         {Systematic state-machine testing of TLS implementations;
+                  found long-latent unintended-transition bugs including the
+                  FREAK downgrade attack}
+}
+
+@inproceedings{bhargavan2014triplehandshake,
+  author =       {Bhargavan, Karthikeyan and Delignat-Lavaud, Antoine and
+                  Fournet, C{\'e}dric and Pironti, Alfredo and Strub,
+                  Pierre-Yves},
+  title =        {Triple Handshakes and Cookie Cutters: Breaking and Fixing
+                  Authentication over {TLS}},
+  booktitle =    {2014 IEEE Symposium on Security and Privacy},
+  pages =        {98--113},
+  year =         2014,
+  doi =          {10.1109/SP.2014.14}
+}
+
+@inproceedings{durumeric2014heartbleed,
+  author =       {Durumeric, Zakir and Kasten, James and Adrian, David and
+                  Halderman, J. Alex and Bailey, Michael and Li, Frank and
+                  Weaver, Nicolas and Amann, Johanna and Beekman, Jethro and
+                  Payer, Mathias and Paxson, Vern},
+  title =        {The Matter of {Heartbleed}},
+  booktitle =    {Proceedings of the 2014 Internet Measurement Conference
+                  (IMC)},
+  pages =        {475--488},
+  year =         2014,
+  doi =          {10.1145/2663716.2663755},
+  note =         {Measurement study of CVE-2014-0160: the OpenSSL heartbeat
+                  buffer over-read exposed protected memory on an estimated
+                  24--55\% of popular HTTPS sites}
+}
+
+@inproceedings{fiteraubrostean2017sshmodels,
+  author =       {Fiter{\u a}u-Bro{\c s}tean, Paul and Lenaerts, Toon and
+                  Poll, Erik and de Ruiter, Joeri and Vaandrager, Frits and
+                  Verleg, Patrick},
+  title =        {Model Learning and Model Checking of {SSH} Implementations},
+  booktitle =    {Proceedings of the 24th ACM SIGSOFT International SPIN
+                  Symposium on Model Checking of Software},
+  pages =        {142--151},
+  year =         2017,
+  doi =          {10.1145/3092282.3092289},
+  note =         {Learned state machines of OpenSSH, Bitvise, and DropBear via
+                  model learning, then model-checked them against RFC-derived
+                  properties; found standard violations in all three}
+}
+
+@misc{cve2025triton,
+  author =       {{Wiz Research}},
+  title =        {Breaking {NVIDIA} {Triton}: {CVE-2025-23319} --- a
+                  Vulnerability Chain Leading to {AI} Server Takeover},
+  howpublished = {Wiz Blog},
+  year =         2025,
+  month =        aug,
+  url =          {https://www.wiz.io/blog/nvidia-triton-cve-2025-23319-vuln-chain-to-ai-server},
+  note =         {CVE-2025-23319/23320/23334: chained shared-memory bugs in
+                  Triton's Python backend give unauthenticated remote
+                  attackers full control of the inference server}
+}
+
+@misc{cve2025vllm,
+  author =       {{GitHub Advisory Database}},
+  title =        {{vLLM} Vulnerable to Remote Code Execution via {Mooncake}
+                  Integration ({CVE-2025-32444})},
+  howpublished = {GHSA-hj4w-hm2g-p6w5},
+  year =         2025,
+  month =        apr,
+  url =          {https://github.com/advisories/GHSA-hj4w-hm2g-p6w5},
+  note =         {CVSS 10.0: pickle deserialization over unauthenticated
+                  ZeroMQ sockets in vLLM's Mooncake integration; any process
+                  with network reach gets remote code execution}
+}
+
+@misc{k8sdocs2026gpus,
+  author =       {{The Kubernetes Authors}},
+  title =        {Schedule {GPUs}},
+  howpublished = {Kubernetes documentation},
+  year =         2026,
+  url =          {https://kubernetes.io/docs/tasks/manage-gpus/scheduling-gpus/},
+  note =         {GPUs are exposed only via vendor device plugins as opaque
+                  integer extended resources: no fractional requests, no
+                  overcommit, and no cgroup-style throttling or isolation of
+                  GPU compute time analogous to CPU and memory}
+}
+
+@inproceedings{benton2013openflow,
+  author =       {Benton, Kevin and Camp, L. Jean and Small, Chris},
+  title =        {{OpenFlow} Vulnerability Assessment},
+  booktitle =    {Proceedings of the Second ACM SIGCOMM Workshop on Hot Topics
+                  in Software Defined Networking (HotSDN)},
+  pages =        {151--152},
+  year =         2013,
+  doi =          {10.1145/2491185.2491222},
+  note =         {Documents widespread failure to adopt TLS on the OpenFlow
+                  control channel by both controller and switch vendors,
+                  leaving deployments open to control-plane man-in-the-middle}
+}
+
+@misc{nvidia2022hopper,
+  author =       {{NVIDIA}},
+  title =        {{NVIDIA} {Hopper} Architecture In-Depth},
+  howpublished = {NVIDIA Technical Blog},
+  year =         2022,
+  url =          {https://developer.nvidia.com/blog/nvidia-hopper-architecture-in-depth/},
+  note =         {H100 architecture reference: 18 fourth-generation NVLink
+                  links per GPU for 900 GB/s total bandwidth, roughly 7x PCIe
+                  Gen 5}
+}
+
+@misc{nvidia_nccl_docs,
+  author =       {{NVIDIA}},
+  title =        {{NCCL} User Guide: Setup},
+  howpublished = {NVIDIA Deep Learning NCCL Documentation},
+  year =         2026,
+  url =          {https://docs.nvidia.com/deeplearning/nccl/user-guide/docs/setup.html},
+  note =         {``Similarly to MPI and other libraries which are optimized
+                  for performance, NCCL does not provide secure network
+                  communication between GPUs'' --- securing the fabric is left
+                  entirely to the deployment}
+}
+
+@article{li2025commpredict,
+  author =       {Li, Wenxue and Liu, Xiangzhou and Li, Yuxuan and Jin, Yilun
+                  and Ren, Zhenghang and Liao, Xudong and Tian, Han and Ren,
+                  Bo and Zhong, Zhizhen and Liu, Guyue and Zhang, Ying and
+                  Chen, Kai},
+  title =        {Analyzing Communication Predictability in {LLM} Training},
+  year =         2025,
+  eprint =       {2512.24750},
+  archivePrefix ={arXiv},
+  note =         {Shows that for hybrid-parallel LLM training both the
+                  communication matrix and traffic volume are predictable
+                  functions of the parallelism configuration and model
+                  architecture}
+}
+
+@inproceedings{biggs2018jury,
+  author =       {Biggs, Simon and Lee, Damon and Heiser, Gernot},
+  title =        {The Jury Is In: Monolithic {OS} Design Is Flawed:
+                  Microkernel-based Designs Improve Security},
+  booktitle =    {Proceedings of the 9th Asia-Pacific Workshop on Systems
+                  (APSys)},
+  year =         2018,
+  doi =          {10.1145/3265723.3265733},
+  note =         {Study of critical Linux CVEs against a microkernel-based
+                  TCB: 40\% eliminated outright and almost all mitigated below
+                  critical severity by an seL4-style design; quantifies the
+                  multi-million-line monolithic TCB the comparison runs
+                  against}
+}
+
+@misc{nvidia2022opengpu,
+  author =       {{NVIDIA}},
+  title =        {{NVIDIA} Releases Open-Source {GPU} Kernel Modules},
+  howpublished = {NVIDIA Technical Blog},
+  year =         2022,
+  month =        may,
+  url =          {https://developer.nvidia.com/blog/nvidia-releases-open-source-gpu-kernel-modules/},
+  note =         {R515 driver release open-sourced the kernel-mode GPU modules
+                  under dual GPL/MIT, production-ready for datacenter GPUs;
+                  user-mode CUDA runtime and on-GPU firmware remain closed}
+}
+
+@misc{nvidia2023hcc,
+  author =       {{NVIDIA}},
+  title =        {Confidential Compute on {NVIDIA} {Hopper} {H100}},
+  howpublished = {Whitepaper WP-11459-001},
+  year =         2023,
+  url =          {https://images.nvidia.com/aem-dam/en-zz/Solutions/data-center/HCC-Whitepaper-v1.0.pdf},
+  note =         {The H100 TEE threat model treats the GPU package as the
+                  physical security boundary: on-package HBM is not encrypted;
+                  protection rests on PCIe/NVLink firewalls, with DMA traffic
+                  leaving the package encrypted via AES-GCM-256}
+}
+
+@article{woodcock2009fmsurvey,
+  author =       {Woodcock, Jim and Larsen, Peter Gorm and Bicarregui, Juan
+                  and Fitzgerald, John},
+  title =        {Formal Methods: Practice and Experience},
+  journal =      {ACM Computing Surveys},
+  volume =       41,
+  number =       4,
+  pages =        {1--36},
+  year =         2009,
+  doi =          {10.1145/1592434.1592436},
+  note =         {Survey of two decades of industrial formal-methods use;
+                  documents the concentration of deployments in
+                  regulated safety-critical sectors (transport, defense,
+                  avionics) over commodity software}
+}

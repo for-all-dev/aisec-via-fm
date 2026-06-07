@@ -14,5 +14,13 @@
         "role": "N/A",
         "location": "Costa Mesa",
         "email": "maxvh@hey.com"
+    },
+    {
+        "name": "Nora Ammann",
+        "slug": "nora",
+        "organization": "ARIA",
+        "role": "Program Manager",
+        "location": "London",
+        "email": "nora.ammann@aria.org.uk"
     }
 ]
