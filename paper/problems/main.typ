@@ -19,6 +19,7 @@ The problems below split into two kinds.
 
 #include "advro.typ"
 #include "spec-elicitation.typ"
+#include "hypervisors-microkernels.typ"
 #include "device-drivers.typ"
 #include "oci-runtime-hardening.typ"
 #include "ai-control-proof-carrying-code.typ"
