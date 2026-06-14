@@ -62,9 +62,14 @@ TODO
 
 TODO
 
-== GPU drivers for verified kernels
+== Device drivers for verified kernels
 
-TODO
+The kernel can be verified; the driver underneath it usually can't.
+
+/ Status quo: Multi-tenant GPU isolation rides on million-line hypervisor TCBs, with a proprietary ring-0 GPU driver as the single point of compromise.
+/ The good news: `seL4`, `NOVA`, `seKVM`, and AWS Nitro verify a minimal core and push drivers out to deprivileged user-mode --- the right architecture.
+/ The real blocker: Not the proof, the spec. Driver proofs are a settled methodology (a verified ZynqMP DMA engine exists); what's missing is a machine-checkable model of the GPU's command / DMA / IOMMU surface. Vendors model the *ISA* --- Arm, RISC-V, even AMD's shaders --- not the device.
+/ The widget: Specify one open GPU stack's command-submission ring (`NVK`/`Nouveau`) in `Rocq`/`Lean`; prove no guest command can drive a DMA or IOMMU mapping outside its region. Stub the hardware model first (reference), then co-develop a real one (research).
 
 = Onwards
 

@@ -1056,9 +1056,25 @@
   howpublished = {University of Cambridge Computer Laboratory},
   year =         2024,
   url =          {https://www.cl.cam.ac.uk/~pes20/rems/},
-  note =         {Long-running effort on formal ISA semantics, including the
-                  most accurate public {ARM} modeling work (scoped to the CPU
-                  ISA). Accessed 2026-04-22}
+  note =         {Long-running effort on rigorous semantics for mainstream
+                  systems, including the most accurate public {ARM} modeling
+                  work --- spanning the CPU ISA, relaxed memory, and {Arm}
+                  virtual memory / MMU. Accessed 2026-04-22}
+}
+
+@inproceedings{simner2022relaxedvm,
+  author =       {Simner, Ben and Armstrong, Alasdair and Pichon-Pharabod, Jean
+                  and Pulte, Christopher and Grisenthwaite, Richard and Sewell,
+                  Peter},
+  title =        {Relaxed Virtual Memory in {Armv8-A}},
+  booktitle =    {Programming Languages and Systems (ESOP 2022)},
+  year =         2022,
+  doi =          {10.1007/978-3-030-99336-8_6},
+  url =          {https://arxiv.org/abs/2203.00642},
+  note =         {Formal relaxed-memory model of Armv8-A virtual memory ---
+                  address translation, page tables, and TLB maintenance ---
+                  integrated with the full Armv8-A ISA semantics, with use cases
+                  from Google's pKVM hypervisor}
 }
 
 @misc{zhang2025nvbleed,
