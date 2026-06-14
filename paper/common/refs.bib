@@ -1016,12 +1016,15 @@
 
 @misc{stewart2025sel4summit,
   author =       {Stewart, Gordon},
-  title =        {Device Driver Verification in Separation Logic (talk)},
+  title =        {Verified {ZynqMP} {DMA} Driver in Concurrent Separation Logic
+                  (talk)},
   howpublished = {seL4 Summit 2025},
   year =         2025,
-  url =          {https://sel4.systems/Summit/2025/abstracts2025.html},
-  note =         {Overview of the separation-logic methodology for device driver
-                  verification as practiced at BlueRock. Accessed 2026-04-22}
+  url =          {https://sel4.systems/Summit/2025/abstracts2025.html#a-verified-zynqmp},
+  note =         {Device-driver verification in concurrent separation logic
+                  using PL011 UART and ZynqMP DMA as examples, with Iris-style
+                  ghost state for operational device semantics. Accessed
+                  2026-04-22}
 }
 
 @techreport{bluerocksec2024vmmverification,
@@ -1741,4 +1744,142 @@
                   documents the concentration of deployments in
                   regulated safety-critical sectors (transport, defense,
                   avionics) over commodity software}
+}
+
+@inproceedings{li2021sekvm,
+  author =       {Li, Shih-Wei and Li, Xupeng and Gu, Ronghui and Nieh, Jason
+                  and Hui, John Zhuang},
+  title =        {A Secure and Formally Verified {Linux} {KVM} Hypervisor},
+  booktitle =    {2021 IEEE Symposium on Security and Privacy (S\&P)},
+  pages =        {1782--1799},
+  year =         2021,
+  month =        may,
+  doi =          {10.1109/SP40001.2021.00049},
+  note =         {First machine-checked security proof for a commodity
+                  multiprocessor hypervisor. Introduces microverification:
+                  decompose KVM into a small verified core plus untrusted
+                  services, then prove confidentiality and integrity of VM data
+                  by verifying the core alone. Companion USENIX Security 2021
+                  paper, ``Formally Verified Memory Protection for a Commodity
+                  Multiprocessor Hypervisor'' (pp. 3953--3970), covers the
+                  multiprocessor memory-management proof}
+}
+
+@misc{saidi2026nitroisolation,
+  author =       {Saidi, Ali},
+  title =        {{AWS} Nitro Isolation Engine: Formally Verifying the
+                  Hypervisor in the {AWS} Nitro System},
+  howpublished = {AWS Compute Blog},
+  year =         2026,
+  month =        jun,
+  url =          {https://aws.amazon.com/blogs/compute/aws-nitro-isolation-engine-formally-verifying-the-hypervisor-in-the-aws-nitro-system/},
+  urldate =      {2026-06-14},
+  note =         {Announces the Nitro Isolation Engine, a formally verified Rust
+                  component of the Nitro Hypervisor mediating access to VM
+                  memory, CPU registers, and I/O. Verifies guest confidentiality
+                  and integrity, functional correctness of hypercalls, absence
+                  of runtime errors, and memory safety. See also the AWS
+                  whitepaper ``The Security Design of the AWS Nitro System''}
+}
+
+@misc{kry10,
+  author =       {{Kry10 Unlimited, Inc.}},
+  title =        {Kry10: A Secure {OS} for Software Defined Machines},
+  howpublished = {Company website},
+  year =         2026,
+  url =          {https://kry10.com/},
+  urldate =      {2026-06-14},
+  note =         {Secure operating-system platform (Kry10 OS) for
+                  mission-critical connected devices, built on the formally
+                  verified seL4 microkernel}
+}
+
+@article{kuz2007camkes,
+  author =       {Kuz, Ihor and Liu, Yan and Gorton, Ian and Heiser, Gernot},
+  title =        {{CAmkES}: A Component Model for Secure Microkernel-Based
+                  Embedded Systems},
+  journal =      {Journal of Systems and Software},
+  volume =       80,
+  number =       5,
+  pages =        {687--699},
+  year =         2007,
+  doi =          {10.1016/j.jss.2006.08.039},
+  note =         {The seL4 component framework: component model, interfaces, and
+                  architectural patterns for microkernel-based embedded systems.
+                  Project page: https://docs.sel4.systems/projects/camkes/}
+}
+
+@article{fisher2017hacms,
+  author =       {Fisher, Kathleen and Launchbury, John and Richards, Raymond},
+  title =        {The {HACMS} Program: Using Formal Methods to Eliminate
+                  Exploitable Bugs},
+  journal =      {Philosophical Transactions of the Royal Society A},
+  volume =       375,
+  number =       2104,
+  pages =        {20150401},
+  year =         2017,
+  month =        oct,
+  doi =          {10.1098/rsta.2015.0401},
+  note =         {Retrospective on DARPA's HACMS program: applying seL4 and
+                  high-assurance synthesis to build vehicles resistant to remote
+                  cyberattack}
+}
+
+@inproceedings{lyons2018mcs,
+  author =       {Lyons, Anna and McLeod, Kent and Almatary, Hesham and Heiser,
+                  Gernot},
+  title =        {Scheduling-Context Capabilities: A Principled, Light-Weight
+                  Operating-System Mechanism for Managing Time},
+  booktitle =    {Proceedings of the Thirteenth EuroSys Conference (EuroSys
+                  2018)},
+  pages =        {1--16},
+  year =         2018,
+  doi =          {10.1145/3190508.3190539},
+  note =         {Foundation of seL4's MCS (mixed-criticality system) mode:
+                  scheduling contexts as first-class capability objects giving
+                  temporal isolation. Kernel docs:
+                  https://docs.sel4.systems/releases/sel4/9.0.0-mcs.html}
+}
+
+@inproceedings{bluerock2025completesystems,
+  author =       {Malecha, Gregory and Dang, Hoang-Hai and Giarrusso, Paolo G.
+                  and Hudon, Simon and Kaiser, Jan-Oliver and Swasey, David},
+  title =        {Modular, Full-System Verification},
+  booktitle =    {Proceedings of the Workshop on Hot Topics in Operating
+                  Systems (HotOS 2025)},
+  pages =        {42--49},
+  year =         2025,
+  doi =          {10.1145/3713082.3730387},
+  note =         {BlueRock's approach to proofs of complete systems: modular,
+                  full-system verification composing component proofs into a
+                  whole-system guarantee}
+}
+
+@techreport{bluerocksec2024vswitch,
+  author =       {Haag, Jasper and Hirai, Yoichi and Hudon, Simon and Masood,
+                  Awais and Malecha, Gregory and Stewart, Gordon},
+  title =        {Protocol Completion of a Robust {C++} Virtual Switch},
+  institution =  {BlueRock Security},
+  type =         {Tech report},
+  year =         2024,
+  month =        aug,
+  url =          {https://bluerocksec.gitlab.io/formal-methods/tech_reports/protocol-completion-of-a-robust-c-virtual-switch/},
+  urldate =      {2026-06-14},
+  note =         {Introduces ``protocol completion'': verify a shared-memory
+                  protocol (e.g. VIRTIO) once and derive guarantees against both
+                  compliant and non-compliant clients, applied to a robust
+                  virtual switch}
+}
+
+@misc{bluerocksec2026novarelaxed,
+  author =       {{BlueRock Formal Methods}},
+  title =        {{NOVA} is Getting Relaxed-Memory Ready (26.08.0)},
+  howpublished = {BlueRock Formal Methods blog},
+  year =         2026,
+  month =        mar,
+  url =          {https://bluerocksec.gitlab.io/formal-methods/blogs/2026-03-31-NOVA-relaxed-memory/},
+  urldate =      {2026-06-14},
+  note =         {NOVA now defaults to release-acquire memory ordering; the
+                  formal spec and proof are revised to account for relaxed-memory
+                  behaviors previously hidden from client code}
 }

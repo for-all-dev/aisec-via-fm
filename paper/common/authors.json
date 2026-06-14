@@ -22,5 +22,13 @@
         "role": "Program Manager",
         "location": "London",
         "email": "nora.ammann@aria.org.uk"
+    },
+    {
+        "name": "Gregory Malecha",
+        "slug": "malecha",
+        "organization": "Skylabs AI",
+        "role": "Principal",
+        "location": "Boston",
+        "email": "gregory@skylabs-ai.com "
     }
 ]

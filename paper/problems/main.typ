@@ -19,7 +19,7 @@ The problems below split into two kinds.
 
 #include "advro.typ"
 #include "spec-elicitation.typ"
-#include "gpu-drivers-verified-kernels.typ"
+#include "device-drivers.typ"
 #include "oci-runtime-hardening.typ"
 #include "ai-control-proof-carrying-code.typ"
 #include "edge-policy-verification.typ"
