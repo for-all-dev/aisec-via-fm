@@ -36,7 +36,7 @@ We mostly write about model weight confidentiality and integrity, but other noti
 
 == ARIA
 
-TODO
+#figure(image("assets/aria.png"), caption: "Cyberhardening funding call at ARIA")
 
 == Anthropic
 
