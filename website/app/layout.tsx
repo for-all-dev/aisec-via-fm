@@ -15,6 +15,9 @@ export const metadata: Metadata = {
   title: "Tractable Problems in AI Security via Formal Methods",
   description:
     "The minimal, sane catalog of formal methods opportunities across the ML training and inference stack.",
+  icons: {
+    icon: "/logo.svg",
+  },
 }
 
 const GH_REPO = "https://github.com/for-all-dev/aisec-via-fm"
@@ -46,6 +49,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         {children}
         <XrefTooltips />
         <footer>
+          <img src="/logo.svg" alt="Forall R&D" className="footer-logo" />
           built {buildDate} ·{" "}
           <a href={GH_REPO}>for-all-dev/aisec-via-fm</a>
         </footer>

@@ -6,7 +6,7 @@
   subtitle: "A sane way to burn a few postdoc-years",
   date: "06.17.2026",
   authors: ("Quinn Dougherty"),
-  footer-subtitle: "https://tractable.for-all.dev",
+  footer-subtitle: "https://tractable.for-all.dev | NDIST",
 
   // Optional (for more see docs at https://mdwm.org/diatypst/)
   ratio: 16/9,
@@ -52,7 +52,7 @@ We mostly write about model weight confidentiality and integrity, but other noti
 
 #figure(align(center, scale(110%, reflow: true, stack-overview())), caption: "The path of a prompt from the enduser to the chip's circuits")
 
-= Tractable Problems
+= Tractable problems
 
 == Hardening protocol boundaries
 
